@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/xinnet/commonSupport/!svn/ver/9688/trunk/Develop/springmvc_mybatis_new/tools/mybatis-generator-core-1.3.1/doc/html/running
+END
+runningWithJava.html
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/xinnet/commonSupport/!svn/ver/9688/trunk/Develop/springmvc_mybatis_new/tools/mybatis-generator-core-1.3.1/doc/html/running/runningWithJava.html
+END
+runningWithAnt.html
+K 25
+svn:wc:ra_dav:version-url
+V 143
+/xinnet/commonSupport/!svn/ver/9688/trunk/Develop/springmvc_mybatis_new/tools/mybatis-generator-core-1.3.1/doc/html/running/runningWithAnt.html
+END
+running.html
+K 25
+svn:wc:ra_dav:version-url
+V 136
+/xinnet/commonSupport/!svn/ver/9688/trunk/Develop/springmvc_mybatis_new/tools/mybatis-generator-core-1.3.1/doc/html/running/running.html
+END
+runningFromCmdLine.html
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/xinnet/commonSupport/!svn/ver/9688/trunk/Develop/springmvc_mybatis_new/tools/mybatis-generator-core-1.3.1/doc/html/running/runningFromCmdLine.html
+END
+runningWithMaven.html
+K 25
+svn:wc:ra_dav:version-url
+V 145
+/xinnet/commonSupport/!svn/ver/9688/trunk/Develop/springmvc_mybatis_new/tools/mybatis-generator-core-1.3.1/doc/html/running/runningWithMaven.html
+END

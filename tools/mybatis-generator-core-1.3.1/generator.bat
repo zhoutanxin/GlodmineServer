@@ -1,0 +1,2 @@
+java -jar D:\MyEclipseWorkSpace\springmvc_mybatis_new\tools\mybatis-generator-core-1.3.1\lib\mybatis-generator-core-1.3.1.jar -configfile D:\MyEclipseWorkSpace\springmvc_mybatis_new\tools\mybatis-generator-core-1.3.1\generator.xml -overwrite
+pause
