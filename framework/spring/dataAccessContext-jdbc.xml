@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
-           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd"
-	default-autowire="byName" default-lazy-init="false">
-	
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:rop="http://www.bookegou.com/schema/rop" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+			http://www.springframework.org/schema/mvc 
+			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+			http://www.springframework.org/schema/context 
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 	<!-- 属性文件读入 -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -19,7 +30,7 @@
 		</property>
 	</bean>
 	
-	<!-- 数据源定义,使用Apache DBCP 连接池
+	<!-- 数据源定义,使用Apache DBCP 连接池-->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}"/>
 		<property name="url" value="${jdbc.url}"/>
@@ -29,22 +40,31 @@
 		<property name="maxActive" value="100" />
 		<property name="maxIdle" value="30" />
 		<property name="maxWait" value="1000" />
+		<property name="validationQuery">
+           <value>select count(1) from Dual</value>
+        </property>
+        <!-- test when get connection -->
+        <property name="testOnBorrow">
+           <value>true</value>
+        </property>
+        <!-- test when return connection to pool -->
+        <property name="testOnReturn">
+           <value>true</value>
+        </property>
+        <property name="testWhileIdle">
+           <value>true</value>
+        </property>		
 	</bean>
-	 -->
 	 
-   <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">      
+	 
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">      
       <property name="driverClass" value="${jdbc.driverClassName}" />      
       <property name="jdbcUrl" value="${jdbc.url}" />      
       <property name="user" value="${jdbc.username}" />      
       <property name="password" value="${jdbc.password}" />      
-   </bean>  
+   </bean>   -->
    
    	
-	<bean id="simpleJdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
-  		<constructor-arg><ref bean="dataSource"/></constructor-arg>
-	</bean>
-   	<bean id="jdbcTemplate" class="com.doadway.framework.database.impl.LowerCaseJdbcTemplate"></bean>	
-   	<bean id="sqlFileExecutor" class="com.doadway.framework.database.impl.DefaultSqlFileExecutor"></bean>	
 	<bean id = "transactionManager" 
          class = "org.springframework.jdbc.datasource.DataSourceTransactionManager" > 
          <property name = "dataSource" > 
@@ -65,24 +85,7 @@
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="txAdvice" /> 
     </aop:config>      
 	<bean id="springContextHolder" class="com.doadway.framework.context.spring.SpringContextHolder" lazy-init="false"/>
- 	<bean id="daoSupport" class="com.doadway.framework.database.impl.JdbcDaoSupport"></bean>
  
-<!-- 	<bean id="baseDBRouter" class="com.enation.eop.sdk.database.DBRouter">
-		<property name="prefix">
-			<value>es_</value>
-		</property>
-	</bean>		
-	
-	<bean id="baseDaoSupport" class="com.enation.eop.sdk.database.BaseJdbcDaoSupport">
-		<property name="dbRouter">
-			<ref bean="baseDBRouter"/>
-		</property>		
-	</bean>
-	
-	 	 	
-	<bean id="baseSupport" class="com.enation.eop.sdk.database.BaseSupport"  abstract="true" >
-	</bean> -->
-	
 	<!-- 支持 @Transactional 标记 -->
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	   
@@ -97,4 +100,18 @@
             <value>1024000</value> 
         </property> 
     </bean> 	
+    
+     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">    
+	     <property name="dataSource" ref="dataSource" /> 
+	     <property name="configLocation" value="classpath:/mapper/mybatis-config.xml" />
+     </bean>    
+     <!-- 指定mybatis 的SqlSession -->
+     <bean id="sqlSession"   class="org.mybatis.spring.SqlSessionTemplate">   
+          <constructor-arg index="0" ref="sqlSessionFactory" />   
+     </bean>
+	<!-- 用mybatis扫描注解机制自动生成DAOImpl -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.doadway" />
+		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+	</bean>     
 </beans>

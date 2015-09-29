@@ -3,7 +3,7 @@
 <generatorConfiguration>
 
 	<!-- classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 -->
-	<classPathEntry location="D:\MyEclipseWorkSpace\springmvc_mybatis_new\WebRoot\WEB-INF\lib\mysql-connector-java-5.1.8-bin.jar" />
+	<classPathEntry location="F:\Git_Repository\GlodmineServer\WebContent\WEB-INF\lib\mysql-connector-java-5.1.21.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3">
 		
 		<!-- 去除自动生成的注释 -->
@@ -13,35 +13,39 @@
 
 		<!-- 数据库驱动 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://10.12.32.133:3306/b2c_online" userId="superuser" password="superuserpasswd">
+			connectionURL="jdbc:mysql://127.0.0.1:3306/glodmine" userId="root" password="A45115517">
 		</jdbcConnection>
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
 		<!-- targetProject:自动生成POJO代码的位置 -->
-		<javaModelGenerator targetPackage="cn.ce.comment.model"
-			targetProject="D:\MyEclipseWorkSpace\springmvc_mybatis_new\src\main\java">
+		<javaModelGenerator targetPackage="com.doadway.glodmine.core.model"
+			targetProject="F:\Git_Repository\GlodmineServer\glodmine">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<!-- targetProject:自动生成Sql Mapper.xml代码的位置 -->
-		<sqlMapGenerator targetPackage="mapper"
-			targetProject="D:\MyEclipseWorkSpace\springmvc_mybatis_new\src\main\resource">
+		<sqlMapGenerator targetPackage="mapper.glodmine"
+			targetProject="F:\Git_Repository\GlodmineServer\resource">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- targetProject:自动生成DAO代码的位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="cn.ce.comment.dao" targetProject="D:\MyEclipseWorkSpace\springmvc_mybatis_new\src\main\java">
+			targetPackage="com.doadway.glodmine.core.dao" targetProject="F:\Git_Repository\GlodmineServer\glodmine">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
 
 		<!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
 		<!--  配置相关表映射  -->
-		<table tableName="KNOWLEDGE_COMMENT" domainObjectName="Comment" enableSelectByExample="true"/>
+		<table tableName="MEMBER" domainObjectName="Member" enableSelectByExample="true"/>
+		<table tableName="INCOME_TYPE" domainObjectName="IncomeType" enableSelectByExample="true"/>
+		<table tableName="INCOME" domainObjectName="Income" enableSelectByExample="true"/>
+		<table tableName="SPEED" domainObjectName="Speed" enableSelectByExample="true"/>
+		<table tableName="SPEED_TYPE" domainObjectName="SpeedType" enableSelectByExample="true"/>
 
 	</context>
 </generatorConfiguration>

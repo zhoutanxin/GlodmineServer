@@ -2,80 +2,17 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<plugins>
-		<plugin interceptor="com.doadway.common.page.PagePlugin">
+		<plugin interceptor="com.doadway.framework.pager.PagePlugin">
  			<property name="dialect" value="mysql"/>    
 	        <property name="pageSqlId" value=".*ByPage.*"/> 		
 		</plugin>
 	</plugins>	
 	<mappers>
-<!-- 		 <mapper  resource="mybatis/core/functiontree/FunctionTreeMapper.xml"/> 
-
-		 <mapper  resource="mybatis/core/config/ModelMapper.xml"/> 
-		 <mapper  resource="mybatis/core/config/ModelItemMapper.xml"/>
-		 <mapper  resource="mybatis/core/config/FtpMapper.xml"/>
-		 <mapper  resource="mybatis/core/config/SiteMapper.xml"/>
-		 <mapper  resource="mybatis/core/config/ConfigMapper.xml"/>
-		 <mapper  resource="mybatis/core/config/DoConfigMapper.xml"/>
-		 <mapper  resource="mybatis/core/config/ConfigAttrMapper.xml"/>
-		 <mapper  resource="mybatis/core/config/ModelMapper.xml"/>
-		 <mapper  resource="mybatis/core/config/ModelItemMapper.xml"/>
-		 
-		 <mapper  resource="mybatis/core/user/DcUserMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/DoUserMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/UserExtMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/UserRoleMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/UserSiteMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/GroupMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/RoleMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/RolePermissionMapper.xml"/>
-		 <mapper  resource="mybatis/core/user/LogMapper.xml"/>
-
-		 <mapper  resource="mybatis/core/channel/ChannelMapper.xml"/>
-		 <mapper  resource="mybatis/core/channel/ChannelExtMapper.xml"/>
-		 <mapper  resource="mybatis/core/channel/ChannelAttrMapper.xml"/>
-		 <mapper  resource="mybatis/core/channel/ChannelTxtMapper.xml"/>
-		 <mapper  resource="mybatis/core/channel/ChannelUserMapper.xml"/>
-		 <mapper  resource="mybatis/core/channel/ChnlGroupContriMapper.xml"/>
-		 <mapper  resource="mybatis/core/channel/ChnlGroupViewMapper.xml"/>
-		 		  
-		 <mapper  resource="mybatis/core/content/ContentAttachmentMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentAttrMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentChannelMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentCheckMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentCountMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentExtMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentGroupViewMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentPictureMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentTagMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentTagRelateMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentTopicMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentTxtMapper.xml"/> 
-		 <mapper  resource="mybatis/core/content/ContentTypeMapper.xml"/> 
-		 
-		 <mapper  resource="mybatis/common/maintain/KeywordMapper.xml"/> 
-		 <mapper  resource="mybatis/common/maintain/SensitivityMapper.xml"/> 
-		 <mapper  resource="mybatis/common/maintain/TopicMapper.xml"/> 
-		 
-		 <mapper  resource="mybatis/common/assistant/AcquisitionMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/AdvertisingAttrMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/AdvertisingMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/AdvertisingSpaceMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/CommentExtMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/CommentMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/FriendlinkCtgMapper.xml"/> 	
-		 <mapper  resource="mybatis/common/assistant/FriendlinkMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/GuestbookCtgMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/GuestbookExtMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/GuestbookMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/VoteItemMapper.xml"/> 
-		 <mapper  resource="mybatis/common/assistant/VoteRecordMapper.xml"/> 			 	 		 
-		 <mapper  resource="mybatis/common/assistant/VoteTopicMapper.xml"/> 			 	 		 
-
-		 <mapper  resource="mybatis/dwcom/crm/CustomerMapper.xml"/> 			 	 		 
-		 <mapper  resource="mybatis/dwcom/crm/PersonnelMapper.xml"/> 			 	 		 
-		 <mapper  resource="mybatis/dwcom/crm/PersonnelExtMapper.xml"/> 			 	 		 
- -->		 
+		 <mapper  resource="mapper/glodmine/IncomeMapper.xml"/>
+		 <mapper  resource="mapper/glodmine/IncomeTypeMapper.xml"/>
+		 <mapper  resource="mapper/glodmine/MemberMapper.xml"/>
+		 <mapper  resource="mapper/glodmine/SpeedMapper.xml"/>
+		 <mapper  resource="mapper/glodmine/SpeedTypeMapper.xml"/>
 	</mappers>
 	
 
