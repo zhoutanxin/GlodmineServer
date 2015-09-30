@@ -18,7 +18,7 @@
 			http://www.springframework.org/schema/mvc 
 			http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
 			http://www.springframework.org/schema/context 
-			http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+			http://www.springframework.org/schema/context/spring-context-3.0.xsd" default-lazy-init="true">
 	<!-- 属性文件读入 -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -114,4 +114,10 @@
 		<property name="basePackage" value="com.doadway" />
 		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
 	</bean>     
+    <!-- 引入ehcache_context 缓存配置-->
+	<import  resource="classpath:/config/ehcache-context.xml"/>	
+    <!-- 引入mail-context 配置-->
+	<import  resource="classpath:/config/mail-context.xml"/>	
+    <!-- 引入验证授权配置-->
+	<import  resource="classpath:/config/shiro-context.xml"/>		
 </beans>

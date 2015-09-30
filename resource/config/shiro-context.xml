@@ -7,13 +7,13 @@
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="http://localhost:8090/cas/login?service=http://localhost:8080/console/v_login" />  
 		<property name="filterChainDefinitions">
 			<value>
-				/v_login* = anon
-				/login* = anon
-				/admin/** = authc
-			    /** = authc  
+				<!-- /v_login* = anon
+				/admin/** = authc -->
+				/validcode.do= anon
+				/index.jsp = anon
+			    /** = authc
 			</value>
 		</property>
 	</bean>
@@ -25,7 +25,7 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realms">
 	         <list>
-	             <ref bean="shiroDbRealm" />
+	             <ref bean="memberRealm" />
 	         </list>
 	     </property>		
 		<property name="cacheManager" ref="shiroEhcacheManager" />
@@ -34,8 +34,8 @@
 		<property name="sessionManager" ref="sessionManager"/>
 		 -->
 	</bean>
-	<bean id="shiroDbRealm" class="com.xinnet.common.shiro.UserRealm" >
-		<property name="userBiz" ref="userServiceImpl"/>
+	<bean id="memberRealm" class="com.doadway.glodmine.core.security.UserRealm" >
+		<property name="memberBiz" ref="memberBizImpl"/>
 	</bean>
 	<!-- 項目自定义的Realm, 所有userService依赖的dao都需要用depends-on声明
 	<bean id="personnelRealm" class="c om.doadway.dwcom.manager.shiro.PersonnelRealm" depends-on="personnelMapper,personnelExtMapper">

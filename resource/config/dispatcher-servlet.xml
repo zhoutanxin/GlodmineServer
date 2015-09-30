@@ -18,10 +18,9 @@
 				http://www.springframework.org/schema/aop
 				http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 				http://www.springframework.org/schema/util 
-				http://www.springframework.org/schema/util/spring-util-3.1.xsd "  default-lazy-init="false">
+				http://www.springframework.org/schema/util/spring-util-3.1.xsd "  default-lazy-init="true">
 		<context:annotation-config />	
-		<context:component-scan base-package="com" use-default-filters="false">
-	    			<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:component-scan base-package="com" >
 	    </context:component-scan>					
 	    <mvc:default-servlet-handler default-servlet-name="default"/>
    	<!-- 默认/访问首页Controller,根据需要改成其他url 
@@ -162,6 +161,5 @@
     <!-- Changes the locale when a 'locale' request parameter is sent; e.g. /?locale=de -->  
 	<mvc:interceptors>  
     	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />  
-	    <!-- <bean class="com.doadway.eop.processor.core.EopPermissionInterceptor" />  --> 
 	</mvc:interceptors>  
 </beans>

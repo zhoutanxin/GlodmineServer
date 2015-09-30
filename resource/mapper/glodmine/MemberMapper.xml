@@ -6,7 +6,7 @@
     <result column="nice_name" property="niceName" jdbcType="VARCHAR" />
     <result column="gender" property="gender" jdbcType="INTEGER" />
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
-    <result column="brithday" property="brithday" jdbcType="DATE" />
+    <result column="brithday" property="brithday" jdbcType="TIMESTAMP" />
     <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
@@ -106,12 +106,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.doadway.glodmine.core.model.Member" >
-    insert into member (id, nice_name, gender, 
+  <insert id="insert" parameterType="com.doadway.glodmine.core.model.Member"  keyProperty="id" useGeneratedKeys="true">
+    insert into member (nice_name, gender, 
       real_name, brithday, mobile_phone, 
       email, password, status, 
       update_time, register_time)
-    values (#{id,jdbcType=INTEGER}, #{niceName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+    values ( #{niceName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
       #{realName,jdbcType=VARCHAR}, #{brithday,jdbcType=DATE}, #{mobilePhone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP})
