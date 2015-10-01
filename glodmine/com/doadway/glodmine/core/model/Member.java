@@ -1,8 +1,9 @@
 package com.doadway.glodmine.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Member {
+public class Member implements Serializable{
     private Integer id;
 
     private String niceName;
@@ -25,7 +26,8 @@ public class Member {
 
     private Date registerTime;
 
-    public Integer getId() {
+
+	public Integer getId() {
         return id;
     }
 

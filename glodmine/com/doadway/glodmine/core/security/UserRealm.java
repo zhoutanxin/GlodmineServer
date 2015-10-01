@@ -58,15 +58,11 @@ public class UserRealm extends AuthorizingRealm {
 	
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		/* 这里编写认证代码 */
-		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		Member  user = memberBiz.findByMobile(token.getUsername());
 		try{
-			if (user.getId()!=null) {
-				return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getMobilePhone(),user.getPassword()),
-					user.getPassword(), user.getMobilePhone());
-			}else{
-				return null;
-			}			
+			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+			Member  user = memberBiz.findByMobile(token.getUsername());
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getMobilePhone(),user.getPassword()),
+				user.getPassword(), user.getMobilePhone());			
 		}catch(NullPointerException e){
 			return null;
 		}

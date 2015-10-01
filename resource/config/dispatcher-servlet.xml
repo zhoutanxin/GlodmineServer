@@ -19,13 +19,16 @@
 				http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
 				http://www.springframework.org/schema/util 
 				http://www.springframework.org/schema/util/spring-util-3.1.xsd "  default-lazy-init="true">
-		<context:annotation-config />	
-		<context:component-scan base-package="com" >
-	    </context:component-scan>					
-	    <mvc:default-servlet-handler default-servlet-name="default"/>
-   	<!-- 默认/访问首页Controller,根据需要改成其他url 
-	<mvc:view-controller path="/" view-name="forward:/v_login" /-->
-	
+	<context:component-scan base-package="com" use-default-filters="true">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>	
+	<mvc:default-servlet-handler default-servlet-name="default"/>	
+	<!-- spring 3.1解决@ResponseBody乱码ajax返回乱码的问题 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<bean class="com.doadway.framework.web.mvc.UTF8StringHttpMessageConverter"/>
+		</mvc:message-converters>
+	</mvc:annotation-driven>	
  	<!-- Spring MVC声明式参数验证部分开始 -->
 	<!-- 国际化的消息资源文件 -->
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
@@ -90,7 +93,7 @@
 			         <entry key="jsp">  
 			         		<!-- 定义JSP视图解析器--> 
 						     <bean id="jspViewResolver"
-						          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+						          class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
 						          p:prefix="/"
 						          p:suffix=".jsp" 
 						          p:order="1"/>
@@ -132,28 +135,32 @@
 			   </map>  
 			</property>  
     </bean>  
-
+	
 	<!-- 启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
  	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+ 		<property name="cacheSeconds" value="0" /> 
 		<property name="webBindingInitializer">
 			<bean class="com.doadway.framework.web.mvc.DateConverter"/>
 		</property>
 		<property name="messageConverters">
 			 <list>
-	            <bean id="utf8StringHttpMessageConverter"  class="com.doadway.framework.web.mvc.UTF8StringHttpMessageConverter" />
+	            <!-- <bean id="utf8StringHttpMessageConverter"  class="com.doadway.framework.web.mvc.UTF8StringHttpMessageConverter" /> -->
 	            <!-- json转换器 -->
                 <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" >
                     <property name="supportedMediaTypes">
                         <list>
+							<value>application/json</value>
+							<value>application/javascript</value>
+							<value>text/json</value>
+                            <value>text/plain;charset=UTF-8</value>
                             <value>text/html;charset=UTF-8</value>
                         </list>
                     </property>
                 </bean>
 	        </list>
 		</property>
-		
-	</bean>   	 
-    	<!-- Spring mvc 国际化配置 采用cookie保存机制 -->
+	</bean>   	
+   	<!-- Spring mvc 国际化配置 采用cookie保存机制 -->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
 		<property name="cookieName" value="clientlanguage"/>
 		<property name="cookieMaxAge" value="-1"/>
@@ -162,4 +169,5 @@
 	<mvc:interceptors>  
     	<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" />  
 	</mvc:interceptors>  
+
 </beans>

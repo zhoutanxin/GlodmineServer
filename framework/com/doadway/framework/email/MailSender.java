@@ -97,7 +97,7 @@ public class MailSender {
 			messageHelper.setTo(to);
 			messageHelper.setFrom(MimeUtility.encodeText(mail.getFromText()) + "<"
 					+ javaMailSender.getUsername() + ">");
-		//	javaMailSender.send(mimeMessage);
+			javaMailSender.send(mimeMessage);
 		} catch (Exception e) {
 			System.out.println("发送通知邮件错误!!!"+ mail.getTo()+e.toString());
 			log.debug("发送通知邮件错误!!!"+ mail.getTo(), e);

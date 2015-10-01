@@ -7,12 +7,16 @@
 	<!-- Shiro Filter -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/index.jsp" />
+		<property name="unauthorizedUrl" value="/errors/error" />
 		<property name="filterChainDefinitions">
 			<value>
 				<!-- /v_login* = anon
 				/admin/** = authc -->
 				/validcode.do= anon
 				/index.jsp = anon
+				/login = anon
+				/loginout = anon
 			    /** = authc
 			</value>
 		</property>

@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONObject;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -26,6 +28,7 @@ import com.doadway.glodmine.core.security.UserRealm.ShiroUser;
 public class LoginController extends WWAction {
 	@Resource
 	MemberBiz  userBiz;
+	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	@ResponseBody
 	public  String login(HttpServletRequest request,Member user,Map<String,Object> mv)  {
@@ -43,7 +46,7 @@ public class LoginController extends WWAction {
 		try {
 		  currentUser.login(token);
 		} catch (UnknownAccountException uae ) { 
-			return "用户名不存在";
+			return "账号不存在";
 		} catch (IncorrectCredentialsException ice ) { 
 			return "密码错误！";
 		} catch (LockedAccountException lae ) { 
@@ -51,21 +54,27 @@ public class LoginController extends WWAction {
 		} catch (ExcessiveAttemptsException eae ) { 
 			return "错误次数过多";
 		} catch (AuthenticationException ae ) {
+			ae.printStackTrace();
 			return "用户密码错误";
 		}
 		//验证是否成功登录的方法
 		if(currentUser.isAuthenticated()){
-			return "成功";
+			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
+			JSONObject json = JSONObject.fromObject(shiroUser);
+			System.out.println("返回"+json.toString());
+			return json.toString();
 		}
 		return "失败";   
 
 	}
 
-	@RequestMapping("/admin/loginout")
-	public  String loginout()  {
-        Subject currentUser = SecurityUtils.getSubject();  
-        currentUser.logout();  
-        return "/login"; 		
+	@RequestMapping("/loginout")
+	public void logout() {
+		Subject subject = SecurityUtils.getSubject();
+		if (subject.isAuthenticated()) {
+			// session 会销毁，在SessionListener监听session销毁，清理权限缓存
+			subject.logout();
+		}
 	}
     @RequestMapping(value = "/chklogin", method = RequestMethod.POST)  
     @ResponseBody
@@ -76,22 +85,6 @@ public class LoginController extends WWAction {
         }  
         return "true";  
     }  
-	@RequestMapping("/admin/center")
-	public  String getCenter()  {
-		return "/center";   
-	}	
-	@RequestMapping("/admin/down")
-	public  String getDown()  {
-		return "/down";   
-	}	
-	@RequestMapping("/admin/middel")
-	public  String getMiddel()  {
-		return "/middel";   
-	}	
-	@RequestMapping("/admin/welcome")
-	public  String getWelcome()  {
-		return "/index/welcome";   
-	}	
 	@RequestMapping("/admin/profile")
 	public  String getProfile(Map<String,Object> mv)  {
 		 Subject currentUser = SecurityUtils.getSubject(); 
@@ -101,9 +94,5 @@ public class LoginController extends WWAction {
 			 mv.put("userDto", uDto);
 		 }
 		return "/personal/profile";   
-	}	
-	@RequestMapping("/admin/login")
-	public  String getLogin()  {
-		return "/login";   
 	}	
 }

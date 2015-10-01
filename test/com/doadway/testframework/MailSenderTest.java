@@ -28,7 +28,7 @@ public class MailSenderTest {
 		  mail.setContent(contentMap);
 		  mail.setFromText("zhoutanxin测试");
 		  mail.setSubject("test邮件");
-		  mail.setTo("zhoutanxin@hotmail.com");
+		  mail.setTo("45115517@qq.com");
 		  
 		  mail.setTemplate("com/doadway/framework/email/mailTpl.html");
 		  mailSender.syncSendMail(mail);
