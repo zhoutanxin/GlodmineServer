@@ -17,7 +17,7 @@ public class MemberBizImpl implements MemberBiz {
 	MemberMapper memberDAO;
 	@Override
 	public boolean registerMember(Member member) {
-		if(!ifHave(member.getMobilePhone())){
+		if(!ifHaveMobile(member.getMobilePhone())){
 			return memberDAO.insert(member)>0;
 		}
 		return false;
@@ -35,11 +35,31 @@ public class MemberBizImpl implements MemberBiz {
 		}
 		return member;
 	}
+	public Member findByEmail(String email) {
+		Member member=null;
+		MemberExample example=new MemberExample() ;
+		Criteria memCri=example.createCriteria();
+		memCri.andEmailEqualTo(email);
+		List<Member> memberList=memberDAO.selectByExample(example);
+		if(memberList.size()>0){
+			member=memberList.get(0);
+		}
+		return member;
+	}
 
 	@Override
-	public boolean ifHave(String mobilephone) {
+	public boolean ifHaveMobile(String mobilephone) {
 		boolean flag = false;
 		if(findByMobile(mobilephone)!=null){
+			flag=true;
+		}
+		return flag;
+	}
+
+	@Override
+	public boolean ifHaveEmail(String email) {
+		boolean flag = false;
+		if(findByEmail(email)!=null){
 			flag=true;
 		}
 		return flag;

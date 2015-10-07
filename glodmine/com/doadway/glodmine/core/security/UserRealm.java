@@ -28,7 +28,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -61,7 +60,7 @@ public class UserRealm extends AuthorizingRealm {
 		try{
 			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 			Member  user = memberBiz.findByMobile(token.getUsername());
-			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getMobilePhone(),user.getPassword()),
+			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getMobilePhone(),user.getNiceName()),
 				user.getPassword(), user.getMobilePhone());			
 		}catch(NullPointerException e){
 			return null;
@@ -142,5 +141,37 @@ public class UserRealm extends AuthorizingRealm {
 			}
 			return true;
 		}
+
+
+		public Integer getId() {
+			return id;
+		}
+
+
+		public void setId(Integer id) {
+			this.id = id;
+		}
+
+
+		public String getMobliephone() {
+			return mobliephone;
+		}
+
+
+		public void setMobliephone(String mobliephone) {
+			this.mobliephone = mobliephone;
+		}
+
+
+		public String getNiceName() {
+			return niceName;
+		}
+
+
+		public void setNiceName(String niceName) {
+			this.niceName = niceName;
+		}
+		
+		
 	}
 }

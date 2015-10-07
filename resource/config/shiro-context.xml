@@ -17,6 +17,9 @@
 				/index.jsp = anon
 				/login = anon
 				/loginout = anon
+				/ifhasmob = anon
+				/ifhasemail = anon
+				/regster = anon
 			    /** = authc
 			</value>
 		</property>

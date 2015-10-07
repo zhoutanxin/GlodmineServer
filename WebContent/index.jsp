@@ -15,12 +15,24 @@
 		    data:$("#loginForm").serialize(),
 		    dataType: "json",
 		    success:function(data){
+		    	if(data.flag){
+		    		var json=eval(data.msg)
+		    		alert("登录者:"+json.niceName);
+		    	}else{
+		    		alert("登录失败:"+data.msg);
+		    	}
+		    }
+		});
+	}
+	function loginout(){
+		$.ajax({
+		    type: 'POST',
+		    url: "loginout" ,
+		    dataType: "json",
+		    success:function(data){
 		    	var json=eval(data)
-		    	alert(json);
-		    } ,
-		    error:function(data) {  
-   	          alert(data.responseText);  
-   	      	} ,
+		    	alert("退出消息:"+json.msg);
+		    } 
 		});
 	}
 </script>
@@ -30,6 +42,7 @@
 	<input type="text" name="mobilePhone" value="" /><br/><br/>
 	<input type="password" name="password" value="" /><br/><br/>
 	<input type="submit"  value="登录"/>
+	<input type="button" onclick="loginout();"  value="退出"/>
 </form>
 </body>
 </html>

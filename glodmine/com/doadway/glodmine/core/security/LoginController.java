@@ -45,36 +45,45 @@ public class LoginController extends WWAction {
 		*/
 		try {
 		  currentUser.login(token);
+		  //验证是否成功登录的方法
+		  if(currentUser.isAuthenticated()){
+			  ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
+			  jsonMap.put("flag",true);
+			  jsonMap.put("msg",shiroUser);
+			  return JSONObject.fromObject(jsonMap).toString();
+		  }			  
 		} catch (UnknownAccountException uae ) { 
-			return "账号不存在";
-		} catch (IncorrectCredentialsException ice ) { 
-			return "密码错误！";
+			jsonMap.put("msg","账号不存在");
+		} catch (IncorrectCredentialsException ice ) {
+			jsonMap.put("msg","密码错误");
 		} catch (LockedAccountException lae ) { 
-			return "用户已经被锁定不能登录,请与管理员联系";
-		} catch (ExcessiveAttemptsException eae ) { 
+			jsonMap.put("msg","用户已经被锁定不能登录,请与管理员联系");
+		} catch (ExcessiveAttemptsException eae ) {
+			jsonMap.put("msg","错误次数过多");
 			return "错误次数过多";
 		} catch (AuthenticationException ae ) {
-			ae.printStackTrace();
-			return "用户密码错误";
+			jsonMap.put("msg","用户密码错误");
 		}
-		//验证是否成功登录的方法
-		if(currentUser.isAuthenticated()){
-			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
-			JSONObject json = JSONObject.fromObject(shiroUser);
-			System.out.println("返回"+json.toString());
-			return json.toString();
-		}
-		return "失败";   
+		jsonMap.put("flag",false);
+		return JSONObject.fromObject(jsonMap).toString(); 
 
 	}
 
 	@RequestMapping("/loginout")
-	public void logout() {
+	@ResponseBody
+	public String logout() {
 		Subject subject = SecurityUtils.getSubject();
 		if (subject.isAuthenticated()) {
 			// session 会销毁，在SessionListener监听session销毁，清理权限缓存
 			subject.logout();
+			jsonMap.put("flag", true);
+			jsonMap.put("msg", "已退出登录");
+		}else{
+			jsonMap.put("flag", false);
+			jsonMap.put("msg", "请先登录");		
 		}
+		JSONObject tempMap = JSONObject.fromObject(this.jsonMap);
+		return tempMap.toString();
 	}
     @RequestMapping(value = "/chklogin", method = RequestMethod.POST)  
     @ResponseBody

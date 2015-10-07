@@ -44,8 +44,8 @@ public  class WWAction {
 	// 页面id,加载页面资源所用
 	protected String pageId;
 
-
- 
+	
+	public Map<String,Object> jsonMap=new HashMap<String,Object>();
 
 	public String list_ajax() {
 	
@@ -208,6 +208,14 @@ public  class WWAction {
 
 	public void setJson(String json) {
 		this.json = json;
+	}
+
+	public Map<String, Object> getJsonMap() {
+		return jsonMap;
+	}
+
+	public void setJsonMap(Map<String, Object> jsonMap) {
+		this.jsonMap = jsonMap;
 	}
 
 }

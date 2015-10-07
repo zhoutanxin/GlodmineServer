@@ -7,7 +7,9 @@ public interface MemberBiz {
 	
 	public Member findByMobile(String mobilephone);
 	
-	public boolean ifHave(String mobilephone);
+	public boolean ifHaveMobile(String mobilephone);
+	
+	public boolean ifHaveEmail(String mobilephone);
 	
 	public boolean saveOrUpdateMember(Member member);
 }
