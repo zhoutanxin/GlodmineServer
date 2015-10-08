@@ -6,6 +6,7 @@ public interface MemberBiz {
 	public boolean registerMember(Member member);
 	
 	public Member findByMobile(String mobilephone);
+	public Member findByEmail(String mobilephone);
 	
 	public boolean ifHaveMobile(String mobilephone);
 	

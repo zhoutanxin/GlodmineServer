@@ -43,8 +43,8 @@ public class MemberController extends WWAction {
 	}
 	@RequestMapping(value="/ifhasemail",method=RequestMethod.POST)
 	@ResponseBody
-	public  String ifExistEmail(HttpServletRequest request,String mobilephone)  {
-		if(userBiz.ifHaveMobile(mobilephone)){
+	public  String ifExistEmail(HttpServletRequest request,String email)  {
+		if(userBiz.ifHaveEmail(email)){
 			return "true";
 		} else{
 			return "false";

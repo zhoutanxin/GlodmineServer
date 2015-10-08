@@ -35,6 +35,7 @@ public class MemberBizImpl implements MemberBiz {
 		}
 		return member;
 	}
+	@Override
 	public Member findByEmail(String email) {
 		Member member=null;
 		MemberExample example=new MemberExample() ;
