@@ -91,7 +91,9 @@ public  class WWAction {
 	 private HttpServletRequest request;
 	 private HttpServletResponse response;
 	 public  Map<String, Object> model;
-	 
+	 {
+		 
+	 }
 	 @ModelAttribute  
 	 protected Map<String, Object> setModel(Map<String, Object> model) {
 		 return this.model=model;
@@ -102,6 +104,7 @@ public  class WWAction {
 	}
 	 @ModelAttribute  
 	protected HttpServletResponse setResponse(HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		return this.response=response;
 	}
 	 public Map<String, Object> getModel() {
