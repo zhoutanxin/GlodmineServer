@@ -8,7 +8,7 @@
     <result column="real_name" property="realName" jdbcType="VARCHAR" />
     <result column="brithday" property="brithday" jdbcType="TIMESTAMP" />
     <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="imail" property="imail" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, nice_name, gender, real_name, brithday, mobile_phone, email, password, status, 
+    id, nice_name, gender, real_name, brithday, mobile_phone, imail, password, status, 
     update_time, register_time
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.glodmine.core.model.MemberExample" >
@@ -109,11 +109,11 @@
   <insert id="insert" parameterType="com.doadway.glodmine.core.model.Member"  keyProperty="id" useGeneratedKeys="true">
     insert into member (nice_name, gender, 
       real_name, brithday, mobile_phone, 
-      email, password, status, 
+      imail, password, status, 
       update_time, register_time)
     values ( #{niceName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
       #{realName,jdbcType=VARCHAR}, #{brithday,jdbcType=DATE}, #{mobilePhone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{imail,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{registerTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.doadway.glodmine.core.model.Member" >
@@ -137,8 +137,8 @@
       <if test="mobilePhone != null" >
         mobile_phone,
       </if>
-      <if test="email != null" >
-        email,
+      <if test="imail != null" >
+        imail,
       </if>
       <if test="password != null" >
         password,
@@ -172,8 +172,8 @@
       <if test="mobilePhone != null" >
         #{mobilePhone,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
+      <if test="imail != null" >
+        #{imail,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
@@ -216,8 +216,8 @@
       <if test="record.mobilePhone != null" >
         mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null" >
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.imail != null" >
+        imail = #{record.imail,jdbcType=VARCHAR},
       </if>
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
@@ -244,7 +244,7 @@
       real_name = #{record.realName,jdbcType=VARCHAR},
       brithday = #{record.brithday,jdbcType=DATE},
       mobile_phone = #{record.mobilePhone,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
+      imail = #{record.imail,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -271,8 +271,8 @@
       <if test="mobilePhone != null" >
         mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
       </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
+      <if test="imail != null" >
+        imail = #{imail,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
@@ -296,7 +296,7 @@
       real_name = #{realName,jdbcType=VARCHAR},
       brithday = #{brithday,jdbcType=DATE},
       mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
+      imail = #{imail,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=TIMESTAMP},

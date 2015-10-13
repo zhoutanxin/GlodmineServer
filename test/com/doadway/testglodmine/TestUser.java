@@ -26,7 +26,7 @@ public class TestUser {
 	  public void testExecute(){
 		  Member member=new Member();
 		  member.setBrithday(new Date(System.currentTimeMillis()));
-		  member.setEmail("zhoutanxin@hotmail.com");
+		  member.setImail("zhoutanxin@hotmail.com");
 		  member.setGender(2);
 		  member.setMobilePhone("13683027377");
 		  member.setNiceName("niceXin");

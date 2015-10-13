@@ -11,16 +11,16 @@
 		<property name="unauthorizedUrl" value="/errors/error" />
 		<property name="filterChainDefinitions">
 			<value>
-				<!-- /v_login* = anon
-				/admin/** = authc -->
 				/validcode.do= anon
 				/index.jsp = anon
 				/login = anon
-				/loginout = anon
-				/ifhasmob = anon
-				/ifhasemail = anon
-				/regster = anon
-			    /** = authc
+				/register**= anon
+				/glodmineApp/**= anon
+				/chklogin* = anon
+				/loginout* = anon
+				/ifhasmob* = anon
+				/ifhasemail* = anon
+			    /**= authc
 			</value>
 		</property>
 	</bean>

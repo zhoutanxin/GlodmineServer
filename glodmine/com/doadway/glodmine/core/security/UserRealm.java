@@ -59,6 +59,7 @@ public class UserRealm extends AuthorizingRealm {
 		/* 这里编写认证代码 */
 		try{
 			UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+			//Member对象需要序列化才能校验有效
 			Member  user = memberBiz.findByMobile(token.getUsername());
 			return new SimpleAuthenticationInfo(new ShiroUser(user.getId(),user.getMobilePhone(),user.getNiceName()),
 				user.getPassword(), user.getMobilePhone());			

@@ -40,7 +40,7 @@ public class MemberBizImpl implements MemberBiz {
 		Member member=null;
 		MemberExample example=new MemberExample() ;
 		Criteria memCri=example.createCriteria();
-		memCri.andEmailEqualTo(email);
+		memCri.andImailEqualTo(email);
 		List<Member> memberList=memberDAO.selectByExample(example);
 		if(memberList.size()>0){
 			member=memberList.get(0);

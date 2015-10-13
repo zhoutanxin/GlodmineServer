@@ -85,7 +85,7 @@ public class LoginController extends WWAction {
 		JSONObject tempMap = JSONObject.fromObject(this.jsonMap);
 		return tempMap.toString();
 	}
-    @RequestMapping(value = "/chklogin", method = RequestMethod.POST)  
+    @RequestMapping(value = "/chklogin", method = RequestMethod.GET)  
     @ResponseBody
     public String chkLogin() {  
         Subject currentUser = SecurityUtils.getSubject();  

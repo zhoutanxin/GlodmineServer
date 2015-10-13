@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Member implements Serializable{
-    private Integer id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String niceName;
 
@@ -16,7 +21,7 @@ public class Member implements Serializable{
 
     private String mobilePhone;
 
-    private String email;
+    private String imail;
 
     private String password;
 
@@ -26,8 +31,7 @@ public class Member implements Serializable{
 
     private Date registerTime;
 
-
-	public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -75,12 +79,12 @@ public class Member implements Serializable{
         this.mobilePhone = mobilePhone == null ? null : mobilePhone.trim();
     }
 
-    public String getEmail() {
-        return email;
+    public String getImail() {
+        return imail;
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setImail(String imail) {
+        this.imail = imail == null ? null : imail.trim();
     }
 
     public String getPassword() {

@@ -1,5 +1,6 @@
 package com.doadway.glodmine.core.action;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.doadway.framework.action.WWAction;
+import com.doadway.framework.util.CodeUtil;
 import com.doadway.glodmine.core.biz.MemberBiz;
 import com.doadway.glodmine.core.model.Member;
 @Controller
@@ -20,9 +22,14 @@ public class MemberController extends WWAction {
 	@Resource
 	MemberBiz  userBiz;
 	
-	@RequestMapping(value="/regsiter",method=RequestMethod.POST)
+	@RequestMapping(value="/register",method=RequestMethod.GET)
 	@ResponseBody
 	public  String reg(HttpServletRequest request,Member user,Map<String,Object> mv)  {
+		user.setRegisterTime(new Date(System.currentTimeMillis()));
+		user.setStatus(1);
+		user.setGender(1);
+		user.setUpdateTime(new Date(System.currentTimeMillis()));
+		user.setNiceName(CodeUtil.getAccountCode());
 		if(userBiz.registerMember(user)){
 			jsonMap.put("flag", true);
 			jsonMap.put("msg", "注册成功");
@@ -32,19 +39,19 @@ public class MemberController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
-	@RequestMapping(value="/ifhasmob",method=RequestMethod.POST)
+	@RequestMapping(value="/ifhasmob",method=RequestMethod.GET)
 	@ResponseBody
-	public  String ifExistMobile(HttpServletRequest request,String mobilephone)  {
-		if(userBiz.ifHaveMobile(mobilephone)){
+	public  String ifExistMobile(HttpServletRequest request,String mobilePhone)  {
+		if(!userBiz.ifHaveMobile(mobilePhone)){
 			return "true";
 		} else{
 			return "false";
 		}
 	}
-	@RequestMapping(value="/ifhasemail",method=RequestMethod.POST)
+	@RequestMapping(value="/ifhasemail",method=RequestMethod.GET)
 	@ResponseBody
-	public  String ifExistEmail(HttpServletRequest request,String email)  {
-		if(userBiz.ifHaveEmail(email)){
+	public  String ifExistEmail(HttpServletRequest request,String imail)  {
+		if(!userBiz.ifHaveEmail(imail)){
 			return "true";
 		} else{
 			return "false";

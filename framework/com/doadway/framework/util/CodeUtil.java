@@ -528,7 +528,7 @@ public final class CodeUtil {
 	public static String getAccountCode(){
 		Random random = getRandom();
 		StringBuilder sb = new StringBuilder();
-		sb.append("hy");
+		sb.append("DM");
 		for(int index = 0;index < 8;index++){
 			int ranInt = random.nextInt(9);
 			sb.append(ranInt);
