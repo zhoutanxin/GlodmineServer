@@ -46,3 +46,15 @@ Date.prototype.format =function(format)
 	("00"+ o[k]).substr((""+ o[k]).length));
 	return format;
 }
+function showLoading(txt,htm,txtonly){
+    $.mobile.loading('show', {
+        text: txt, //加载器中显示的文字
+        textVisible: true, //是否显示文字
+        theme: 'b',        //加载器主题样式a-e
+        textonly: txtonly,   //是否只显示文字
+        html: htm          //要显示的html内容，如图片等
+    });
+}
+function hideLoading(){
+	$.mobile.loading('hide');
+}

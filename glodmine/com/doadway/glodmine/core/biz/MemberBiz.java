@@ -12,5 +12,5 @@ public interface MemberBiz {
 	
 	public boolean ifHaveEmail(String mobilephone);
 	
-	public boolean saveOrUpdateMember(Member member);
+	public boolean updateMember(Member member);
 }

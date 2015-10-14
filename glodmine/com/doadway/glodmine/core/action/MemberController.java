@@ -75,5 +75,22 @@ public class MemberController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
+	@RequestMapping(value="/updInfo",method=RequestMethod.GET)
+	@ResponseBody
+	public  String updInfo(HttpServletRequest request,Member member)  {
+		boolean flag=false;
+		if(member.getMobilePhone()!=null){
+			flag= userBiz.updateMember(member);
+			if(flag){
+				jsonMap.put("flag", flag);
+				jsonMap.put("msg", "信息已保存");
+			}else{
+				jsonMap.put("flag", flag);
+				jsonMap.put("msg","更新失败,请检查操作");
+			}
+
+		}
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
 
 }

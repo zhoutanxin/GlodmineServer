@@ -15,7 +15,9 @@ function loadMemberInfo(){
                     $("#mobilePhone").val(json.mobilePhone);
                     $("#imail").val(json.imail);
                     $("#realName").val(json.realName);
-                    $("#brithday").val(new Date(json.brithday.time).format("yyyy-MM-dd"));
+                    if(json.brithday!=null){
+                    	$("#brithday").val(new Date(json.brithday.time).format("yyyy-MM-dd"));
+                    }
                     if(json.gender==1){
                         $("#male").trigger("click");
                     }else{
@@ -57,8 +59,25 @@ $("#accountInfo").on("pageshow",function(e){
             }
         },
         submitHandler:function(form){
-            alert("submitted");
+        	updInfo();
         }
     });
 
 });
+function updInfo(){
+    showLoading('信息修改中...','',false);
+    $.ajax({
+        type: 'GET',
+        url:Config.root+ "updInfo" ,
+        data:$("#accountInfoForm").serialize(),
+        dataType: "json",
+        success:function(data){
+            if(data.flag){
+            	loadMemberInfo();
+            }
+            showLoading(data.msg,'',true);
+            setTimeout(hideLoading(), 1500);
+
+        }
+    });
+}

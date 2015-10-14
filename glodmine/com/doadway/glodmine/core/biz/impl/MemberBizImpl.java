@@ -1,9 +1,11 @@
 package com.doadway.glodmine.core.biz.impl;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.doadway.glodmine.core.biz.MemberBiz;
@@ -67,12 +69,13 @@ public class MemberBizImpl implements MemberBiz {
 	}
 
 	@Override
-	public boolean saveOrUpdateMember(Member member) {
-		if( member.getId()!=null ){
-			return memberDAO.updateByPrimaryKey(member)>0;
-		}else{
-			return memberDAO.insert(member)>0;
+	public boolean updateMember(Member member) {
+		if( member.getMobilePhone()!=null ){
+			Member sMember=this.findByMobile(member.getMobilePhone());
+			BeanUtils.copyProperties(sMember, member);
+			return memberDAO.updateByPrimaryKey(sMember)>0;
 		}
+		return false;
 	}
 
 }
