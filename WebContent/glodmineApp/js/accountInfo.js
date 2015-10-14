@@ -1,7 +1,33 @@
 /**
  * Created by Administrator on 2015-09-25.
  */
+
+function loadMemberInfo(){
+	 var htmlc= $.ajax({
+	        type: 'GET',
+	        url:Config.root+ "memberInfo" ,
+	        dataType: "json",
+            async:"false",
+	        success:function(data){
+	            if(data.flag){
+	                var json=eval(data.result);
+                    $("#niceName").val(json.niceName);
+                    $("#mobilePhone").val(json.mobilePhone);
+                    $("#imail").val(json.imail);
+                    $("#realName").val(json.realName);
+                    $("#brithday").val(new Date(json.brithday.time).format("yyyy-MM-dd"));
+                    if(json.gender==1){
+                        $("#male").trigger("click");
+                    }else{
+                        $("#female").trigger("click");
+                    }
+	            }
+
+	        }
+	    });
+}
 $("#accountInfo").on("pageshow",function(e){
+	loadMemberInfo();
     $("#accountInfoForm").validate({
         rules:{
             niceName:{

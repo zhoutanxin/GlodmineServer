@@ -13,9 +13,6 @@ $("#forgetPwd1").on("pageshow",function(e){
         $(".ui-block-b img").attr("src",Config.root+"/validcode.do?"+Math.random());
 
     });
-    $(".ui-block-b img").onload=function(){
-        alert($.cookie(Config.COOKIE_VALID_CODE));
-    };
     $("#forgetPwd1Form").validate({
         rules:{
             mobilephone:{
@@ -24,7 +21,7 @@ $("#forgetPwd1").on("pageshow",function(e){
             },
             validateCode:{
                 required:true,
-                equalTo:function(){return $("#code").val($.cookie(Config.COOKIE_VALID_CODE));}
+                equalTo:function(){$("#vcode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#vcode";}
 }
         },
         //自定义验证信息

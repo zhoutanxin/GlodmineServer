@@ -5,7 +5,7 @@
       <paths name="glodmine">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/glodmineApp/" />
+            <mapping local="$PROJECT_DIR$" web="/glodmineApp" />
           </mappings>
         </serverdata>
       </paths>

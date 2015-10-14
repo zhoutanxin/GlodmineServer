@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,7 @@ import com.doadway.framework.action.WWAction;
 import com.doadway.framework.util.CodeUtil;
 import com.doadway.glodmine.core.biz.MemberBiz;
 import com.doadway.glodmine.core.model.Member;
+import com.doadway.glodmine.core.security.UserRealm.ShiroUser;
 @Controller
 public class MemberController extends WWAction {
 	@Resource
@@ -56,6 +59,21 @@ public class MemberController extends WWAction {
 		} else{
 			return "false";
 		}
+	}
+	@RequestMapping(value="/memberInfo",method=RequestMethod.GET)
+	@ResponseBody
+	public  String findByMobile(HttpServletRequest request,String mobilephone)  {
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isAuthenticated()){
+			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
+			Member user = userBiz.findByMobile(shiroUser.getMobliephone());
+			jsonMap.put("flag", true);
+			jsonMap.put("result", user);
+		}else{
+			jsonMap.put("flag", false);
+			jsonMap.put("msg","登录用户不存在,请先登录");
+		}
+		return JSONObject.fromObject(jsonMap).toString(); 
 	}
 
 }

@@ -20,9 +20,9 @@
     <script src="static/jquery-validate-1.7/jquery.validate.min.js"></script>
     <script src="js/income.js"></script>
     <div data-role="header"  data-theme="b">
-        <a href="#" onclick="$.mobile.changePage('index.html',{transition: 'flip'});" data-role="button" data-icon="home">首页</a>
+        <a href="#" data-ajax="false" onclick="$.mobile.changePage('index.html',{transition: 'flip'});" data-role="button" data-icon="home">首页</a>
         <h1>日常收入</h1>
-        <a href="#" onclick="$.mobile.changePage('index.html',{transition: 'flip'});" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+        <a href="#" data-ajax="false" onclick="$.mobile.changePage('index.html',{transition: 'flip'});" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
     </div>
     <div data-role="content">
         <form method="post" id="incomeForm" action="demoform.asp">

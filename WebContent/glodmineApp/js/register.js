@@ -43,6 +43,10 @@ $("#register").on("pageshow",function(e){
                     }
                 }
             },
+            validateCode: {
+                required: true,
+                equalTo:function(){$("#vcode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#vcode";}
+            },
             password:{
                 required:true,
                 rangelength:[6,20]
@@ -63,6 +67,10 @@ $("#register").on("pageshow",function(e){
                 rangelength:$.validator.format("输入的范围在 {0}-{1} 之间的字符."),
                 email:"邮箱格式不正确",
                 remote:"邮箱已存在"
+            },
+            validateCode:{
+                required:"请输入验证码",
+                equalTo:"验证码错误"
             },
             password:{
                 required:"密码不能为空",

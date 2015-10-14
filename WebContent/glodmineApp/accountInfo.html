@@ -20,29 +20,29 @@
     <script src="static/jquery-validate-1.7/jquery.validate.min.js"></script>
     <script src="js/accountInfo.js"></script>
     <div data-role="header"  data-theme="b">
-        <a href="#" onclick="$.mobile.changePage('index.html',{transition: 'slidedown'});" data-role="button" data-icon="home">首页</a>
+        <a href="#" data-ajax="false" onclick="$.mobile.changePage('index.html',{transition: 'slidedown'});" data-role="button" data-icon="home">首页</a>
         <h1>个人信息</h1>
-        <a href="#" onclick="$.mobile.changePage('index.html',{transition: 'slidedown'});" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
+        <a href="#" data-ajax="false" onclick="$.mobile.changePage('index.html',{transition: 'slidedown'});" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
     </div>
     <div data-role="content">
         <form method="post" id="accountInfoForm" action="#">
         <input type="text" name="niceName" id="niceName" placeholder="昵称">
 
-        <input type="text" name="mobilephone" id="mobilephone" placeholder="手机号" value="13683027377" disabled="true">
-        <input type="email" name="email" id="email" placeholder="邮箱" disabled="true">
+        <input type="text" name="mobilePhone" id="mobilePhone" placeholder="手机号"  disabled="true">
+        <input type="email" name="imail" id="imail" placeholder="邮箱" disabled="true">
         <div class="ui-grid-a">
             <div class="ui-block-a" style="border: 0px solid black;">
                 <!--<a href="#" data-role="button">收入维护</a>-->
                 <label for="male" >先生</label>
-                <input type="radio" checked="checked" name="gender" id="male" value="male">
+                <input type="radio" checked="checked" name="gender" id="male" value="1">
             </div>
             <div class="ui-block-b">
                 <!--<a href="#" data-role="button">支出维护</a>-->
                 <label for="female">女士</label>
-                <input type="radio" name="gender" id="female" value="female">
+                <input type="radio" name="gender" id="female" value="2">
             </div>
         </div>
-            <input type="text"  data-theme="b" data-role="datebox"  placeholder="生日" data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
+            <input type="text"  data-theme="b" data-role="datebox"  placeholder="生日" data-options='{"mode":"datebox"}'  name="brithday" id="brithday">
             <input type="text" name="realName" id="realName" placeholder="真实姓名">
 <!--            <input type="password" name="fname" id="fname" placeholder="原始密码">
             <input type="password" name="fname" id="fname" placeholder="新密码">
