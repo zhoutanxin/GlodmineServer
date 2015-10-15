@@ -98,7 +98,7 @@ $("#register").on("pageshow",function(e){
                 html: ""           //要显示的html内容，如图片等
             });
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url:Config.root+ "register" ,
                 data:$("#registerForm").serialize(),
                 dataType: "json",

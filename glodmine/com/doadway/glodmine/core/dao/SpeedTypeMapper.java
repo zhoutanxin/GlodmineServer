@@ -2,9 +2,12 @@ package com.doadway.glodmine.core.dao;
 
 import com.doadway.glodmine.core.model.SpeedType;
 import com.doadway.glodmine.core.model.SpeedTypeExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+@Repository
 public interface SpeedTypeMapper {
     int countByExample(SpeedTypeExample example);
 

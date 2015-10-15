@@ -98,10 +98,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.doadway.glodmine.core.model.SpeedType" >
-    insert into speed_type (id, icategory, says, 
+  <insert id="insert" parameterType="com.doadway.glodmine.core.model.SpeedType" keyProperty="id" useGeneratedKeys="true">
+    insert into speed_type (icategory, says, 
       member_id)
-    values (#{id,jdbcType=INTEGER}, #{icategory,jdbcType=VARCHAR}, #{says,jdbcType=VARCHAR}, 
+    values (#{icategory,jdbcType=VARCHAR}, #{says,jdbcType=VARCHAR}, 
       #{memberId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.doadway.glodmine.core.model.SpeedType" >

@@ -24,16 +24,16 @@
             <div class="ui-block-a" style="border: 0px solid black;">
                 <!--<a href="#" data-role="button">收入维护</a>-->
                 <label for="income" >收入</label>
-                <input type="radio" checked="checked" name="type" id="income" value="1">
+                <input type="radio" checked="checked" name="categoryflag" id="income" value="1">
             </div>
             <div class="ui-block-b">
                 <!--<a href="#" data-role="button">支出维护</a>-->
                 <label for="speed">支出</label>
-                <input type="radio" name="type" id="speed" value="2">
+                <input type="radio" name="categoryflag" id="speed" value="2">
             </div>
         </div>
-        <input type="text" name="name" id="name" placeholder="类别名称"/>
-        <input type="text" name="imemo" id="imemo" placeholder="备注说明"/>
+        <input type="text" name="icategory" id="icategory" placeholder="类别名称"/>
+        <input type="text" name="says" id="says" placeholder="备注说明"/>
         <div data-role="controlgroup" data-type="horizontal" align="center">
             <button class="loginBtn" type="submit">保存</button>
             <button class="loginBtn" type="reset">重置</button>
@@ -43,7 +43,7 @@
         <table class="bordered" width="100%" cellspacing="0">
             <tr><th class="ui-block-2">类型</th><th class="ui-block-8">说明</th></tr>
             <tr><td>工资</td><td>记录每月的工资收入情况</td></tr>
-            <tr><td>股票</td><td>记录每月的工资收入情况</td></tr>
+            <tr><td colspan="2">暂无数据</td></tr>
             <tr><td>基金</td><td>记录每月的工资收入情况</td></tr>
             <tr><td>礼金</td><td>结婚同学给的分子钱</td></tr>
         </table>

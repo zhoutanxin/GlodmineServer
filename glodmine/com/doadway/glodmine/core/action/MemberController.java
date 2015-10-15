@@ -25,7 +25,7 @@ public class MemberController extends WWAction {
 	@Resource
 	MemberBiz  userBiz;
 	
-	@RequestMapping(value="/register",method=RequestMethod.GET)
+	@RequestMapping(value="/register",method=RequestMethod.POST)
 	@ResponseBody
 	public  String reg(HttpServletRequest request,Member user,Map<String,Object> mv)  {
 		user.setRegisterTime(new Date(System.currentTimeMillis()));
@@ -62,7 +62,7 @@ public class MemberController extends WWAction {
 	}
 	@RequestMapping(value="/memberInfo",method=RequestMethod.GET)
 	@ResponseBody
-	public  String findByMobile(HttpServletRequest request,String mobilephone)  {
+	public  String memberInfo(HttpServletRequest request,String mobilephone)  {
 		Subject currentUser = SecurityUtils.getSubject();
 		if(currentUser.isAuthenticated()){
 			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
