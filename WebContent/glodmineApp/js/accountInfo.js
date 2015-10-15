@@ -67,7 +67,7 @@ $("#accountInfo").on("pageshow",function(e){
 function updInfo(){
     showLoading('信息修改中...','',false);
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url:Config.root+ "updInfo" ,
         data:$("#accountInfoForm").serialize(),
         dataType: "json",

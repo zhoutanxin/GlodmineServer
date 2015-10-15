@@ -75,7 +75,7 @@ public class MemberController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
-	@RequestMapping(value="/updInfo",method=RequestMethod.GET)
+	@RequestMapping(value="/updInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public  String updInfo(HttpServletRequest request,Member member)  {
 		boolean flag=false;
