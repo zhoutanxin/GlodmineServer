@@ -1,9 +1,15 @@
 package com.doadway.glodmine.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Income {
-    private Integer id;
+public class Income implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8796590910433489214L;
+
+	private Integer id;
 
     private Date idate;
 
@@ -11,7 +17,7 @@ public class Income {
 
     private Float imoney;
 
-    private String imomo;
+    private String imemo;
 
     public Integer getId() {
         return id;
@@ -45,11 +51,11 @@ public class Income {
         this.imoney = imoney;
     }
 
-    public String getImomo() {
-        return imomo;
+    public String getImemo() {
+        return imemo;
     }
 
-    public void setImomo(String imomo) {
-        this.imomo = imomo == null ? null : imomo.trim();
+    public void setImemo(String imemo) {
+        this.imemo = imemo == null ? null : imemo.trim();
     }
 }

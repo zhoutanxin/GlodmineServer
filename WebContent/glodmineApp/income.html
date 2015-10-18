@@ -26,22 +26,21 @@
     </div>
     <div data-role="content">
         <form method="post" id="incomeForm" action="demoform.asp">
-            <input type="text"  data-theme="b" data-role="datebox"  placeholder="进账日期"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
+            <input type="text"  data-theme="b" data-role="datebox"  placeholder="进账日期"  data-options='{"mode":"datebox"}'  name="idate" id="idate">
         <div class="ui-grid-a">
             <div class="ui-block-a" style="border: 0px solid black;">
                 <input type="text" name="imoney" id="imoney" placeholder="进账金额"/>
             </div>
             <div class="ui-block-b">
-                <select name="day" id="type" data-native-menu="false">
-                    <option value="0">类型</option>
-                    <option value="1">投资</option>
-                    <option value="2">借款</option>
-                    <option value="3">水电</option>
+            	<div class="js-nodata">
+                <select name="isource" id="isource" data-native-menu="false" onclick="location.href='type.html';">
+                    <option value="0">请先添加类型</option>
                 </select>
+            	</div>
             </div>
         </div>
 
-        <input type="text" name="imemo" id="imemo" placeholder="备注说明"/>
+        <textArea name="imemo" id="imemo" placeholder="备注说明"></textArea>
         <div data-role="controlgroup" data-type="horizontal" align="center">
             <button class="loginBtn" type="submit">保存</button>
             <button class="loginBtn" type="reset">重置</button>

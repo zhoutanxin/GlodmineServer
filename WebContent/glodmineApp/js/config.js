@@ -6,14 +6,33 @@ Config.domain="http://localhost:8080";
 Config.ctx="GlodmineSever";
 Config.root=Config.domain+"/"+Config.ctx+"/";
 Config.login="login.html";
-Config.ifLogin=function(){
+Config.ifLogin=	false;
+function doNotLogin(){
+	if(!Config.ifLogin){
+		$.mobile.changePage(Config.login,{transition: 'flip'});
+	}
+}
+Config.COOKIE_VALID_CODE ="valid_code";
+$(document).bind("mobileinit", function() {
+    $.mobile.ajaxEnabled=false;
+});
+$(function(){
+	Config.ifLogin=getLoginFlg();	
+	(function ($) {
+	    $.getUrlParam = function (name) {
+	        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	        var r = window.location.search.substr(1).match(reg);
+	        if (r != null) return unescape(r[2]); return null;
+	    }
+	})(jQuery);
+});
+function getLoginFlg(){
     var flg=false;
     $.ajax({
         type: 'GET',
         url:Config.root+ "chklogin" ,
         dataType: "json",
         async:false,
-        crossDomain: true,
         success:function(data){
             if(data==true){
                 flg= true;
@@ -21,12 +40,7 @@ Config.ifLogin=function(){
         }
     });
     return flg;
-};
-Config.ifLogin();
-Config.COOKIE_VALID_CODE ="valid_code";
-$(document).bind("mobileinit", function() {
-    $.mobile.ajaxEnabled=true;
-});
+}
 Date.prototype.format =function(format)
 {
 	var o = {

@@ -1,8 +1,13 @@
 /**
  * Created by Administrator on 2015-09-25.
  */
+var typeflg=1;
 $("#type").on("pageshow",function(e){
 	loadlist4IncomeType();
+	$("input[name='categoryflag']").change(function(){
+		typeflg=$(this).val();
+		loadListByTypeVal($(this).val());
+	});
     $("#typeForm").validate({
         rules:{
         	icategory:{
@@ -37,7 +42,11 @@ $("#type").on("pageshow",function(e){
     });
 
 });
+$("#type").on("pagecreate",function(){
+//	loadlist4IncomeType();
+});
 function savecategory(){
+	doNotLogin();
     showLoading('信息保存中...','',false);
     $.ajax({
         type: 'POST',
@@ -47,28 +56,67 @@ function savecategory(){
         success:function(data){
         	showLoading(data.msg,'',true);
             if(data.flag){
-            	$("#typeForm")[0].reset();
+            	loadListByTypeVal(typeflg);
+            	$("input[name='icategory']").val("");
+            	$("input[name='says']").val("");
             }
             setTimeout(hideLoading(), 1500);
 
         }
     });
 }
+function loadListByTypeVal(categoryflg){
+	if(categoryflg==1){
+		loadlist4IncomeType();
+	}else{
+		loadlist4SpeedType();
+	}
+}
 function loadlist4IncomeType(){
+	doNotLogin();
 	 var htmlc= $.ajax({
 	        type: 'POST',
 	        url:Config.root+ "category/getall4incometyp" ,
 	        dataType: "json",
            async:"false",
 	        success:function(data){
+	        	var noData="<tr><td colspan='2'>暂无数据</td></tr>";
+	        	$("table tr").first().siblings().remove();
 	            if(data.flag){
 	                var json=eval(data.result);
-	                var trData="<tr><td>工资</td><td>记录每月的工资收入情况</td></tr>";
-	                var noDate="<tr><td colspan='2'>暂无数据</td></tr>";
-	                $("table").remove("tr");
-	                alert(json.length);
-	            }
+	                if(json.length>0){
+	                	for(i=0;i<json.length;i++){
+	                		$("table tr").first().after("<tr onclick=\"location.href='typeItem.html?categoryId="+json[i].id+"&categoryflag=1';\"><td>"+json[i].icategory+"</td><td>"+json[i].says+"</td></tr>");
+	                	}
+	                }
+	            }else{
+                	$("table tr").first().after(noData);
+                }
 
 	        }
 	    });
+}
+function loadlist4SpeedType(){
+	doNotLogin();
+	var htmlc= $.ajax({
+		type: 'POST',
+		url:Config.root+ "category/getall4speedtyp" ,
+		dataType: "json",
+		async:"false",
+		success:function(data){
+			var noData="<tr><td colspan='2'>暂无数据</td></tr>";
+			$("table tr").first().siblings().remove();
+			if(data.flag){
+				var json=eval(data.result);
+				if(json.length>0){
+					for(i=0;i<json.length;i++){
+						$("table tr").first().after("<tr onclick=\"location.href='typeItem.html?categoryId="+json[i].id+"&categoryflag=2';\"><td>"+json[i].icategory+"</td><td>"+json[i].says+"</td></tr>");
+					}
+				}
+			}else{
+				$("table tr").first().after(noData);
+			}
+			
+		}
+	});
 }

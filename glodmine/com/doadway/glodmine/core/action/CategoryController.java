@@ -58,6 +58,92 @@ public class CategoryController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
+	@RequestMapping(value="category/update",method=RequestMethod.POST)
+	@ResponseBody
+	public  String update(CategoryDTO category,Integer categoryflag)  {
+		//1代表收入,2代表支出
+		if(categoryflag==1){
+			IncomeType incomeType=categoryBiz.findIncomeTypeById(category.getId());
+			incomeType.setIcategory(category.getIcategory());
+			incomeType.setSays(category.getSays());
+			if(categoryBiz.updateIncomeType(incomeType)){
+				jsonMap.put("flag", true);
+				jsonMap.put("msg", "信息已修改");
+			}else{
+				jsonMap.put("flag", false);
+				jsonMap.put("msg", "修改失败");
+			}
+			
+		} else{
+			SpeedType speedType=categoryBiz.findSpeedTypeById(category.getId());
+			speedType.setIcategory(category.getIcategory());
+			speedType.setSays(category.getSays());
+			if(categoryBiz.updateSpeedType(speedType)){
+				jsonMap.put("flag", true);
+				jsonMap.put("msg", "信息已修改");
+			}else{
+				jsonMap.put("flag", false);
+				jsonMap.put("msg", "修改失败");
+			}
+		}
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
+	@RequestMapping(value="category/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public  String delete(CategoryDTO category,Integer categoryflag)  {
+		//1代表收入,2代表支出
+		if(categoryflag==1){
+			IncomeType incomeType=categoryBiz.findIncomeTypeById(category.getId());
+			if(incomeType!=null){
+				categoryBiz.delIncomeTypeById(incomeType.getId());
+				jsonMap.put("flag", true);
+				jsonMap.put("msg", "信息已删除");
+			}else{
+				jsonMap.put("flag", false);
+				jsonMap.put("msg", "信息不存在");
+			}
+			
+		} else{
+			SpeedType speedType=categoryBiz.findSpeedTypeById(category.getId());
+			if(speedType!=null){
+				categoryBiz.delSpeedTypeById(speedType.getId());
+				jsonMap.put("flag", true);
+				jsonMap.put("msg", "信息已删除");
+			}else{
+				jsonMap.put("flag", false);
+				jsonMap.put("msg", "信息不存在");
+			}
+		}
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
+	@RequestMapping(value="category/findIncome",method=RequestMethod.POST)
+	@ResponseBody
+	public  String findIncome(Integer categoryId)  {
+			IncomeType incomeType=categoryBiz.findIncomeTypeById(categoryId);
+			if(incomeType!=null){
+				jsonMap.put("flag", true);
+				jsonMap.put("result", incomeType);
+			}else{
+				jsonMap.put("flag", false);
+				jsonMap.put("result", null);
+			}
+			
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
+	@RequestMapping(value="category/findSpeed",method=RequestMethod.POST)
+	@ResponseBody
+	public  String findSpeed(Integer categoryId)  {
+		SpeedType speedType=categoryBiz.findSpeedTypeById(categoryId);
+		if(speedType!=null){
+			jsonMap.put("flag", true);
+			jsonMap.put("result", speedType);
+		}else{
+			jsonMap.put("flag", false);
+			jsonMap.put("result", null);
+		}
+		
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
 	@RequestMapping(value="category/getall4incometyp",method=RequestMethod.POST)
 	@ResponseBody
 	public  String getall4incometyp()  {

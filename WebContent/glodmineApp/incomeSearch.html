@@ -28,8 +28,8 @@
         <form method="post" id="searchForm" action="demoform.asp">
             <input type="text"  data-theme="b" data-role="datebox"  placeholder="开始时间"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
             <input type="text"  data-theme="b" data-role="datebox"  placeholder="结束时间"  data-options='{"mode":"datebox"}'  name="endTime" id="endTime">
-                <select name="day" id="day" data-native-menu="false">
-                    <option value="0">不限类型</option>
+                <select name="categoryId" id="categoryId" data-native-menu="false">
+                    <option value="0">不限</option>
                     <option value="1">工资</option>
                     <option value="2">压岁钱</option>
                     <option value="3">捡到的</option>
@@ -41,10 +41,10 @@
 
         <table class="bordered" width="100%" cellspacing="0">
             <tr><th class="ui-block-4">日期</th><th class="ui-block-2">类型</th><th class="ui-block-4">金额</th></tr>
-            <tr onclick="$.mobile.changePage('incomeItemDetail.html',{transition: 'flow'});"><td>2015-09-20</td><td>工资</td><td>￥1822.10</td></tr>
+<!--             <tr onclick="$.mobile.changePage('incomeItemDetail.html',{transition: 'flow'});"><td>2015-09-20</td><td>工资</td><td>￥1822.10</td></tr>
             <tr><td>2015-09-20</td><td>股票</td><td>￥200</td></tr>
-            <tr><td>2015-09-20</td><td>基金</td><td>￥0</td></tr>
-            <tr><td>2015-09-20</td><td>礼金</td><td>￥1500</td></tr>
+            <tr><td>2015-09-20</td><td>基金</td><td>￥0</td></tr> -->
+            <tr><td align="center" colspan="3">暂无数据</td></tr>
         </table>
     </div>
 

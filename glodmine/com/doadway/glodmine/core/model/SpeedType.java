@@ -1,7 +1,14 @@
 package com.doadway.glodmine.core.model;
 
-public class SpeedType {
-    private Integer id;
+import java.io.Serializable;
+
+public class SpeedType implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8583714776338757583L;
+
+	private Integer id;
 
     private String icategory;
 

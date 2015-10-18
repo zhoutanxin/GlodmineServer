@@ -41,10 +41,10 @@
 
 		<!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名 -->
 		<!--  配置相关表映射  -->
-		<table tableName="MEMBER" domainObjectName="Member" enableSelectByExample="true"/>
-<!-- 		<table tableName="INCOME_TYPE" domainObjectName="IncomeType" enableSelectByExample="true"/>
 		<table tableName="INCOME" domainObjectName="Income" enableSelectByExample="true"/>
 		<table tableName="SPEED" domainObjectName="Speed" enableSelectByExample="true"/>
+<!-- 		<table tableName="MEMBER" domainObjectName="Member" enableSelectByExample="true"/>
+		<table tableName="INCOME_TYPE" domainObjectName="IncomeType" enableSelectByExample="true"/>
 		<table tableName="SPEED_TYPE" domainObjectName="SpeedType" enableSelectByExample="true"/> -->
 
 	</context>

@@ -12,8 +12,3 @@ function loginout(){
         }
     });
 }
-$("#home").on("pageshow",function(e){
-    if(false){
-        $.mobile.changePage(Config.login,{transition: 'slideup'});
-    }
-});

@@ -1,9 +1,15 @@
 package com.doadway.glodmine.core.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Speed {
-    private Integer id;
+public class Speed implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5491744750471773388L;
+
+	private Integer id;
 
     private Date idate;
 
@@ -11,7 +17,7 @@ public class Speed {
 
     private Float imoney;
 
-    private String imomo;
+    private String imemo;
 
     public Integer getId() {
         return id;
@@ -45,11 +51,11 @@ public class Speed {
         this.imoney = imoney;
     }
 
-    public String getImomo() {
-        return imomo;
+    public String getImemo() {
+        return imemo;
     }
 
-    public void setImomo(String imomo) {
-        this.imomo = imomo == null ? null : imomo.trim();
+    public void setImemo(String imemo) {
+        this.imemo = imemo == null ? null : imemo.trim();
     }
 }

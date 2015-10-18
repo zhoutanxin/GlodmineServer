@@ -39,9 +39,9 @@
       </property>  
       <property name="patterns">  
         <list>  
-            <value>com.*.*.biz.impl.*find.*</value>  
+            <!-- <value>com.*.*.biz.impl.*find.*</value>  --> 
             <value>com.*.*.biz.impl.*create.*</value>  
-            <value>com.*.*.dao.*select.*</value>  
+            <!-- <value>com.*.*.dao.*select.*</value> -->  
         </list>  
       </property>  
     </bean>

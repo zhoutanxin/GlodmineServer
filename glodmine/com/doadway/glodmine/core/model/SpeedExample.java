@@ -345,73 +345,73 @@ public class SpeedExample {
             return (Criteria) this;
         }
 
-        public Criteria andImomoIsNull() {
-            addCriterion("imomo is null");
+        public Criteria andImemoIsNull() {
+            addCriterion("imemo is null");
             return (Criteria) this;
         }
 
-        public Criteria andImomoIsNotNull() {
-            addCriterion("imomo is not null");
+        public Criteria andImemoIsNotNull() {
+            addCriterion("imemo is not null");
             return (Criteria) this;
         }
 
-        public Criteria andImomoEqualTo(String value) {
-            addCriterion("imomo =", value, "imomo");
+        public Criteria andImemoEqualTo(String value) {
+            addCriterion("imemo =", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoNotEqualTo(String value) {
-            addCriterion("imomo <>", value, "imomo");
+        public Criteria andImemoNotEqualTo(String value) {
+            addCriterion("imemo <>", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoGreaterThan(String value) {
-            addCriterion("imomo >", value, "imomo");
+        public Criteria andImemoGreaterThan(String value) {
+            addCriterion("imemo >", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoGreaterThanOrEqualTo(String value) {
-            addCriterion("imomo >=", value, "imomo");
+        public Criteria andImemoGreaterThanOrEqualTo(String value) {
+            addCriterion("imemo >=", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoLessThan(String value) {
-            addCriterion("imomo <", value, "imomo");
+        public Criteria andImemoLessThan(String value) {
+            addCriterion("imemo <", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoLessThanOrEqualTo(String value) {
-            addCriterion("imomo <=", value, "imomo");
+        public Criteria andImemoLessThanOrEqualTo(String value) {
+            addCriterion("imemo <=", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoLike(String value) {
-            addCriterion("imomo like", value, "imomo");
+        public Criteria andImemoLike(String value) {
+            addCriterion("imemo like", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoNotLike(String value) {
-            addCriterion("imomo not like", value, "imomo");
+        public Criteria andImemoNotLike(String value) {
+            addCriterion("imemo not like", value, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoIn(List<String> values) {
-            addCriterion("imomo in", values, "imomo");
+        public Criteria andImemoIn(List<String> values) {
+            addCriterion("imemo in", values, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoNotIn(List<String> values) {
-            addCriterion("imomo not in", values, "imomo");
+        public Criteria andImemoNotIn(List<String> values) {
+            addCriterion("imemo not in", values, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoBetween(String value1, String value2) {
-            addCriterion("imomo between", value1, value2, "imomo");
+        public Criteria andImemoBetween(String value1, String value2) {
+            addCriterion("imemo between", value1, value2, "imemo");
             return (Criteria) this;
         }
 
-        public Criteria andImomoNotBetween(String value1, String value2) {
-            addCriterion("imomo not between", value1, value2, "imomo");
+        public Criteria andImemoNotBetween(String value1, String value2) {
+            addCriterion("imemo not between", value1, value2, "imemo");
             return (Criteria) this;
         }
     }

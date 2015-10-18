@@ -1,32 +1,32 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.doadway.glodmine.core.dao.SpeedMapper" >
-  <resultMap id="BaseResultMap" type="com.doadway.glodmine.core.model.Speed" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="idate" property="idate" jdbcType="TIMESTAMP" />
-    <result column="isource" property="isource" jdbcType="INTEGER" />
-    <result column="imoney" property="imoney" jdbcType="REAL" />
-    <result column="imomo" property="imomo" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.doadway.glodmine.core.dao.SpeedMapper">
+  <resultMap id="BaseResultMap" type="com.doadway.glodmine.core.model.Speed">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="idate" jdbcType="TIMESTAMP" property="idate" />
+    <result column="isource" jdbcType="INTEGER" property="isource" />
+    <result column="imoney" jdbcType="REAL" property="imoney" />
+    <result column="imemo" jdbcType="VARCHAR" property="imemo" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -37,25 +37,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -66,146 +66,146 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
-    id, idate, isource, imoney, imomo
+  <sql id="Base_Column_List">
+    id, idate, isource, imoney, imemo
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.doadway.glodmine.core.model.SpeedExample" >
+  <select id="selectByExample" parameterType="com.doadway.glodmine.core.model.SpeedExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
     from speed
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from speed
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from speed
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.doadway.glodmine.core.model.SpeedExample" >
+  <delete id="deleteByExample" parameterType="com.doadway.glodmine.core.model.SpeedExample">
     delete from speed
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.doadway.glodmine.core.model.Speed" >
+  <insert id="insert" parameterType="com.doadway.glodmine.core.model.Speed">
     insert into speed (id, idate, isource, 
-      imoney, imomo)
+      imoney, imemo)
     values (#{id,jdbcType=INTEGER}, #{idate,jdbcType=TIMESTAMP}, #{isource,jdbcType=INTEGER}, 
-      #{imoney,jdbcType=REAL}, #{imomo,jdbcType=VARCHAR})
+      #{imoney,jdbcType=REAL}, #{imemo,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.doadway.glodmine.core.model.Speed" >
+  <insert id="insertSelective" parameterType="com.doadway.glodmine.core.model.Speed">
     insert into speed
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="idate != null" >
+      <if test="idate != null">
         idate,
       </if>
-      <if test="isource != null" >
+      <if test="isource != null">
         isource,
       </if>
-      <if test="imoney != null" >
+      <if test="imoney != null">
         imoney,
       </if>
-      <if test="imomo != null" >
-        imomo,
+      <if test="imemo != null">
+        imemo,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="idate != null" >
+      <if test="idate != null">
         #{idate,jdbcType=TIMESTAMP},
       </if>
-      <if test="isource != null" >
+      <if test="isource != null">
         #{isource,jdbcType=INTEGER},
       </if>
-      <if test="imoney != null" >
+      <if test="imoney != null">
         #{imoney,jdbcType=REAL},
       </if>
-      <if test="imomo != null" >
-        #{imomo,jdbcType=VARCHAR},
+      <if test="imemo != null">
+        #{imemo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.doadway.glodmine.core.model.SpeedExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.doadway.glodmine.core.model.SpeedExample" resultType="java.lang.Integer">
     select count(*) from speed
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update speed
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.idate != null" >
+      <if test="record.idate != null">
         idate = #{record.idate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.isource != null" >
+      <if test="record.isource != null">
         isource = #{record.isource,jdbcType=INTEGER},
       </if>
-      <if test="record.imoney != null" >
+      <if test="record.imoney != null">
         imoney = #{record.imoney,jdbcType=REAL},
       </if>
-      <if test="record.imomo != null" >
-        imomo = #{record.imomo,jdbcType=VARCHAR},
+      <if test="record.imemo != null">
+        imemo = #{record.imemo,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update speed
     set id = #{record.id,jdbcType=INTEGER},
       idate = #{record.idate,jdbcType=TIMESTAMP},
       isource = #{record.isource,jdbcType=INTEGER},
       imoney = #{record.imoney,jdbcType=REAL},
-      imomo = #{record.imomo,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
+      imemo = #{record.imemo,jdbcType=VARCHAR}
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.glodmine.core.model.Speed" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.doadway.glodmine.core.model.Speed">
     update speed
-    <set >
-      <if test="idate != null" >
+    <set>
+      <if test="idate != null">
         idate = #{idate,jdbcType=TIMESTAMP},
       </if>
-      <if test="isource != null" >
+      <if test="isource != null">
         isource = #{isource,jdbcType=INTEGER},
       </if>
-      <if test="imoney != null" >
+      <if test="imoney != null">
         imoney = #{imoney,jdbcType=REAL},
       </if>
-      <if test="imomo != null" >
-        imomo = #{imomo,jdbcType=VARCHAR},
+      <if test="imemo != null">
+        imemo = #{imemo,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.doadway.glodmine.core.model.Speed" >
+  <update id="updateByPrimaryKey" parameterType="com.doadway.glodmine.core.model.Speed">
     update speed
     set idate = #{idate,jdbcType=TIMESTAMP},
       isource = #{isource,jdbcType=INTEGER},
       imoney = #{imoney,jdbcType=REAL},
-      imomo = #{imomo,jdbcType=VARCHAR}
+      imemo = #{imemo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
