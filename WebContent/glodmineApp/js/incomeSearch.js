@@ -4,19 +4,39 @@
 //是否可滚动
 stop=true;
 //浏览器的高度加上滚动条的高度 
-totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
-$(function(){
-		$(window).scroll(function () {
-            if ($("body").height() <= totalheight) {
-            	if(stop==true){ 
-					stop=false; 
-					quryList4Income();
-				}            	
-            }
-        });		
-});
+//totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+//$(function(){
+//		$(window).scroll(function () {
+//            if ($("body").height() <= totalheight) {
+//            	if(stop==true){ 
+//					stop=false; 
+//					quryList4Income();
+//				}            	
+//            }
+//        });		
+//});
+var totalheight = 0; 
+
+$(window).scroll( function() { 
+    console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop()); 
+    console.log("页面的文档高度 ："+$(document).height());
+    console.log('浏览器的高度：'+$(window).height());
+    totalheight =$(window).height() + $(window).scrollTop();     //浏览器的高度加上滚动条的高度 
+    if ($(document).height() <= totalheight&&stop)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
+    { 
+        //加载数据
+    	$("table").append("<tr><td align='center' colspan=\"3\">我是新加载出来的数据</td></tr>");
+    	if(1==2){
+    		stop=false;
+    	}else{
+    		stop=true;
+    	}
+    } 
+}); 
+
 $("#incomeSearch").on("pageshow",function(e){
 	buildIncomeType();
+	quryList4Income();
     $("#searchForm").validate({
         rules:{
             startTime:{
