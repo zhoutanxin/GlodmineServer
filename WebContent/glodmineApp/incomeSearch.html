@@ -8,7 +8,6 @@
     <script src="js/config.js"></script>
     <script src="static/jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <script src="static/iscroll-master/build/iscroll.js"></script>
 </head>
 <body>
 <div data-role="page" id="incomeSearch">
@@ -28,6 +27,7 @@
     <div data-role="content">
         <form method="post" id="searchForm" action="demoform.asp">
         	<input type="hidden" name="currentPage" id="currentPage" value="1" placeholder="当前页"/>
+        	<input type="hidden" name="showCount" id="showCount" value="15" placeholder="每页显示条数"/>
             <input type="text"  data-theme="b" data-role="datebox"  placeholder="开始时间"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
             <input type="text"  data-theme="b" data-role="datebox"  placeholder="结束时间"  data-options='{"mode":"datebox"}'  name="endTime" id="endTime">
                 <select name="categoryId" id="categoryId" data-native-menu="false">
@@ -44,8 +44,9 @@
 		            <tr><th class="ui-block-4">日期</th><th class="ui-block-2">类型</th><th class="ui-block-4">金额</th></tr>
 		<!--             <tr onclick="$.mobile.changePage('incomeItemDetail.html',{transition: 'flow'});"><td>2015-09-20</td><td>工资</td><td>￥1822.10</td></tr>
 		            <tr><td>2015-09-20</td><td>股票</td><td>￥200</td></tr>
-		            <tr><td>2015-09-20</td><td>基金</td><td>￥0</td></tr> -->
+		            <tr><td>2015-09-20</td><td>基金</td><td>￥0</td></tr> 
 		            <tr><td align="center" colspan="3">暂无数据</td></tr>
+		            -->
 		        </table>
     </div>
 

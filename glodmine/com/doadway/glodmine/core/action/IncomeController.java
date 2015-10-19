@@ -80,6 +80,16 @@ public class IncomeController extends WWAction {
 		if(endTime!=null){
 			params.put("endTime", endTime);
 		}
+		//查询最近30天的记录
+		if(startTime==null&&endTime==null){
+			params.put("endTime", new Date(System.currentTimeMillis()));
+		
+			Calendar date = Calendar.getInstance();
+			Date currentDate = new Date(System.currentTimeMillis());
+			date.setTime(currentDate);
+			date.set(Calendar.DATE, date.get(Calendar.DATE) - 30);
+			params.put("startTime", date.getTime());
+		}
 		if(categoryId!=0&&categoryId!=-1){
 			params.put("categoryId", categoryId);
 		}
@@ -87,6 +97,7 @@ public class IncomeController extends WWAction {
 		if(incomeList!=null&&incomeList.size()>0){
 			jsonMap.put("flag", true);
 			jsonMap.put("result", incomeList);
+			jsonMap.put("page", page);
 		}else{
 			jsonMap.put("flag", false);
 			jsonMap.put("result", null);

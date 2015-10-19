@@ -18,19 +18,15 @@ stop=true;
 var totalheight = 0; 
 
 $(window).scroll( function() { 
-    console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop()); 
-    console.log("页面的文档高度 ："+$(document).height());
-    console.log('浏览器的高度：'+$(window).height());
+//    console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop()); 
+//    console.log("页面的文档高度 ："+$(document).height());
+//    console.log('浏览器的高度：'+$(window).height());
     totalheight =$(window).height() + $(window).scrollTop();     //浏览器的高度加上滚动条的高度 
     if ($(document).height() <= totalheight&&stop)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
     { 
         //加载数据
-    	$("table").append("<tr><td align='center' colspan=\"3\">我是新加载出来的数据</td></tr>");
-    	if(1==2){
-    		stop=false;
-    	}else{
-    		stop=true;
-    	}
+    	quryList4Income();
+
     } 
 }); 
 
@@ -64,6 +60,8 @@ $("#incomeSearch").on("pageshow",function(e){
             }
         },
         submitHandler:function(form){
+        	$("table tr").first().siblings().remove();
+        	$("#currentPage").val(1);
         	quryList4Income();
         }
     });
@@ -71,7 +69,6 @@ $("#incomeSearch").on("pageshow",function(e){
 });
 function buildIncomeType(){
 	doNotLogin();
-	showLoading('加载中...','',false);
 	 var htmlc= $.ajax({
 	        type: 'POST',
 	        url:Config.root+ "category/getall4incometyp" ,
@@ -91,34 +88,39 @@ function buildIncomeType(){
 	            }else{
 	            	$(".js-nodata").click(function(){$("#isource").selectmenu("close");location.href=location.href='type.html';});
 	            }
-	            showLoading(data.msg,'',false);
-	            setTimeout(function(){hideLoading();}, 1500);
 
 	        }
 	    });
 }
 function quryList4Income(){
 	doNotLogin();
+	showLoading('加载中...','',false);
 	 var htmlc= $.ajax({
 	        type: 'POST',
 	        url:Config.root+ "income/querylist" ,
 	        dataType: "json",
 	        data:$("#searchForm").serialize(),
+	        async : false,
 	        success:function(data){
 	        	var noData="<tr><td align='center' colspan=\"3\">暂无数据</td></tr>";
-	        	$("table tr").first().siblings().remove();
 	            if(data.flag){
 	                var json=eval(data.result);
 	                if(json.length>0){
 	                	for(var i=0;i<json.length;i++){
-	                		$("table tr").first().after("<tr onclick=\"location.href='incomeItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd")+"</td><td>"+json[i].icategory+"</td><td>"+json[i].imoney+"</td></tr>");
+	                		$("table").append("<tr onclick=\"location.href='incomeItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd")+"</td><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
 	                	}
 	                }
-	                stop=true;
+	                var page=eval(data.page);
+	            	if($("#currentPage").val()==page.totalPage){
+	            		stop=false;
+	            	}else{
+	            		stop=true;
+	            	}
+	            	$("#currentPage").val(page.currentPage+1);
 	            }else{
-                	$("table tr").first().after(noData);
+	            	$("table").append(noData);
                 }
-
+	            setTimeout(function(){hideLoading();}, 1000);
 	        }
 	    });
 }
