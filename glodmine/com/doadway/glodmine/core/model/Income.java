@@ -14,7 +14,9 @@ public class Income implements Serializable{
     private Date idate;
 
     private Integer isource;
-
+    
+    private String icategory;
+    
     private Float imoney;
 
     private String imemo;
@@ -39,7 +41,15 @@ public class Income implements Serializable{
         return isource;
     }
 
-    public void setIsource(Integer isource) {
+    public String getIcategory() {
+		return icategory;
+	}
+
+	public void setIcategory(String icategory) {
+		this.icategory = icategory;
+	}
+
+	public void setIsource(Integer isource) {
         this.isource = isource;
     }
 

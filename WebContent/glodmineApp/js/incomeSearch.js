@@ -1,6 +1,20 @@
 /**
  * Created by Administrator on 2015-09-25.
  */
+//是否可滚动
+stop=true;
+//浏览器的高度加上滚动条的高度 
+totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+$(function(){
+		$(window).scroll(function () {
+            if ($("body").height() <= totalheight) {
+            	if(stop==true){ 
+					stop=false; 
+					quryList4Income();
+				}            	
+            }
+        });		
+});
 $("#incomeSearch").on("pageshow",function(e){
 	buildIncomeType();
     $("#searchForm").validate({
@@ -37,6 +51,7 @@ $("#incomeSearch").on("pageshow",function(e){
 });
 function buildIncomeType(){
 	doNotLogin();
+	showLoading('加载中...','',false);
 	 var htmlc= $.ajax({
 	        type: 'POST',
 	        url:Config.root+ "category/getall4incometyp" ,
@@ -48,7 +63,7 @@ function buildIncomeType(){
 	                $("#categoryId").empty();
 	                $("#categoryId").append("<option value='0'>不限</option>");
 	                if(json.length>0){
-	                	for(i=0;i<json.length;i++){
+	                	for(var i=0;i<json.length;i++){
 	                		$("#categoryId").append("<option value='"+json[i].id+"'>"+json[i].icategory+"</option>");
 	                	}
 	                	$("#categoryId").selectmenu("refresh", true);
@@ -56,6 +71,8 @@ function buildIncomeType(){
 	            }else{
 	            	$(".js-nodata").click(function(){$("#isource").selectmenu("close");location.href=location.href='type.html';});
 	            }
+	            showLoading(data.msg,'',false);
+	            setTimeout(function(){hideLoading();}, 1500);
 
 	        }
 	    });
@@ -73,10 +90,11 @@ function quryList4Income(){
 	            if(data.flag){
 	                var json=eval(data.result);
 	                if(json.length>0){
-	                	for(i=0;i<json.length;i++){
-	                		$("table tr").first().after("<tr onclick=\"location.href='incomeItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd")+"</td><td>"+json[i].isource+"</td><td>"+json[i].imoney+"</td></tr>");
+	                	for(var i=0;i<json.length;i++){
+	                		$("table tr").first().after("<tr onclick=\"location.href='incomeItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd")+"</td><td>"+json[i].icategory+"</td><td>"+json[i].imoney+"</td></tr>");
 	                	}
 	                }
+	                stop=true;
 	            }else{
                 	$("table tr").first().after(noData);
                 }

@@ -73,11 +73,13 @@ public class IncomeController extends WWAction {
 	@RequestMapping(value="income/querylist",method=RequestMethod.POST)
 	@ResponseBody
 	public  String querylist(Page page,Date startTime,Date endTime,Integer categoryId)  {
-		page.setShowCount(2);
-		page.setCurrentPage(2);
 		Map<String, Object> params =new HashMap<String,Object>();
-		params.put("startTime", startTime);
-		params.put("endTime", endTime);
+		if(startTime!=null){
+			params.put("startTime", startTime);
+		}
+		if(endTime!=null){
+			params.put("endTime", endTime);
+		}
 		if(categoryId!=0&&categoryId!=-1){
 			params.put("categoryId", categoryId);
 		}

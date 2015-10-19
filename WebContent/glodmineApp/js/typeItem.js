@@ -99,7 +99,7 @@ function updcategory(){
         error:function(XMLHttpRequest){
         	if(XMLHttpRequest.status==404){
         		showLoading('404错误','',true);
-        		setTimeout(function(){hideLoading()}, 2000);
+        		setTimeout(function(){hideLoading();}, 2000);
         		
         	};
         	

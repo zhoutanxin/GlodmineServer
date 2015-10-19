@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="idate" jdbcType="TIMESTAMP" property="idate" />
     <result column="isource" jdbcType="INTEGER" property="isource" />
+	<result property="icategory"  jdbcType="VARCHAR"  column="icategory"></result>
     <result column="imoney" jdbcType="REAL" property="imoney" />
     <result column="imemo" jdbcType="VARCHAR" property="imemo" />
   </resultMap>
@@ -86,8 +87,8 @@
   
   <select id="selectIncomeByPage" resultMap="BaseResultMap" >
     select
-    <include refid="Base_Column_List" /> 
-    from income 
+    	income.id, income.idate, income.isource, income.imoney, income.imemo ,income_type.icategory
+    from income left join income_type  on income.isource=income_type.id
  	where 1=1 
  	<if test="params.startTime!=null"> 
 	 		<![CDATA[
