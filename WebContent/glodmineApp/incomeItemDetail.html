@@ -10,13 +10,15 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div data-role="page" id="incomeItem">
+<div data-role="page" id="incomeItem" ng-app>
+	<script src="http://code.angularjs.org/angular-1.1.0.min.js"></script>
+	<script src="js/incomeItemDetail.js"></script>
     <div data-role="header" data-theme="b">
         <h1>收入明细</h1>
         <a href="#" data-ajax="false" onclick="$.mobile.changePage('incomeSearch.html',{transition: 'flip'});" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
     </div>
 
-    <div data-role="content">
+    <div data-role="content" ng-controller="loadIncome">
             <table class="bordered" width="100%" cellspacing="0">
                 <tr><td class="ui-block-2">日期:</td><td class="ui-block-4">2015-09-11</td><td class="ui-block-2">金额:</td><td class="ui-block-2">￥9985.25</td></tr>
                 <tr><td  class="ui-block-2">来源:</td><td colspan="3">工资</td></tr>
