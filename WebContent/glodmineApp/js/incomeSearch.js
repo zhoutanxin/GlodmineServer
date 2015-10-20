@@ -29,7 +29,7 @@ $(window).scroll( function() {
 
     } 
 }); 
-$('body').perfectScrollbar({minScrollbarLength:100});
+$('body').perfectScrollbar({suppressScrollX:true});
 $("#incomeSearch").on("pageshow",function(e){
 	buildIncomeType();
 	quryList4Income();
