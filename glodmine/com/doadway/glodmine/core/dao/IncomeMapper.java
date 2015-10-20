@@ -34,4 +34,6 @@ public interface IncomeMapper {
     int updateByPrimaryKey(Income record);
     
     public List<Income> selectIncomeByPage(@Param("page")Page page,@Param("params")Map<String, Object> params);
+    
+    public List<Income> countIncomeByDate(@Param("params")Map<String, Object> params);
 }

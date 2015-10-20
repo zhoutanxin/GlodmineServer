@@ -107,11 +107,37 @@
  </select> 
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from income
-    where id = #{id,jdbcType=INTEGER}
+    select
+    	income.id, income.idate, income.isource, income.imoney, income.imemo ,income_type.icategory
+    from income left join income_type  on income.isource=income_type.id
+    where income.id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="countIncomeByDate" resultMap="BaseResultMap" >
+		SELECT
+			income.isource,
+			Sum(income.imoney) AS imoney,
+			income_type.icategory
+		FROM
+			income ,
+			income_type
+		WHERE
+		income.isource = income_type.id
+	 	<if test="params.startTime!=null"> 
+		 		<![CDATA[
+			 		and income.idate >= 
+				 ]]> #{params.startTime}
+	 	</if> 
+	 	 <if test="params.endTime!=null">
+		 		 <![CDATA[
+			 		and income.idate <= 
+			 	  ]]> #{params.endTime} 
+	 	</if>  		
+		GROUP BY
+		income.isource
+	 	order by income.idate desc 
+ 	</select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from income
     where id = #{id,jdbcType=INTEGER}

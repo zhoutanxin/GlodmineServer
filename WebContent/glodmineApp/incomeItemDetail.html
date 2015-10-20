@@ -10,26 +10,40 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div data-role="page" id="incomeItem" ng-app>
-	<script src="http://code.angularjs.org/angular-1.1.0.min.js"></script>
+<div data-role="page" id="incomeDetail">
 	<script src="js/incomeItemDetail.js"></script>
     <div data-role="header" data-theme="b">
         <h1>收入明细</h1>
         <a href="#" data-ajax="false" onclick="$.mobile.changePage('incomeSearch.html',{transition: 'flip'});" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
     </div>
 
-    <div data-role="content" ng-controller="loadIncome">
+    <div data-role="content">
             <table class="bordered" width="100%" cellspacing="0">
-                <tr><td class="ui-block-2">日期:</td><td class="ui-block-4">2015-09-11</td><td class="ui-block-2">金额:</td><td class="ui-block-2">￥9985.25</td></tr>
-                <tr><td  class="ui-block-2">来源:</td><td colspan="3">工资</td></tr>
-                <tr><td  class="ui-block-2">描述:</td><td colspan="3">每月工资</td></tr>
+                <tr><td class="ui-block-2">日期:</td><td class="ui-block-4"><span id="idate"></span></td><td class="ui-block-2">金额:</td><td class="ui-block-2">￥<span id="imoney"></span></td></tr>
+                <tr><td  class="ui-block-2">来源:</td><td colspan="3"><span id="icategory"></span></td></tr>
+                <tr><td  class="ui-block-2">描述:</td><td colspan="3"><span id="imemo"></span></td></tr>
             </table>
-            <a href="#" data-role="button">删除</a>
+            <a type="button" href="#alertInfo" data-rel="dialog">删除</a>
     </div>
 
 <!--    <div data-role="footer"  data-position="fixed" data-theme="b"  >
         <h5>多维矩阵网络科技 @版权2015-2020</h5>
     </div>-->
+</div>
+<div data-role="page" id="alertInfo">
+		<script type="text/javascript">
+		$(".delBtn").click(function(){
+			delIncome();
+		});
+		</script>
+		<div data-role="header" data-theme="d">
+			<h1>提示:</h1>
+		</div>
+		<div data-role="content" data-theme="c">
+			<p>确认删除?</p>
+			<a data-ajax="false" rel="external" href="javascript:void(0);" data-role="button" data-rel="back" class="delBtn"  data-theme="b">确定</a>       
+			<a data-ajax="false" rel="external" href="javascript:void(0);" data-role="button" data-rel="back" data-theme="c">取消</a> 			
+		</div>
 </div>
 </body>
 </html>

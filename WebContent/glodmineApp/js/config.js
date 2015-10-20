@@ -13,8 +13,11 @@ function doNotLogin(){
 	}
 }
 Config.COOKIE_VALID_CODE ="valid_code";
+Config.COOKIE_SMS_CODE ="sms_code";
 $(document).bind("mobileinit", function() {
     $.mobile.ajaxEnabled=false;
+//    $.mobile.linkBindingEnabled = false;
+//    $.mobile.hashListeningEnabled = false;
 });
 $(function(){
 	Config.ifLogin=getLoginFlg();	

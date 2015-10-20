@@ -1,10 +1,10 @@
 /**
  * Created by Administrator on 2015-09-25.
  */
-$("#typeItem").on("pageshow",function(e){
-	//loadIncome();
+$("#incomeDetail").on("pageshow",function(e){
+	loadIncome();
 });
-function loadIncome($scope){
+function loadIncome(){
 	doNotLogin();
 	 var htmlc= $.ajax({
 	        type: 'POST',
@@ -15,8 +15,10 @@ function loadIncome($scope){
 	        success:function(data){
 	            if(data.flag){
 	            	var json=eval(data.result);
-	            	$scope.incomeDetail=json;
-	            	alert(json.id);
+	            	$("#idate").text(new Date(json.idate.time).format("yyyy-MM-dd"));
+	            	$("#imoney").text(json.imoney);
+	            	$("#icategory").text(json.icategory);
+	            	$("#imemo").text(json.imemo);
 	            }
 	        }
 	    });
@@ -34,7 +36,7 @@ function delIncome(){
         	showLoading(data.msg,'',true);
             if(data.flag){
             	setTimeout(function(){hideLoading()}, 1500);
-            	location.href='type.html';
+            	location.href='incomeSearch.html';
             }
 
         },

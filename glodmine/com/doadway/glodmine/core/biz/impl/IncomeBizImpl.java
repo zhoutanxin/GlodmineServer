@@ -48,7 +48,7 @@ public class IncomeBizImpl implements IncomeBiz {
 	@Override
 	public List<Income> countIncomeByDate(Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		return null;
+		return incomeDAO.countIncomeByDate(params);
 	}
 
 }

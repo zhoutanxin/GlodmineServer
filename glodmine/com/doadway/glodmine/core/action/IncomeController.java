@@ -105,6 +105,38 @@ public class IncomeController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
+	@RequestMapping(value="income/countbydate",method=RequestMethod.POST)
+	@ResponseBody
+	public  String countbydate(Date startTime,Date endTime,Integer categoryId)  {
+		Map<String, Object> params =new HashMap<String,Object>();
+		if(startTime!=null){
+			params.put("startTime", startTime);
+		}
+		if(endTime!=null){
+			params.put("endTime", endTime);
+		}
+		//查询最近30天的记录
+		if(startTime==null&&endTime==null){
+			params.put("endTime", new Date(System.currentTimeMillis()));
+			
+			Calendar date = Calendar.getInstance();
+			Date currentDate = new Date(System.currentTimeMillis());
+			date.setTime(currentDate);
+			date.set(Calendar.DATE, date.get(Calendar.DATE) - 30);
+			params.put("startTime", date.getTime());
+		}
+		List<Income> incomeList=incomeBiz.countIncomeByDate(params);
+		if(incomeList!=null&&incomeList.size()>0){
+			jsonMap.put("flag", true);
+			jsonMap.put("result", incomeList);
+			jsonMap.put("page", page);
+		}else{
+			jsonMap.put("flag", false);
+			jsonMap.put("result", null);
+			jsonMap.put("msg", "信息不存在");
+		}
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
 	
 
 }

@@ -8,7 +8,8 @@ function loginout(){
         dataType: "json",
         success:function(data){
             var json=eval(data);
-            $.mobile.changePage(Config.login,{transition: 'slideup'});
+//            $.mobile.changePage(Config.login,{transition: 'slideup'});
+            location.href=Config.login;
         }
     });
 }
