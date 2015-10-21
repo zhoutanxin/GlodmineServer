@@ -1,9 +1,12 @@
 package com.doadway.glodmine.core.dao;
 
+import com.doadway.framework.pager.Page;
+import com.doadway.glodmine.core.model.Income;
 import com.doadway.glodmine.core.model.Speed;
 import com.doadway.glodmine.core.model.SpeedExample;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -30,4 +33,8 @@ public interface SpeedMapper {
     int updateByPrimaryKeySelective(Speed record);
 
     int updateByPrimaryKey(Speed record);
+    
+    public List<Speed> selectSpeedByPage(@Param("page")Page page,@Param("params")Map<String, Object> params);
+    
+    public List<Speed> countSpeedByDate(@Param("params")Map<String, Object> params);    
 }

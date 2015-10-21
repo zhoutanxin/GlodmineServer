@@ -14,6 +14,8 @@ public class Speed implements Serializable{
     private Date idate;
 
     private Integer isource;
+    
+    private String icategory;
 
     private Float imoney;
 
@@ -45,7 +47,15 @@ public class Speed implements Serializable{
         this.isource = isource;
     }
 
-    public Float getImoney() {
+    public String getIcategory() {
+		return icategory;
+	}
+
+	public void setIcategory(String icategory) {
+		this.icategory = icategory;
+	}
+
+	public Float getImoney() {
         return imoney;
     }
 

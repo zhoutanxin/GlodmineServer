@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="idate" jdbcType="TIMESTAMP" property="idate" />
     <result column="isource" jdbcType="INTEGER" property="isource" />
+    <result property="icategory"  jdbcType="VARCHAR"  column="icategory"></result>  
     <result column="imoney" jdbcType="REAL" property="imoney" />
     <result column="imemo" jdbcType="VARCHAR" property="imemo" />
     <result column="member_id" jdbcType="INTEGER" property="memberId" />
@@ -84,12 +85,68 @@
       order by ${orderByClause}
     </if>
   </select>
+
+  <select id="selectSpeedByPage" resultMap="BaseResultMap">
+    select
+    	speed.id, speed.idate, speed.isource, speed.imoney, speed.imemo ,speed.member_id ,speed_type.icategory
+    from speed left join speed_type  on speed.isource=speed_type.id
+ 	where 1=1 
+ 	<if test="params.startTime!=null"> 
+	 		<![CDATA[
+		 		and speed.idate >= 
+			 ]]> #{params.startTime}
+ 	</if> 
+ 	 <if test="params.endTime!=null">
+	 		 <![CDATA[
+		 		and speed.idate <= 
+		 	  ]]> #{params.endTime} 
+ 	</if>  
+ 	 <if test="params.categoryId!=null">
+	 	and speed.isource=#{params.categoryId}
+ 	</if> 	
+ 	 <if test="params.memberId!=null">
+	 	and speed.member_id=#{params.memberId}
+ 	</if> 	
+ 	 order by speed.idate desc 
+ </select> 
+  
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from speed
-    where id = #{id,jdbcType=INTEGER}
+    select
+    	speed.id, speed.idate, speed.isource, speed.imoney, speed.imemo ,speed_type.icategory
+    from speed left join speed_type  on speed.isource=speed_type.id
+    where speed.id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="countSpeedByDate" resultMap="BaseResultMap">
+		SELECT
+			speed.isource, 
+			speed.member_id,
+			Sum(speed.imoney) AS imoney,
+			speed_type.icategory
+		FROM
+			speed ,
+			speed_type
+		WHERE
+		speed.isource = speed_type.id
+	 	<if test="params.startTime!=null"> 
+		 		<![CDATA[
+			 		and speed.idate >= 
+				 ]]> #{params.startTime}
+	 	</if> 
+	 	 <if test="params.endTime!=null">
+		 		 <![CDATA[
+			 		and speed.idate <= 
+			 	  ]]> #{params.endTime} 
+	 	</if>  
+	 	<if test="params.memberId!=null">
+		 	and speed.member_id=#{params.memberId}
+		 	and speed_type.member_id=#{params.memberId}
+	 	</if> 	
+		GROUP BY
+		speed.isource
+	 	order by speed.idate desc 
+ 	</select>
+ 	  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from speed
     where id = #{id,jdbcType=INTEGER}

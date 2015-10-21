@@ -86,7 +86,7 @@ function buildIncomeType(){
 	                	$("#categoryId").selectmenu("refresh", true);
 	                }
 	            }else{
-	            	$(".js-nodata").click(function(){$("#isource").selectmenu("close");location.href=location.href='type.html';});
+	            	$(".js-nodata").click(function(){$("#categoryId").selectmenu("close");location.href=location.href='type.html';});
 	            }
 
 	        }
@@ -118,6 +118,7 @@ function quryList4Income(){
 	            	}
 	            	$("#currentPage").val(page.currentPage+1);
 	            }else{
+	            	stop=false;
 	            	$("table").append(noData);
                 }
 	            setTimeout(function(){hideLoading();}, 1000);

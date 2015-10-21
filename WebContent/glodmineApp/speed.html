@@ -26,18 +26,17 @@
     </div>
     <div data-role="content">
         <form method="post" id="speedForm" action="demoform.asp">
-            <input type="text"  data-theme="b" data-role="datebox" placeholder="消费日期"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
+            <input type="text"  data-theme="b" data-role="datebox" placeholder="支出日期"  data-options='{"mode":"datebox"}'  name="idate" id="idate">
         <div class="ui-grid-a">
             <div class="ui-block-a" style="border: 0px solid black;">
-                <input type="text" name="imoney" id="imoney" placeholder="消费金额"/>
+                <input type="text" name="imoney" id="imoney" placeholder="支出金额"/>
             </div>
             <div class="ui-block-b">
-                <select name="day" id="day" data-native-menu="false">
-                    <option value="0">类型</option>
-                    <option value="1">投资</option>
-                    <option value="2">借款</option>
-                    <option value="3">水电</option>
+            	<div class="js-nodata">
+                <select name="isource" id="isource" data-native-menu="false" onclick="location.href='type.html';">
+                    <option value="0">请先添加类型</option>
                 </select>
+            	</div>
             </div>
         </div>
 

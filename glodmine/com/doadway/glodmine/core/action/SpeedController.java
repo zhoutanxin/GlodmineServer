@@ -19,32 +19,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.doadway.framework.action.WWAction;
 import com.doadway.framework.pager.Page;
-import com.doadway.glodmine.core.biz.IncomeBiz;
-import com.doadway.glodmine.core.model.Income;
+import com.doadway.glodmine.core.biz.SpeedBiz;
+import com.doadway.glodmine.core.model.Speed;
 import com.doadway.glodmine.core.security.UserRealm.ShiroUser;
 @Controller
-public class IncomeController extends WWAction {
+public class SpeedController extends WWAction {
 	@Resource
-	IncomeBiz  incomeBiz;
+	SpeedBiz  speedBiz;
 	
-	@RequestMapping(value="income/save",method=RequestMethod.POST)
+	@RequestMapping(value="speed/save",method=RequestMethod.POST)
 	@ResponseBody
-	public  String sav(Income income)  {
+	public  String sav(Speed speed)  {
 		Subject currentUser = SecurityUtils.getSubject();
 		if(currentUser.isAuthenticated()){
 			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
-			income.setMemberId(shiroUser.getId());
+			speed.setMemberId(shiroUser.getId());
 		}		
 		/*设置时分秒*/
 		 Calendar cal = Calendar.getInstance();
-		 cal.setTime(income.getIdate());
+		 cal.setTime(speed.getIdate());
 		 Calendar caltmp = Calendar.getInstance();
 		 caltmp.setTime(new Date(System.currentTimeMillis()));
 		 cal.set(Calendar.HOUR_OF_DAY, caltmp.get(Calendar.HOUR_OF_DAY));
 		 cal.set(Calendar.MINUTE, caltmp.get(Calendar.MINUTE));
 		 cal.set(Calendar.SECOND, caltmp.get(Calendar.SECOND));
-		 income.setIdate(cal.getTime());
-		if(incomeBiz.saveIncome(income)){
+		 speed.setIdate(cal.getTime());
+		if(speedBiz.saveSpeed(speed)){
 			jsonMap.put("flag", true);
 			jsonMap.put("msg", "保存成功");
 		} else{
@@ -53,25 +53,25 @@ public class IncomeController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
-	@RequestMapping(value="income/get",method=RequestMethod.POST)
+	@RequestMapping(value="speed/get",method=RequestMethod.POST)
 	@ResponseBody
 	public  String get(Integer id)  {
-		Income income=incomeBiz.findIncome(id);
-		if(income!=null){
+		Speed speed=speedBiz.findSpeed(id);
+		if(speed!=null){
 			jsonMap.put("flag", true);
-			jsonMap.put("result", income);
+			jsonMap.put("result", speed);
 		}else{
 			jsonMap.put("flag", false);
 			jsonMap.put("result", null);
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
-	@RequestMapping(value="income/delete",method=RequestMethod.POST)
+	@RequestMapping(value="speed/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public  String delete(Integer id)  {
-		Income income=incomeBiz.findIncome(id);
-		if(income!=null){
-			incomeBiz.delById(income.getId());
+		Speed speed=speedBiz.findSpeed(id);
+		if(speed!=null){
+			speedBiz.delById(speed.getId());
 			jsonMap.put("flag", true);
 			jsonMap.put("result", "信息已经删除");
 		}else{
@@ -80,7 +80,7 @@ public class IncomeController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
-	@RequestMapping(value="income/querylist",method=RequestMethod.POST)
+	@RequestMapping(value="speed/querylist",method=RequestMethod.POST)
 	@ResponseBody
 	public  String querylist(Page page,Date startTime,Date endTime,Integer categoryId)  {
 		Map<String, Object> params =new HashMap<String,Object>();
@@ -121,10 +121,10 @@ public class IncomeController extends WWAction {
 		if(categoryId!=0&&categoryId!=-1){
 			params.put("categoryId", categoryId);
 		}
-		List<Income> incomeList=incomeBiz.findIncomeByPage(page, params);
-		if(incomeList!=null&&incomeList.size()>0){
+		List<Speed> speedList=speedBiz.findSpeedByPage(page, params);
+		if(speedList!=null&&speedList.size()>0){
 			jsonMap.put("flag", true);
-			jsonMap.put("result", incomeList);
+			jsonMap.put("result", speedList);
 			jsonMap.put("page", page);
 		}else{
 			jsonMap.put("flag", false);
@@ -133,7 +133,7 @@ public class IncomeController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
-	@RequestMapping(value="income/countbydate",method=RequestMethod.POST)
+	@RequestMapping(value="speed/countbydate",method=RequestMethod.POST)
 	@ResponseBody
 	public  String countbydate(Date startTime,Date endTime)  {
 		Map<String, Object> params =new HashMap<String,Object>();
@@ -171,10 +171,10 @@ public class IncomeController extends WWAction {
 			date.set(Calendar.DATE, date.get(Calendar.DATE) - 30);
 			params.put("startTime", date.getTime());
 		}
-		List<Income> incomeList=incomeBiz.countIncomeByDate(params);
-		if(incomeList!=null&&incomeList.size()>0){
+		List<Speed> speedList=speedBiz.countSpeedByDate(params);
+		if(speedList!=null&&speedList.size()>0){
 			jsonMap.put("flag", true);
-			jsonMap.put("result", incomeList);
+			jsonMap.put("result", speedList);
 			jsonMap.put("page", page);
 		}else{
 			jsonMap.put("flag", false);

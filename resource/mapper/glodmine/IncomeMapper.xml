@@ -5,7 +5,6 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="idate" jdbcType="TIMESTAMP" property="idate" />
     <result column="isource" jdbcType="INTEGER" property="isource" />
-    <result column="isource" jdbcType="INTEGER" property="isource" />
 	<result property="icategory"  jdbcType="VARCHAR"  column="icategory"></result>    
     <result column="imoney" jdbcType="REAL" property="imoney" />
     <result column="imemo" jdbcType="VARCHAR" property="imemo" />
@@ -108,7 +107,7 @@
  	 <if test="params.memberId!=null">
 	 	and income.member_id=#{params.memberId}
  	</if> 	
- 	 order by idate desc 
+ 	 order by income.idate desc 
  </select> 
   
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -141,6 +140,7 @@
 	 	</if>  
 	 	<if test="params.memberId!=null">
 		 	and income.member_id=#{params.memberId}
+		 	and income_type.member_id=#{params.memberId}
 	 	</if> 	
 		GROUP BY
 		income.isource

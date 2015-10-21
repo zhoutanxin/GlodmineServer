@@ -18,7 +18,12 @@
     <script src="static/jqm-datebox-1.3/i18n/jquery.mobile.datebox.i18n.zh-CN.utf8.js"></script>
     <!--校验js-->
     <script src="static/jquery-validate-1.7/jquery.validate.min.js"></script>
-    <script src="js/speedSearch.js"></script>
+	<!-- 滚动条按钮 -->
+	<link href="static/perfect-scrollbar-0.4.10/perfect-scrollbar.css" rel="stylesheet">
+    <script src="static/perfect-scrollbar-0.4.10/jquery.mousewheel.js"></script>
+    <script src="static/perfect-scrollbar-0.4.10/perfect-scrollbar.js"></script>
+    
+    <script src="js/speedSearch.js"></script>    
     <div data-role="header"  data-theme="b">
         <a href="#" data-ajax="false" onclick="$.mobile.changePage('index.html',{transition: 'fade'});" data-role="button" data-icon="home">首页</a>
         <h1>支出查询</h1>
@@ -26,14 +31,15 @@
     </div>
     <div data-role="content">
         <form method="post" id="speedForm" action="demoform.asp">
-            <input type="text"  data-theme="b" data-role="datebox" placeholder="开始时间"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
-            <input type="text"  data-theme="b" data-role="datebox" placeholder="结束时间"  data-options='{"mode":"datebox"}'  name="endTime" id="endTime">
-                <select name="day" id="day" data-native-menu="false">
-                    <option value="0">不限类型</option>
-                    <option value="1">投资</option>
-                    <option value="2">借款</option>
-                    <option value="3">水电</option>
+        	<input type="hidden" name="currentPage" id="currentPage" value="1" placeholder="当前页"/>
+        	<input type="hidden" name="showCount" id="showCount" value="5" placeholder="每页显示条数"/>
+            <input type="text"  data-theme="b" data-role="datebox"  placeholder="开始时间"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
+            <input type="text"  data-theme="b" data-role="datebox"  placeholder="结束时间"  data-options='{"mode":"datebox"}'  name="endTime" id="endTime">
+            <div class="js-nodata">
+                <select name="categoryId" id="categoryId" data-native-menu="false">
+						<option value="0">请先添加类型</option>
                 </select>
+            </div>
             <div data-role="controlgroup" data-type="horizontal" align="center">
                 <button class="searchBtn" type="submit">支出查询</button>
             </div>
@@ -41,10 +47,10 @@
 
         <table class="bordered" width="100%" cellspacing="0">
             <tr><th class="ui-block-4">日期</th><th class="ui-block-2">类型</th><th class="ui-block-4">金额</th></tr>
-            <tr onclick="$.mobile.changePage('speedItemDetail.html',{transition: 'flow'});"><td>2015-09-20 19:20:15</td><td>工资</td><td>￥1822.00</td></tr>
+<!--             <tr onclick="$.mobile.changePage('speedItemDetail.html',{transition: 'flow'});"><td>2015-09-20 19:20:15</td><td>工资</td><td>￥1822.00</td></tr>
             <tr><td>2015-09-20 19:20:15</td><td>股票</td><td>￥200.10</td></tr>
             <tr><td>2015-09-20 19:20:15</td><td>基金</td><td>￥0.25</td></tr>
-            <tr><td>2015-09-20 19:20:15</td><td>礼金</td><td>￥1500.01</td></tr>
+            <tr><td>2015-09-20 19:20:15</td><td>礼金</td><td>￥1500.01</td></tr> -->
         </table>
     </div>
 

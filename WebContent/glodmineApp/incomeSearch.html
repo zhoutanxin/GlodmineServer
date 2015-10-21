@@ -35,12 +35,11 @@
         	<input type="hidden" name="showCount" id="showCount" value="5" placeholder="每页显示条数"/>
             <input type="text"  data-theme="b" data-role="datebox"  placeholder="开始时间"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
             <input type="text"  data-theme="b" data-role="datebox"  placeholder="结束时间"  data-options='{"mode":"datebox"}'  name="endTime" id="endTime">
+            <div class="js-nodata">
                 <select name="categoryId" id="categoryId" data-native-menu="false">
-                    <option value="0">不限</option>
-                    <option value="1">工资</option>
-                    <option value="2">压岁钱</option>
-                    <option value="3">捡到的</option>
+						<option value="0">请先添加类型</option>
                 </select>
+            </div>
             <div data-role="controlgroup" data-type="horizontal" align="center">
                 <button class="searchBtn" type="submit">收入查询</button>
             </div>

@@ -2,7 +2,15 @@
  * Created by Administrator on 2015-09-25.
  */
 $("#count").on("pageshow",function(e){
-	countByDate();
+	countIncomeByDate();
+	$("input[name='categoryflag']").change(function(){
+		if($(this).val()==1){
+			countIncomeByDate();
+		}else{
+			countSpeedByDate();
+			
+		}
+	});	
     $("#countForm").validate({
         rules:{
             startTime:{
@@ -31,11 +39,16 @@ $("#count").on("pageshow",function(e){
         },
         submitHandler:function(form){
         	$("table tr").first().siblings().remove();
-        	countByDate();
+    		if($("input[name='categoryflag']").val()==1){
+    			countIncomeByDate();
+    		}else{
+    			countSpeedByDate();
+    			
+    		}
         }
     });
 });
-function countByDate(){
+function countIncomeByDate(){
 	doNotLogin();
 	showLoading('加载中...','',false);
 	 var htmlc= $.ajax({
@@ -54,9 +67,36 @@ function countByDate(){
 	                	}
 	                }
 	            }else{
+	            	stop=false;
 	            	$("table").append(noData);
                 }
 	            setTimeout(function(){hideLoading();}, 1000);
 	        }
 	    });
+}
+function countSpeedByDate(){
+	doNotLogin();
+	showLoading('加载中...','',false);
+	var htmlc= $.ajax({
+		type: 'POST',
+		url:Config.root+ "speed/countbydate" ,
+		dataType: "json",
+		data:$("#countForm").serialize(),
+		async : false,
+		success:function(data){
+			var noData="<tr><td align='center' colspan=\"2\">暂无数据</td></tr>";
+			if(data.flag){
+				var json=eval(data.result);
+				if(json.length>0){
+					for(var i=0;i<json.length;i++){
+						$("table").append("<tr><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+					}
+				}
+			}else{
+				stop=false;
+				$("table").append(noData);
+			}
+			setTimeout(function(){hideLoading();}, 1000);
+		}
+	});
 }
