@@ -7,6 +7,7 @@
     <result column="isource" jdbcType="INTEGER" property="isource" />
     <result column="imoney" jdbcType="REAL" property="imoney" />
     <result column="imemo" jdbcType="VARCHAR" property="imemo" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, idate, isource, imoney, imemo
+    id, idate, isource, imoney, imemo, member_id
   </sql>
   <select id="selectByExample" parameterType="com.doadway.glodmine.core.model.SpeedExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.doadway.glodmine.core.model.Speed">
     insert into speed (id, idate, isource, 
-      imoney, imemo)
+      imoney, imemo, member_id
+      )
     values (#{id,jdbcType=INTEGER}, #{idate,jdbcType=TIMESTAMP}, #{isource,jdbcType=INTEGER}, 
-      #{imoney,jdbcType=REAL}, #{imemo,jdbcType=VARCHAR})
+      #{imoney,jdbcType=REAL}, #{imemo,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.doadway.glodmine.core.model.Speed">
     insert into speed
@@ -123,6 +126,9 @@
       <if test="imemo != null">
         imemo,
       </if>
+      <if test="memberId != null">
+        member_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,6 +145,9 @@
       </if>
       <if test="imemo != null">
         #{imemo,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null">
+        #{memberId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.imemo != null">
         imemo = #{record.imemo,jdbcType=VARCHAR},
       </if>
+      <if test="record.memberId != null">
+        member_id = #{record.memberId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       idate = #{record.idate,jdbcType=TIMESTAMP},
       isource = #{record.isource,jdbcType=INTEGER},
       imoney = #{record.imoney,jdbcType=REAL},
-      imemo = #{record.imemo,jdbcType=VARCHAR}
+      imemo = #{record.imemo,jdbcType=VARCHAR},
+      member_id = #{record.memberId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="imemo != null">
         imemo = #{imemo,jdbcType=VARCHAR},
       </if>
+      <if test="memberId != null">
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +221,8 @@
     set idate = #{idate,jdbcType=TIMESTAMP},
       isource = #{isource,jdbcType=INTEGER},
       imoney = #{imoney,jdbcType=REAL},
-      imemo = #{imemo,jdbcType=VARCHAR}
+      imemo = #{imemo,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -3,7 +3,7 @@
 <generatorConfiguration>
 
 	<!-- classPathEntry:数据库的JDBC驱动,换成你自己的驱动位置 -->
-	<classPathEntry location="F:\Git_Repository\GlodmineServer\WebContent\WEB-INF\lib\mysql-connector-java-5.1.21.jar" />
+	<classPathEntry location="D:\GitRepertories\GlodmineServer\WebContent\WEB-INF\lib\mysql-connector-java-5.1.21.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3">
 		
 		<!-- 去除自动生成的注释 -->
@@ -21,20 +21,20 @@
 
 		<!-- targetProject:自动生成POJO代码的位置 -->
 		<javaModelGenerator targetPackage="com.doadway.glodmine.core.model"
-			targetProject="F:\Git_Repository\GlodmineServer\glodmine">
+			targetProject="D:\GitRepertories\GlodmineServer\glodmine">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<!-- targetProject:自动生成Sql Mapper.xml代码的位置 -->
 		<sqlMapGenerator targetPackage="mapper.glodmine"
-			targetProject="F:\Git_Repository\GlodmineServer\resource">
+			targetProject="D:\GitRepertories\GlodmineServer\resource">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- targetProject:自动生成DAO代码的位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.doadway.glodmine.core.dao" targetProject="F:\Git_Repository\GlodmineServer\glodmine">
+			targetPackage="com.doadway.glodmine.core.dao" targetProject="D:\GitRepertories\GlodmineServer\glodmine">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		

@@ -5,9 +5,11 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="idate" jdbcType="TIMESTAMP" property="idate" />
     <result column="isource" jdbcType="INTEGER" property="isource" />
-	<result property="icategory"  jdbcType="VARCHAR"  column="icategory"></result>
+    <result column="isource" jdbcType="INTEGER" property="isource" />
+	<result property="icategory"  jdbcType="VARCHAR"  column="icategory"></result>    
     <result column="imoney" jdbcType="REAL" property="imoney" />
     <result column="imemo" jdbcType="VARCHAR" property="imemo" />
+    <result column="member_id" jdbcType="INTEGER" property="memberId" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, idate, isource, imoney, imemo
+    id, idate, isource, imoney, imemo, member_id
   </sql>
   <select id="selectByExample" parameterType="com.doadway.glodmine.core.model.IncomeExample" resultMap="BaseResultMap">
     select
@@ -84,10 +86,10 @@
       order by ${orderByClause}
     </if>
   </select>
-  
-  <select id="selectIncomeByPage" resultMap="BaseResultMap" >
+
+  <select id="selectIncomeByPage" resultMap="BaseResultMap">
     select
-    	income.id, income.idate, income.isource, income.imoney, income.imemo ,income_type.icategory
+    	income.id, income.idate, income.isource, income.imoney, income.imemo ,income.member_id ,income_type.icategory
     from income left join income_type  on income.isource=income_type.id
  	where 1=1 
  	<if test="params.startTime!=null"> 
@@ -103,6 +105,9 @@
  	 <if test="params.categoryId!=null">
 	 	and income.isource=#{params.categoryId}
  	</if> 	
+ 	 <if test="params.memberId!=null">
+	 	and income.member_id=#{params.memberId}
+ 	</if> 	
  	 order by idate desc 
  </select> 
   
@@ -113,9 +118,10 @@
     where income.id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="countIncomeByDate" resultMap="BaseResultMap" >
+  <select id="countIncomeByDate" resultMap="BaseResultMap">
 		SELECT
-			income.isource,
+			income.isource, 
+			income.member_id,
 			Sum(income.imoney) AS imoney,
 			income_type.icategory
 		FROM
@@ -132,12 +138,15 @@
 		 		 <![CDATA[
 			 		and income.idate <= 
 			 	  ]]> #{params.endTime} 
-	 	</if>  		
+	 	</if>  
+	 	<if test="params.memberId!=null">
+		 	and income.member_id=#{params.memberId}
+	 	</if> 	
 		GROUP BY
 		income.isource
 	 	order by income.idate desc 
  	</select>
-
+ 	
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from income
     where id = #{id,jdbcType=INTEGER}
@@ -150,9 +159,11 @@
   </delete>
   <insert id="insert" parameterType="com.doadway.glodmine.core.model.Income">
     insert into income (id, idate, isource, 
-      imoney, imemo)
+      imoney, imemo, member_id
+      )
     values (#{id,jdbcType=INTEGER}, #{idate,jdbcType=TIMESTAMP}, #{isource,jdbcType=INTEGER}, 
-      #{imoney,jdbcType=REAL}, #{imemo,jdbcType=VARCHAR})
+      #{imoney,jdbcType=REAL}, #{imemo,jdbcType=VARCHAR}, #{memberId,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.doadway.glodmine.core.model.Income">
     insert into income
@@ -172,6 +183,9 @@
       <if test="imemo != null">
         imemo,
       </if>
+      <if test="memberId != null">
+        member_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -188,6 +202,9 @@
       </if>
       <if test="imemo != null">
         #{imemo,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null">
+        #{memberId,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -215,6 +232,9 @@
       <if test="record.imemo != null">
         imemo = #{record.imemo,jdbcType=VARCHAR},
       </if>
+      <if test="record.memberId != null">
+        member_id = #{record.memberId,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -226,7 +246,8 @@
       idate = #{record.idate,jdbcType=TIMESTAMP},
       isource = #{record.isource,jdbcType=INTEGER},
       imoney = #{record.imoney,jdbcType=REAL},
-      imemo = #{record.imemo,jdbcType=VARCHAR}
+      imemo = #{record.imemo,jdbcType=VARCHAR},
+      member_id = #{record.memberId,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -246,6 +267,9 @@
       <if test="imemo != null">
         imemo = #{imemo,jdbcType=VARCHAR},
       </if>
+      <if test="memberId != null">
+        member_id = #{memberId,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -254,7 +278,8 @@
     set idate = #{idate,jdbcType=TIMESTAMP},
       isource = #{isource,jdbcType=INTEGER},
       imoney = #{imoney,jdbcType=REAL},
-      imemo = #{imemo,jdbcType=VARCHAR}
+      imemo = #{imemo,jdbcType=VARCHAR},
+      member_id = #{memberId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

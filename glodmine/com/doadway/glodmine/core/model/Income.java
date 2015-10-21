@@ -7,7 +7,7 @@ public class Income implements Serializable{
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = -8796590910433489214L;
+	private static final long serialVersionUID = 2805123144491596439L;
 
 	private Integer id;
 
@@ -20,6 +20,8 @@ public class Income implements Serializable{
     private Float imoney;
 
     private String imemo;
+
+    private Integer memberId;
 
     public Integer getId() {
         return id;
@@ -36,11 +38,7 @@ public class Income implements Serializable{
     public void setIdate(Date idate) {
         this.idate = idate;
     }
-
-    public Integer getIsource() {
-        return isource;
-    }
-
+    
     public String getIcategory() {
 		return icategory;
 	}
@@ -49,7 +47,11 @@ public class Income implements Serializable{
 		this.icategory = icategory;
 	}
 
-	public void setIsource(Integer isource) {
+    public Integer getIsource() {
+        return isource;
+    }
+
+    public void setIsource(Integer isource) {
         this.isource = isource;
     }
 
@@ -67,5 +69,13 @@ public class Income implements Serializable{
 
     public void setImemo(String imemo) {
         this.imemo = imemo == null ? null : imemo.trim();
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
     }
 }

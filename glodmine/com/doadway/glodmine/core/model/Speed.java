@@ -19,6 +19,8 @@ public class Speed implements Serializable{
 
     private String imemo;
 
+    private Integer memberId;
+
     public Integer getId() {
         return id;
     }
@@ -57,5 +59,13 @@ public class Speed implements Serializable{
 
     public void setImemo(String imemo) {
         this.imemo = imemo == null ? null : imemo.trim();
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
     }
 }

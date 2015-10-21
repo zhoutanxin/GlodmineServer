@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 
 import net.sf.json.JSONObject;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +21,7 @@ import com.doadway.framework.action.WWAction;
 import com.doadway.framework.pager.Page;
 import com.doadway.glodmine.core.biz.IncomeBiz;
 import com.doadway.glodmine.core.model.Income;
+import com.doadway.glodmine.core.security.UserRealm.ShiroUser;
 @Controller
 public class IncomeController extends WWAction {
 	@Resource
@@ -26,14 +29,21 @@ public class IncomeController extends WWAction {
 	
 	@RequestMapping(value="income/save",method=RequestMethod.POST)
 	@ResponseBody
-	@SuppressWarnings("deprecation")
 	public  String sav(Income income)  {
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isAuthenticated()){
+			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
+			income.setMemberId(shiroUser.getId());
+		}		
 		/*设置时分秒*/
 		 Calendar cal = Calendar.getInstance();
-		 Date currentDate=cal.getTime();
-		 income.getIdate().setHours(currentDate.getHours());
-		 income.getIdate().setMinutes(currentDate.getMinutes());
-		 income.getIdate().setSeconds(currentDate.getSeconds());
+		 cal.setTime(income.getIdate());
+		 Calendar caltmp = Calendar.getInstance();
+		 caltmp.setTime(new Date(System.currentTimeMillis()));
+		 cal.set(Calendar.HOUR, caltmp.get(Calendar.HOUR));
+		 cal.set(Calendar.MINUTE, caltmp.get(Calendar.MINUTE));
+		 cal.set(Calendar.SECOND, caltmp.get(Calendar.SECOND));
+		 income.setIdate(cal.getTime());
 		if(incomeBiz.saveIncome(income)){
 			jsonMap.put("flag", true);
 			jsonMap.put("msg", "保存成功");
@@ -74,19 +84,37 @@ public class IncomeController extends WWAction {
 	@ResponseBody
 	public  String querylist(Page page,Date startTime,Date endTime,Integer categoryId)  {
 		Map<String, Object> params =new HashMap<String,Object>();
+		/*设置时分秒*/
+		 Calendar cal = Calendar.getInstance();
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isAuthenticated()){
+			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
+			params.put("memberId", shiroUser.getId());
+		}			
 		if(startTime!=null){
 			params.put("startTime", startTime);
 		}
 		if(endTime!=null){
-			params.put("endTime", endTime);
+			cal.setTime(endTime);
+			cal.set(Calendar.HOUR,23);
+			cal.set(Calendar.MINUTE,59);
+			cal.set(Calendar.SECOND,59);
+			params.put("endTime", cal.getTime());
 		}
 		//查询最近30天的记录
 		if(startTime==null&&endTime==null){
-			params.put("endTime", new Date(System.currentTimeMillis()));
+			cal.setTime(new Date(System.currentTimeMillis()));
+			cal.set(Calendar.HOUR,23);
+			cal.set(Calendar.MINUTE,59);
+			cal.set(Calendar.SECOND,59);			
+			params.put("endTime",cal.getTime() );
 		
 			Calendar date = Calendar.getInstance();
 			Date currentDate = new Date(System.currentTimeMillis());
 			date.setTime(currentDate);
+			date.set(Calendar.HOUR,0);
+			date.set(Calendar.MINUTE,0);
+			date.set(Calendar.SECOND,0);		
 			date.set(Calendar.DATE, date.get(Calendar.DATE) - 30);
 			params.put("startTime", date.getTime());
 		}
@@ -107,21 +135,39 @@ public class IncomeController extends WWAction {
 	}
 	@RequestMapping(value="income/countbydate",method=RequestMethod.POST)
 	@ResponseBody
-	public  String countbydate(Date startTime,Date endTime,Integer categoryId)  {
+	public  String countbydate(Date startTime,Date endTime)  {
 		Map<String, Object> params =new HashMap<String,Object>();
+		/*设置时分秒*/
+		 Calendar cal = Calendar.getInstance();		
+		Subject currentUser = SecurityUtils.getSubject();
+		if(currentUser.isAuthenticated()){
+			ShiroUser shiroUser=(ShiroUser)currentUser.getPrincipal();
+			params.put("memberId", shiroUser.getId());
+		}				
 		if(startTime!=null){
 			params.put("startTime", startTime);
 		}
 		if(endTime!=null){
-			params.put("endTime", endTime);
+			cal.setTime(endTime);
+			cal.set(Calendar.HOUR,23);
+			cal.set(Calendar.MINUTE,59);
+			cal.set(Calendar.SECOND,59);
+			params.put("endTime", cal.getTime());
 		}
 		//查询最近30天的记录
 		if(startTime==null&&endTime==null){
-			params.put("endTime", new Date(System.currentTimeMillis()));
+			cal.setTime(new Date(System.currentTimeMillis()));
+			cal.set(Calendar.HOUR,23);
+			cal.set(Calendar.MINUTE,59);
+			cal.set(Calendar.SECOND,59);			
+			params.put("endTime",cal.getTime() );			
 			
 			Calendar date = Calendar.getInstance();
 			Date currentDate = new Date(System.currentTimeMillis());
 			date.setTime(currentDate);
+			date.set(Calendar.HOUR,0);
+			date.set(Calendar.MINUTE,0);
+			date.set(Calendar.SECOND,0);				
 			date.set(Calendar.DATE, date.get(Calendar.DATE) - 30);
 			params.put("startTime", date.getTime());
 		}
