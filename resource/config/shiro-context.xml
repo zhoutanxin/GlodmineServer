@@ -20,6 +20,7 @@
 				/loginout* = anon
 				/ifhasmob* = anon
 				/ifhasemail* = anon
+				/install/**= anon
 			    /**= authc
 			</value>
 		</property>
