@@ -4,6 +4,7 @@
 $("#count").on("pageshow",function(e){
 	countIncomeByDate();
 	$("input[name='categoryflag']").change(function(){
+		$("table tr").first().siblings().remove();
 		if($(this).val()==1){
 			countIncomeByDate();
 		}else{
