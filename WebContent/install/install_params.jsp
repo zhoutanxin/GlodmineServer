@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>系统参数设置--DWCMS安装向导</title>
+<title>系统参数设置--点账服务器端安装向导</title>
 <link href="img/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 function formSubmit() {
@@ -45,7 +45,7 @@ function formSubmit() {
       </tr>
       <tr>
         <td height="30" align="right">数据库名称：</td>
-        <td align="left"><input name="dbName" type="text" class="input" id="dbName" value="dwcms_1_0_3_final" /></td>
+        <td align="left"><input name="dbName" type="text" class="input" id="dbName" value="glodmine_1_0_final" /></td>
 				<td align="left">&nbsp;</td>
       </tr>
       <tr>
@@ -107,8 +107,8 @@ function formSubmit() {
 	</td>
   </tr>
 </table>
-<input type="hidden" name="dbFileName" value="/install/db/dwcms-db-1.0.3-final.sql"/>
-<input type="hidden" name="initFileName" value="/install/db/dwcms-init-1.0.3-final.sql"/>
+<input type="hidden" name="dbFileName" value="/install/db/glodmine_mysql_v1.1.sql"/>
+<input type="hidden" name="initFileName" value="/install/db/glodmine_mysql_v1.1.sql"/>
 </form>
 </body>
 </html>

@@ -56,8 +56,8 @@ public class InstallServlet extends HttpServlet {
 						initList);
 			}
 			// 更新配置
-			Install.updateConfig(dbHost, dbPort, dbName, dbUser, dbPassword,
-					domain, cxtPath, port);
+//			Install.updateConfig(dbHost, dbPort, dbName, dbUser, dbPassword,
+//					domain, cxtPath, port);
 			// 处理数据库配置文件
 			String dbXmlPath = getServletContext().getRealPath(dbXmlFileName);
 			Install

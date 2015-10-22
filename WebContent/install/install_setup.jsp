@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>安装完成--DWCMS安装向导</title>
+<title>安装完成--点账服务器端安装向导</title>
 <link href="img/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -27,8 +27,6 @@
 		<td height="280" align="left" bgcolor="#F0F8FD"
 			style="padding: 10px; line-height: 1.7em;">恭喜您，系统已经安装成功！<br />
 		请重启TOMCAT服务。只有重启TOMCAT服务之后，清空缓存,安装才能生效。<br />
-		后台登录地址“网站根路径/admin/login.do”<br />
-		后台管理员admin，密码admin。</td>
 	</tr>
 </table>
 
