@@ -1,7 +1,29 @@
 /**
  * Created by Administrator on 2015-09-25.
  */
+var wait=90;
+function time(t) {
+  if (wait == $(t).val()) {
+//   t.removeAttribute("disabled");   
+//   t.value="免费获取验证码";
+   $("#smsCode").attr("disabled",false);
+   $("#smsCode").text("获取验证码").button("refresh");
+   wait = 10;
+  } else {
+//   t.setAttribute("disabled", true);
+//   t.value="重新发送(" + wait + ")";
+  $("#smsCode").attr('disabled',"");
+  $("#smsCode").text("等待(" + wait + ")").button("refresh");
+   wait--;
+   setTimeout(function() {time(t);},1000);
+  }
+ }
 $("#register").on("pageshow",function(e){
+	$("#smsCode").click( function () { 
+		if($("#registerForm").validate().element($("#mobilePhone"))){
+			time(this);
+		}
+	});
     $("#password").focus(function(){
         $(".js-confirmPwd").show();
     });

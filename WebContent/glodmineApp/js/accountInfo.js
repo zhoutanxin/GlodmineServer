@@ -3,6 +3,7 @@
  */
 
 function loadMemberInfo(){
+	doNotLogin();
 	 var htmlc= $.ajax({
 	        type: 'GET',
 	        url:Config.root+ "memberInfo" ,
@@ -19,9 +20,9 @@ function loadMemberInfo(){
                     	$("#brithday").val(new Date(json.brithday.time).format("yyyy-MM-dd"));
                     }
                     if(json.gender==1){
-                        $("#male").trigger("click");
+                        $("#male").prop("checked", true).checkboxradio("refresh");
                     }else{
-                        $("#female").trigger("click");
+                        $("#female").prop("checked", true).checkboxradio("refresh");
                     }
 	            }
 
@@ -65,6 +66,7 @@ $("#accountInfo").on("pageshow",function(e){
 
 });
 function updInfo(){
+	doNotLogin();
     showLoading('信息修改中...','',false);
     $.ajax({
         type: 'POST',

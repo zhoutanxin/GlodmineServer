@@ -62,8 +62,9 @@ function login(){
             if(data.flag){
                 var json=eval(data.msg)
                 Config.ifLogin=true;
-                $.mobile.changePage('index.html',{transition: 'flip'});
                 $.mobile.loading('hide');
+//                $.mobile.changePage('index.html',{transition: 'flip'});
+                location.href="index.html";
             }else{
                 $.mobile.loading('show', {
                     text: data.msg, //加载器中显示的文字
