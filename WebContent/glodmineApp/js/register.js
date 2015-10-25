@@ -42,7 +42,7 @@ $("#register").on("pageshow",function(e){
                 required:true,
                 mobile:true,
                 remote:{                                          //验证用户名是否存在
-                    type:"GET",
+                    type:"POST",
                     url:Config.root+"ifhasmob",
                     dataType: "json",
                     crossDomain: true,//servlet
@@ -56,7 +56,7 @@ $("#register").on("pageshow",function(e){
                 rangelength:[1,50],
                 email:true,
                 remote:{                                          //验证用户名是否存在
-                    type:"GET",
+                    type:"POST",
                     url:Config.root+"ifhasemail",
                     dataType: "json",
                     crossDomain: true,//servlet
@@ -69,6 +69,11 @@ $("#register").on("pageshow",function(e){
                 required: true,
                 equalTo:function(){$("#vcode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#vcode";}
             },
+			mobCode:{
+				required:true,
+				equalTo:"#scode"
+//				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#scode";}
+			},            
             password:{
                 required:true,
                 rangelength:[6,20]
@@ -94,6 +99,10 @@ $("#register").on("pageshow",function(e){
                 required:"请输入验证码",
                 equalTo:"验证码错误"
             },
+			mobCode:{
+				required:"请输入短信验证码",
+				equalTo:"短信验证码错误"
+			},           
             password:{
                 required:"密码不能为空",
                 rangelength:$.validator.format("密码长度必须在 {0}-{1} 字符.")

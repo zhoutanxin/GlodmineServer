@@ -15,9 +15,17 @@ $("#forgetPwd1").on("pageshow",function(e){
     });
     $("#forgetPwd1Form").validate({
         rules:{
-            mobilephone:{
+        	mobilePhone:{
                 required:true,
-                mobile:true
+                mobile:true,
+                remote:{                                          //验证手机号不存在
+                    type:"POST",
+                    url:Config.root+"hasMob",
+                    dataType: "json",
+                    data:{
+                       mobilePhone:function(){return $("#mobilePhone").val();}
+                    }
+                }
             },
             validateCode:{
                 required:true,
@@ -26,9 +34,10 @@ $("#forgetPwd1").on("pageshow",function(e){
         },
         //自定义验证信息
         messages:{
-            mobilephone:{
+        	mobilePhone:{
                 required:"请输入手机号",
-                mobile:"请输入正确的手机号码"
+                mobile:"请输入正确的手机号码",
+                remote:"手机号不存在"
             },
             validateCode:{
                 required:"请输入验证码",
@@ -47,5 +56,86 @@ $("#forgetPwd1").on("pageshow",function(e){
             $.mobile.changePage('forgetPwd2.html',{transition: 'flip'});
         }
     });
+});
 
+
+var wait=90;
+function time(t) {
+  if (wait == $(t).val()) {
+	   $("#smsCode").attr("disabled",false);
+	   $("#smsCode").text("获取验证码").button("refresh");
+	   wait = 10;
+  } else {
+	  $("#smsCode").attr('disabled',"");
+	  $("#smsCode").text("等待(" + wait + ")").button("refresh");
+	   wait--;
+	   setTimeout(function() {time(t);},1000);
+  }
+}
+
+$("#forgetPwd2").on("pageshow",function(e){
+	$("#smsCode").click( function () { 
+		time(this);
+	});
+	$("#forgetPwd2Form").validate({
+		rules:{
+			mobCode:{
+				required:true,
+				equalTo:"#scode"
+//				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#scode";}
+			}
+		},
+		//自定义验证信息
+		messages:{
+			mobCode:{
+				required:"请输入验证码",
+				equalTo:"验证码错误"
+			}
+		},
+		showErrors: function(errorMap, errorList) {
+			this.defaultShowErrors();
+			for(var i = 0; i < errorList.length; i++) {
+				$(errorList[i].element).one("blur", function() {
+					$("label.error[for='" + (this.id ? this.id : this.name) + "']").remove();
+				});
+			}
+		},
+		submitHandler:function(form){
+			$.mobile.changePage('forgetPwd3.html',{transition: 'flip'});
+		}
+	});
+});
+$("#forgetPwd3").on("pageshow",function(e){
+	$("#forgetPwd3Form").validate({
+		rules:{
+			newPwd:{
+                required:true,
+                rangelength:[6,20]
+            },
+            comfrimNewPwd:{
+                equalTo:"#newPwd"
+            }            
+		},
+		//自定义验证信息
+		messages:{
+			newPwd:{
+                required:"密码不能为空",
+                rangelength:$.validator.format("密码长度必须在 {0}-{1} 字符.")
+            },
+            comfrimNewPwd:{
+                equalTo:"两次输入密码必须一致"
+            }            
+		},
+		showErrors: function(errorMap, errorList) {
+			this.defaultShowErrors();
+			for(var i = 0; i < errorList.length; i++) {
+				$(errorList[i].element).one("blur", function() {
+					$("label.error[for='" + (this.id ? this.id : this.name) + "']").remove();
+				});
+			}
+		},
+		submitHandler:function(form){
+			$.mobile.changePage('modifyOk.html',{transition: 'flip'});
+		}
+	});
 });

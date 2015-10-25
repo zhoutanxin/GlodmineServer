@@ -19,6 +19,7 @@
 				/chklogin* = anon
 				/loginout* = anon
 				/ifhasmob* = anon
+				/hasMob* = anon
 				/ifhasemail* = anon
 				/install/**= anon
 			    /**= authc

@@ -11,17 +11,19 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div data-role="page" id="login">
+<div data-role="page" id="forgetPwd3">
+    <script src="static/jquery-validate-1.7/jquery.validate.min.js"></script>
+    <script src="js/forgetPwd.js"></script>
     <div data-role="header" data-theme="b">
         <h1>安全验证</h1>
         <a href="#" data-ajax="false" onclick="$.mobile.changePage('forgetPwd1.html',{transition: 'flip'});" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
     </div>
 
     <div data-role="content">
-        <form method="post" action="demoform.asp">
+        <form method="post"  id="forgetPwd3Form" action="demoform.asp">
             <input type="password" name="newPwd" id="newPwd" placeholder="新密码">
             <input type="password" name="comfrimNewPwd" id="comfrimNewPwd" placeholder="重复新密码">
-            <a href="#" onclick="$.mobile.changePage('modifyOk.html',{transition: 'flip'});" data-role="button">确定更改密码</a>
+            <button  type="submit">确定更改密码</button>
         </form>
     </div>
 

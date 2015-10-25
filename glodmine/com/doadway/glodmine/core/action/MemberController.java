@@ -42,7 +42,7 @@ public class MemberController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
-	@RequestMapping(value="/ifhasmob",method=RequestMethod.GET)
+	@RequestMapping(value="/ifhasmob",method=RequestMethod.POST)
 	@ResponseBody
 	public  String ifExistMobile(HttpServletRequest request,String mobilePhone)  {
 		if(!userBiz.ifHaveMobile(mobilePhone)){
@@ -51,7 +51,16 @@ public class MemberController extends WWAction {
 			return "false";
 		}
 	}
-	@RequestMapping(value="/ifhasemail",method=RequestMethod.GET)
+	@RequestMapping(value="/hasMob",method=RequestMethod.POST)
+	@ResponseBody
+	public  String ifNoExistMobile(HttpServletRequest request,String mobilePhone)  {
+		if(userBiz.ifHaveMobile(mobilePhone)){
+			return "true";
+		} else{
+			return "false";
+		}
+	}
+	@RequestMapping(value="/ifhasemail",method=RequestMethod.POST)
 	@ResponseBody
 	public  String ifExistEmail(HttpServletRequest request,String imail)  {
 		if(!userBiz.ifHaveEmail(imail)){
