@@ -21,17 +21,26 @@ function buildDate(){
 $("#count").on("pageshow",function(e){
 	countIncomeByDate();
 	buildDate();
-	$("input[name='categoryflag']").change(function(){
+//	$("input[name='categoryflag']").change(function(){
+//		$("table tr").first().siblings().remove();
+//		if($(this).val()==1){
+//			countIncomeByDate();
+//		}else{
+//			countSpeedByDate();
+//		}
+//	});	
+	$("#income").click(function(){
 		$("table tr").first().siblings().remove();
-		if($(this).val()==1){
-			$("input[name='categoryflag']").val(1);
-			countIncomeByDate();
-		}else{
-			$("input[name='categoryflag']").val(2);
-			countSpeedByDate();
-		}
-		$("input[name='categoryflag']").checkboxradio("refresh");
-	});	
+		countIncomeByDate();
+		$("input[name='categoryflag']").val("1");
+		$(this).prop("checked", true).checkboxradio("refresh");		
+	});
+	$("#speed").click(function(){
+		$("table tr").first().siblings().remove();
+		countSpeedByDate();
+		$("input[name='categoryflag']").val("2");
+		$(this).prop("checked", true).checkboxradio("refresh");		
+	});
     $("#countForm").validate({
         rules:{
             startTime:{
@@ -64,7 +73,6 @@ $("#count").on("pageshow",function(e){
     			countIncomeByDate();
     		}else{
     			countSpeedByDate();
-    			
     		}
         }
     });
