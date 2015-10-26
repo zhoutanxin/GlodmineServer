@@ -29,8 +29,29 @@ $(window).scroll( function() {
 
     } 
 }); 
+
+
+function buildDate(){
+	var currYear = (new Date()).getFullYear();	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.init={
+		theme: 'android-ics light', //皮肤样式
+        display: 'modal', //显示方式 
+        mode: 'mixed', //日期选择模式
+		lang:'zh',
+        startYear:currYear - 10, //开始年份
+        endYear:currYear + 10 //结束年份
+	};
+	$("#startTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
+	$("#endTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
+}
+
 $('body').perfectScrollbar({suppressScrollX:true});
 $("#incomeSearch").on("pageshow",function(e){
+	buildDate();
 	buildIncomeType();
 	quryList4Income();
     $("#searchForm").validate({
