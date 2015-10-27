@@ -26,6 +26,12 @@ body{
 	overflow-x:hidden;
 	overflow-y:hidden;
 }
+#content{
+	overflow: scroll;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	max-height:420px;
+}
 /*表格样式*/
 table {
     *border-collapse: collapse; /* IE7 and lower */

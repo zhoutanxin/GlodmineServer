@@ -49,11 +49,21 @@ function buildDate(){
 	$("#endTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
 }
 
-$('body').perfectScrollbar({suppressScrollX:true});
+
 $("#incomeSearch").on("pageshow",function(e){
 	buildDate();
 	buildIncomeType();
 	quryList4Income();
+	$('#content').perfectScrollbar({suppressScrollX:true});
+	$('#content').scroll(function(){
+	    totalheight =$(window).height() + $(window).scrollTop();     //浏览器的高度加上滚动条的高度 
+	    if ($(document).height() <= totalheight&&stop)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
+	    { 
+	        //加载数据
+	    	quryList4Income();
+
+	    } 		
+	});	
     $("#searchForm").validate({
         rules:{
             startTime:{
