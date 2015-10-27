@@ -56,7 +56,7 @@ $("#incomeSearch").on("pageshow",function(e){
 	quryList4Income();
 	$('#content').perfectScrollbar({suppressScrollX:true});
 	$('#content').scroll(function(){
-	    totalheight =$(window).height() + $(window).scrollTop();     //浏览器的高度加上滚动条的高度 
+	    totalheight =$("#content").outerHeight() + $("#content").scrollTop();     //浏览器的高度加上滚动条的高度 
 	    if ($(document).height() <= totalheight&&stop)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
 	    { 
 	        //加载数据
