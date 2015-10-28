@@ -29,7 +29,24 @@ function loadMemberInfo(){
 	        }
 	    });
 }
+function buildDate(){
+	var currYear = (new Date()).getFullYear();	
+	var opt={};
+	opt.date = {preset : 'date'};
+	opt.datetime = {preset : 'datetime'};
+	opt.time = {preset : 'time'};
+	opt.init={
+		theme: 'android-ics light', //皮肤样式
+        display: 'modal', //显示方式 
+        mode: 'mixed', //日期选择模式
+		lang:'zh',
+        startYear:currYear - 100, //开始年份
+        endYear:currYear //结束年份
+	};
+	$("#brithday").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
+}
 $("#accountInfo").on("pageshow",function(e){
+	buildDate();
 	loadMemberInfo();
     $("#accountInfoForm").validate({
         rules:{
