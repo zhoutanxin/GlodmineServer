@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.doadway.framework.action.WWAction;
 import com.doadway.framework.util.CodeUtil;
+import com.doadway.framework.web.CookieUtils;
+import com.doadway.framework.web.SMSUtils;
 import com.doadway.glodmine.core.biz.MemberBiz;
 import com.doadway.glodmine.core.model.Member;
 import com.doadway.glodmine.core.security.UserRealm.ShiroUser;
@@ -99,6 +102,31 @@ public class MemberController extends WWAction {
 			}
 
 		}
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
+	@RequestMapping(value="/sendSms",method=RequestMethod.POST)
+	@ResponseBody
+	public  String sendSmsCode(HttpServletRequest request,HttpServletResponse respone,String mobilePhone)  {
+		boolean flag=false;
+		SMSUtils smsUtils = new SMSUtils();
+		String accountSid=smsUtils.getAccountSid();
+		String token=smsUtils.getAuthToken();
+		String appId="5a8cb8c20c7a432eb395aad9e5b232d8";
+		String templateId="15425";
+		String to="13683027377";
+		String para=CodeUtil.getSMSCode();
+		String result=SMSUtils.templateSMS(true, accountSid,token,appId, templateId,to,para);
+		CookieUtils.addCookie(request, respone, "COOKIE_SMS_CODE", para, 90, null);
+		JSONObject jsonRes=JSONObject.fromObject(JSONObject.fromObject(result).get("resp"));
+		if((String)jsonRes.get("respCode")=="000000"){
+			flag=true;
+			jsonMap.put("flag", flag);
+			jsonMap.put("msg", "发送成功");
+		}else{
+			jsonMap.put("flag", flag);
+			jsonMap.put("msg",(String)jsonRes.get("respCode"));
+		}
+			
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
 

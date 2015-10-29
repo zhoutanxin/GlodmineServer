@@ -572,10 +572,19 @@ public final class CodeUtil {
 		}	
 		return sb.toString();
 	}
+	public static String getSMSCode(){
+		Random random = getRandom();
+		String test = "";
+		for (int i = 0; i < 4; i++) {
+			test += random.nextInt(10);
+		}
+		return test;
+	}
 	public static void main(String[] args) {
-		System.out.println(getOrderCode());
-		System.out.println(getOrderLineCode());
-		System.out.println(getOrderLineInfoCode());
-		System.out.println(CodeUtil.getAccountCode());
+//		System.out.println(getOrderCode());
+//		System.out.println(getOrderLineCode());
+//		System.out.println(getOrderLineInfoCode());
+//		System.out.println(CodeUtil.getAccountCode());
+		System.out.println(CodeUtil.getSMSCode());
 	}
 }
