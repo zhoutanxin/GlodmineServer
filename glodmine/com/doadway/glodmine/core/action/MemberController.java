@@ -72,7 +72,7 @@ public class MemberController extends WWAction {
 			return "false";
 		}
 	}
-	@RequestMapping(value="/memberInfo",method=RequestMethod.GET)
+	@RequestMapping(value="/memberInfo",method=RequestMethod.POST)
 	@ResponseBody
 	public  String memberInfo(HttpServletRequest request,String mobilephone)  {
 		Subject currentUser = SecurityUtils.getSubject();
@@ -104,6 +104,25 @@ public class MemberController extends WWAction {
 		}
 		return JSONObject.fromObject(jsonMap).toString(); 
 	}
+	@RequestMapping(value="/updatePwd",method=RequestMethod.POST)
+	@ResponseBody
+	public  String updatePwd(HttpServletRequest request,Member member)  {
+		boolean flag=false;
+		if(member.getMobilePhone()!=null){
+			Member m=userBiz.findByMobile(member.getMobilePhone());
+			m.setPassword(member.getPassword());
+			flag= userBiz.updateMember(m);
+			if(flag){
+				jsonMap.put("flag", flag);
+				jsonMap.put("msg", "密码已修改");
+			}else{
+				jsonMap.put("flag", flag);
+				jsonMap.put("msg","修改失败,请检查操作");
+			}
+			
+		}
+		return JSONObject.fromObject(jsonMap).toString(); 
+	}
 	@RequestMapping(value="/sendSms",method=RequestMethod.POST)
 	@ResponseBody
 	public  String sendSmsCode(HttpServletRequest request,HttpServletResponse respone,String mobilePhone)  {
@@ -114,17 +133,21 @@ public class MemberController extends WWAction {
 		String appId="5a8cb8c20c7a432eb395aad9e5b232d8";
 		String templateId="15425";
 		String to="13683027377";
+		if(mobilePhone!=null&&!mobilePhone.trim().equals("")){
+			to=mobilePhone;
+		}
 		String para=CodeUtil.getSMSCode();
 		String result=SMSUtils.templateSMS(true, accountSid,token,appId, templateId,to,para);
-		CookieUtils.addCookie(request, respone, "COOKIE_SMS_CODE", para, 90, null);
-		JSONObject jsonRes=JSONObject.fromObject(JSONObject.fromObject(result).get("resp"));
-		if((String)jsonRes.get("respCode")=="000000"){
+		CookieUtils.addCookie(request, respone, "sms_code", para, 90, null);
+		System.out.println("手机验证码为:"+para);
+		JSONObject jsonRes=JSONObject.fromObject(JSONObject.fromObject("{}").get("resp"));//=null;
+		if(jsonRes!=null&&jsonRes.get("respCode").equals("000000")){
 			flag=true;
 			jsonMap.put("flag", flag);
 			jsonMap.put("msg", "发送成功");
 		}else{
 			jsonMap.put("flag", flag);
-			jsonMap.put("msg",(String)jsonRes.get("respCode"));
+			jsonMap.put("msg","发送失败:"+(String)jsonRes.get("respCode"));//
 		}
 			
 		return JSONObject.fromObject(jsonMap).toString(); 

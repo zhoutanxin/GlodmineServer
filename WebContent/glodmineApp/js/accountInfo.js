@@ -5,7 +5,7 @@
 function loadMemberInfo(){
 	doNotLogin();
 	 var htmlc= $.ajax({
-	        type: 'GET',
+	        type: 'POST',
 	        url:Config.root+ "memberInfo" ,
 	        dataType: "json",
             async:"false",

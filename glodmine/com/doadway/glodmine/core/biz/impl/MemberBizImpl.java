@@ -75,6 +75,7 @@ public class MemberBizImpl implements MemberBiz {
 			sMember.setNiceName(member.getNiceName());
 			sMember.setRealName(member.getRealName());
 			sMember.setGender(member.getGender());
+			sMember.setPassword(member.getPassword());
 			sMember.setUpdateTime(new Date(System.currentTimeMillis()));
 			return memberDAO.updateByPrimaryKey(sMember)>0;
 		}

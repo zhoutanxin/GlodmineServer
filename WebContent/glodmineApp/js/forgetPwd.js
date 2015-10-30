@@ -53,7 +53,8 @@ $("#forgetPwd1").on("pageshow",function(e){
             }
         },
         submitHandler:function(form){
-            $.mobile.changePage('forgetPwd2.html',{transition: 'flip'});
+//            $.mobile.changePage('forgetPwd2.html',{transition: 'flip'});
+            location.href="forgetPwd2.html?mobilePhone="+$("#mobilePhone").val()+"";
         }
     });
 });
@@ -73,16 +74,37 @@ function time(t) {
   }
 }
 
+function sendSms(){
+	 showLoading('验证码发送中...','',false);
+	$.ajax({
+       type: 'POST',
+       url:Config.root+ "sendSms" ,
+       dataType: "json",
+       data:{"mobilePhone":$("#mobilePhone").val()},
+       success:function(data){
+           if(data.flag){
+               showLoading('验证码发送成功','',false);
+           }
+           showLoading(data.msg,'',true);
+           setTimeout(hideLoading(), 1000);
+
+       }
+   });
+}
 $("#forgetPwd2").on("pageshow",function(e){
 	$("#smsCode").click( function () { 
 		time(this);
+		sendSms();
 	});
+	var paramPhone=$.getUrlParam("mobilePhone");
+	$("#mobilePhone").val(paramPhone);
+	$("#showMobile").val(paramPhone.replace(paramPhone.substr(3,4),"****"));
 	$("#forgetPwd2Form").validate({
 		rules:{
 			mobCode:{
 				required:true,
-				equalTo:"#scode"
-//				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#scode";}
+//				equalTo:"#scode"
+				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_SMS_CODE)); return "#scode";}
 			}
 		},
 		//自定义验证信息
@@ -101,24 +123,27 @@ $("#forgetPwd2").on("pageshow",function(e){
 			}
 		},
 		submitHandler:function(form){
-			$.mobile.changePage('forgetPwd3.html',{transition: 'flip'});
+//			$.mobile.changePage('forgetPwd3.html',{transition: 'flip'});
+			location.href="forgetPwd3.html?mobilePhone="+$("#mobilePhone").val()+"";
 		}
 	});
 });
 $("#forgetPwd3").on("pageshow",function(e){
+	var paramPhone=$.getUrlParam("mobilePhone");
+	$("#mobilePhone").val(paramPhone);
 	$("#forgetPwd3Form").validate({
 		rules:{
-			newPwd:{
+			password:{
                 required:true,
                 rangelength:[6,20]
             },
             comfrimNewPwd:{
-                equalTo:"#newPwd"
+                equalTo:"#password"
             }            
 		},
 		//自定义验证信息
 		messages:{
-			newPwd:{
+			password:{
                 required:"密码不能为空",
                 rangelength:$.validator.format("密码长度必须在 {0}-{1} 字符.")
             },
@@ -135,7 +160,24 @@ $("#forgetPwd3").on("pageshow",function(e){
 			}
 		},
 		submitHandler:function(form){
-			$.mobile.changePage('modifyOk.html',{transition: 'flip'});
+			updatePwd();
 		}
 	});
 });
+function updatePwd(){
+    showLoading('密码修改中...','',false);
+    $.ajax({
+        type: 'POST',
+        url:Config.root+ "updatePwd" ,
+        data:$("#forgetPwd3Form").serialize(),
+        dataType: "json",
+        success:function(data){
+            if(data.flag){
+            	$.mobile.changePage('modifyOk.html',{transition: 'flip'});
+            }
+            showLoading(data.msg,'',true);
+            setTimeout(hideLoading(), 1500);
+
+        }
+    });
+}

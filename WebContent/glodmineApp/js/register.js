@@ -3,25 +3,43 @@
  */
 var wait=90;
 function time(t) {
-  if (wait == $(t).val()) {
-//   t.removeAttribute("disabled");   
-//   t.value="免费获取验证码";
-   $("#smsCode").attr("disabled",false);
-   $("#smsCode").text("获取验证码").button("refresh");
-   wait = 10;
-  } else {
-//   t.setAttribute("disabled", true);
-//   t.value="重新发送(" + wait + ")";
-  $("#smsCode").attr('disabled',"");
-  $("#smsCode").text("等待(" + wait + ")").button("refresh");
-   wait--;
-   setTimeout(function() {time(t);},1000);
-  }
+	if (wait == $(t).val()) {
+		//   t.removeAttribute("disabled");   
+		//   t.value="免费获取验证码";
+		   $("#smsCode").attr("disabled",false);
+		   $("#smsCode").text("获取验证码").button("refresh");
+		   wait = 10;
+	} else {
+		//   t.setAttribute("disabled", true);
+		//   t.value="重新发送(" + wait + ")";
+		  $("#smsCode").attr('disabled',"");
+		  $("#smsCode").text("等待(" + wait + ")").button("refresh");
+		   wait--;
+		   setTimeout(function() {time(t);},1000);
+	}
  }
+function sendSms(){
+	 showLoading('验证码发送中...','',false);
+	$.ajax({
+        type: 'POST',
+        url:Config.root+ "sendSms" ,
+        dataType: "json",
+        data:{"mobilePhone":$("#mobilePhone").val()},
+        success:function(data){
+            if(data.flag){
+                showLoading('验证码发送成功','',false);
+            }
+            showLoading(data.msg,'',true);
+            setTimeout(hideLoading(), 1000);
+
+        }
+    });
+}
 $("#register").on("pageshow",function(e){
 	$("#smsCode").click( function () { 
 		if($("#registerForm").validate().element($("#mobilePhone"))){
 			time(this);
+			sendSms();
 		}
 	});
     $("#password").focus(function(){
@@ -41,7 +59,7 @@ $("#register").on("pageshow",function(e){
             mobilePhone:{
                 required:true,
                 mobile:true,
-                remote:{                                          //验证用户名是否存在
+/*                remote:{                                          //验证用户名是否存在
                     type:"POST",
                     url:Config.root+"ifhasmob",
                     dataType: "json",
@@ -49,7 +67,7 @@ $("#register").on("pageshow",function(e){
                     data:{
                        mobilePhone:function(){return $("#mobilePhone").val();}
                     }
-                }
+                }*/
             },
             imail:{
                 required:true,
@@ -71,8 +89,8 @@ $("#register").on("pageshow",function(e){
             },
 			mobCode:{
 				required:true,
-				equalTo:"#scode"
-//				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#scode";}
+//				equalTo:"#scode"
+				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_SMS_CODE)); return "#scode";}
 			},            
             password:{
                 required:true,
@@ -87,7 +105,7 @@ $("#register").on("pageshow",function(e){
             mobilePhone:{
                 required:"手机号码不能为空",
                 mobile:"请输入正确的手机号码",
-                remote:"手机号已存在"
+               // remote:"手机号已存在"
             },
             imail:{
                 required:"邮箱不能为空",
