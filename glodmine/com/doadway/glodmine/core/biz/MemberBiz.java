@@ -13,4 +13,6 @@ public interface MemberBiz {
 	public boolean ifHaveEmail(String mobilephone);
 	
 	public boolean updateMember(Member member);
+	
+	public boolean updatePwd(String mobilePhone,String pwd);
 }

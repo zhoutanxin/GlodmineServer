@@ -15,7 +15,7 @@ function loadIncome(){
 	        success:function(data){
 	            if(data.flag){
 	            	var json=eval(data.result);
-	            	$("#idate").text(new Date(json.idate.time).format("yyyy-MM-dd hh-mm-ss"));
+	            	$("#idate").text(new Date(json.idate.time).format("yyyy-MM-dd hh:mm:ss"));
 	            	$("#imoney").text(json.imoney.toFixed(2));
 	            	$("#icategory").text(json.icategory);
 	            	$("#imemo").text(json.imemo);

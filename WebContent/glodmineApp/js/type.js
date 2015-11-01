@@ -4,6 +4,7 @@
 var typeflg=1;
 $("#type").on("pageshow",function(e){
 	loadlist4IncomeType();
+	$("body").perfectScrollbar({suppressScrollX:true});
 	$("input[name='categoryflag']").change(function(){
 		typeflg=$(this).val();
 		loadListByTypeVal($(this).val());

@@ -23,7 +23,7 @@ $(function(){
 function getLoginFlg(){
     var flg=false;
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url:Config.root+ "chklogin" ,
         dataType: "json",
         async:false,

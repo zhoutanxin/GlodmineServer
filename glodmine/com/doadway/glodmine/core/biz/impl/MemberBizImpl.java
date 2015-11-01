@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.doadway.framework.util.StringUtil;
 import com.doadway.glodmine.core.biz.MemberBiz;
 import com.doadway.glodmine.core.dao.MemberMapper;
 import com.doadway.glodmine.core.model.Member;
@@ -75,11 +76,23 @@ public class MemberBizImpl implements MemberBiz {
 			sMember.setNiceName(member.getNiceName());
 			sMember.setRealName(member.getRealName());
 			sMember.setGender(member.getGender());
-			sMember.setPassword(member.getPassword());
 			sMember.setUpdateTime(new Date(System.currentTimeMillis()));
 			return memberDAO.updateByPrimaryKey(sMember)>0;
 		}
 		return false;
 	}
+
+	@Override
+    public boolean updatePwd(String mobilePhone, String pwd) {
+		if( mobilePhone!=null ){
+			Member sMember=this.findByMobile(mobilePhone);
+			if(!StringUtil.isEmpty(pwd)){
+				sMember.setPassword(pwd);
+			}
+			sMember.setUpdateTime(new Date(System.currentTimeMillis()));
+			return memberDAO.updateByPrimaryKey(sMember)>0;
+		}
+		return false;
+    }
 
 }

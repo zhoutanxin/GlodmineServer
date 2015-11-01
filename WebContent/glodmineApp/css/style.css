@@ -26,11 +26,12 @@ body{
 	overflow-x:hidden;
 	overflow-y:hidden;
 }
-#content{
+#iTable{
 	overflow: scroll;
 	overflow-x:hidden;
-	overflow-y:hidden;
-	max-height:420px;
+	overflow-y:auto;
+	min-height:210px;
+	/* max-height:420px; */
 }
 /*表格样式*/
 table {
@@ -61,8 +62,10 @@ table {
 .bordered td, .bordered th {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
+    font-size:14px;
+	height:25px;
 }
 
 .bordered th {

@@ -2,7 +2,7 @@
  * Created by Administrator on 2015-09-25.
  */
 Config={};
-Config.domain="http://localhost:8080";
+Config.domain="http://pa.doadway.com:8080";
 Config.ctx="GlodmineSever";
 Config.root=Config.domain+"/"+Config.ctx+"/";
 Config.appName="glodmineApp";

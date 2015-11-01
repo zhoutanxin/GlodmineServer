@@ -109,9 +109,7 @@ public class MemberController extends WWAction {
 	public  String updatePwd(HttpServletRequest request,Member member)  {
 		boolean flag=false;
 		if(member.getMobilePhone()!=null){
-			Member m=userBiz.findByMobile(member.getMobilePhone());
-			m.setPassword(member.getPassword());
-			flag= userBiz.updateMember(m);
+			flag= userBiz.updatePwd(member.getMobilePhone(),member.getPassword());
 			if(flag){
 				jsonMap.put("flag", flag);
 				jsonMap.put("msg", "密码已修改");
@@ -125,22 +123,25 @@ public class MemberController extends WWAction {
 	}
 	@RequestMapping(value="/sendSms",method=RequestMethod.POST)
 	@ResponseBody
-	public  String sendSmsCode(HttpServletRequest request,HttpServletResponse respone,String mobilePhone)  {
+	public  String sendSmsCode(HttpServletRequest request,HttpServletResponse respone,String mobilePhone,String type)  {
 		boolean flag=false;
 		SMSUtils smsUtils = new SMSUtils();
 		String accountSid=smsUtils.getAccountSid();
 		String token=smsUtils.getAuthToken();
 		String appId="5a8cb8c20c7a432eb395aad9e5b232d8";
 		String templateId="15425";
+		if(type.equals("pwd")){
+			templateId="15503";
+		}
 		String to="13683027377";
 		if(mobilePhone!=null&&!mobilePhone.trim().equals("")){
 			to=mobilePhone;
 		}
 		String para=CodeUtil.getSMSCode();
 		String result=SMSUtils.templateSMS(true, accountSid,token,appId, templateId,to,para);
-		CookieUtils.addCookie(request, respone, "sms_code", para, 90, null);
+		CookieUtils.addCookie(request, respone, "sms_code"+type, para, 90, null);
 		System.out.println("手机验证码为:"+para);
-		JSONObject jsonRes=JSONObject.fromObject(JSONObject.fromObject("{}").get("resp"));//=null;
+		JSONObject jsonRes=JSONObject.fromObject(JSONObject.fromObject(result).get("resp"));//=null;
 		if(jsonRes!=null&&jsonRes.get("respCode").equals("000000")){
 			flag=true;
 			jsonMap.put("flag", flag);

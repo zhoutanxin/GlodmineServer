@@ -54,7 +54,10 @@ $("#forgetPwd1").on("pageshow",function(e){
         },
         submitHandler:function(form){
 //            $.mobile.changePage('forgetPwd2.html',{transition: 'flip'});
-            location.href="forgetPwd2.html?mobilePhone="+$("#mobilePhone").val()+"";
+            location.href="forgetPwd2.html";
+        	var expiresDate = new Date();
+        	expiresDate.setTime(expiresDate.getTime()+(3*60*1000));
+            $.cookie("mobilePhone", $("#mobilePhone").val(),{expires:expiresDate}); 
         }
     });
 });
@@ -78,7 +81,7 @@ function sendSms(){
 	 showLoading('验证码发送中...','',false);
 	$.ajax({
        type: 'POST',
-       url:Config.root+ "sendSms" ,
+       url:Config.root+ "sendSms?type=pwd" ,
        dataType: "json",
        data:{"mobilePhone":$("#mobilePhone").val()},
        success:function(data){
@@ -96,7 +99,11 @@ $("#forgetPwd2").on("pageshow",function(e){
 		time(this);
 		sendSms();
 	});
-	var paramPhone=$.getUrlParam("mobilePhone");
+	var paramPhone=$.cookie("mobilePhone"); 
+	if(paramPhone==null||paramPhone==''){
+		location.href="forgetPwd1.html";
+		return;
+	}	
 	$("#mobilePhone").val(paramPhone);
 	$("#showMobile").val(paramPhone.replace(paramPhone.substr(3,4),"****"));
 	$("#forgetPwd2Form").validate({
@@ -104,7 +111,7 @@ $("#forgetPwd2").on("pageshow",function(e){
 			mobCode:{
 				required:true,
 //				equalTo:"#scode"
-				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_SMS_CODE)); return "#scode";}
+				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_SMS_CODE+"pwd")); return "#scode";}
 			}
 		},
 		//自定义验证信息
@@ -124,12 +131,16 @@ $("#forgetPwd2").on("pageshow",function(e){
 		},
 		submitHandler:function(form){
 //			$.mobile.changePage('forgetPwd3.html',{transition: 'flip'});
-			location.href="forgetPwd3.html?mobilePhone="+$("#mobilePhone").val()+"";
+			location.href="forgetPwd3.html";
 		}
 	});
 });
 $("#forgetPwd3").on("pageshow",function(e){
-	var paramPhone=$.getUrlParam("mobilePhone");
+	var paramPhone=$.cookie("mobilePhone");
+	if(paramPhone==null||paramPhone==''){
+		location.href="forgetPwd1.html";
+		return;
+	}
 	$("#mobilePhone").val(paramPhone);
 	$("#forgetPwd3Form").validate({
 		rules:{
@@ -177,6 +188,7 @@ function updatePwd(){
             }
             showLoading(data.msg,'',true);
             setTimeout(hideLoading(), 1500);
+//            $.cookie('mobilePhone', '', {expires: -1});
 
         }
     });

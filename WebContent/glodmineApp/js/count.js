@@ -21,6 +21,7 @@ function buildDate(){
 $("#count").on("pageshow",function(e){
 	countIncomeByDate();
 	buildDate();
+	$("body").perfectScrollbar({suppressScrollX:true});
 //	$("input[name='categoryflag']").change(function(){
 //		$("table tr").first().siblings().remove();
 //		if($(this).val()==1){

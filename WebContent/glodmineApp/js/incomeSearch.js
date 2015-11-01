@@ -3,32 +3,20 @@
  */
 //是否可滚动
 stop=true;
-//浏览器的高度加上滚动条的高度 
-//totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
-//$(function(){
-//		$(window).scroll(function () {
-//            if ($("body").height() <= totalheight) {
-//            	if(stop==true){ 
-//					stop=false; 
-//					quryList4Income();
-//				}            	
-//            }
-//        });		
-//});
 var totalheight = 0; 
 
-$(window).scroll( function() { 
+//$(window).scroll( function() { 
 //    console.log("滚动条到顶部的垂直高度: "+$(document).scrollTop()); 
 //    console.log("页面的文档高度 ："+$(document).height());
 //    console.log('浏览器的高度：'+$(window).height());
-    totalheight =$(window).height() + $(window).scrollTop();     //浏览器的高度加上滚动条的高度 
-    if ($(document).height() <= totalheight&&stop)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
-    { 
-        //加载数据
-    	quryList4Income();
-
-    } 
-}); 
+//    totalheight =$(window).height() + $(window).scrollTop();     //浏览器的高度加上滚动条的高度 
+//    if ($(document).height() <= totalheight&&stop)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
+//    { 
+//        //加载数据
+//    	quryList4Income();
+//
+//    } 
+//}); 
 
 
 function buildDate(){
@@ -49,21 +37,20 @@ function buildDate(){
 	$("#endTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
 }
 
+$(document).on("pageinit","#incomeSearch",function(){
+	quryList4Income();
+	  $("#incomeSearch").on("swipe",function(){
+		  var tmpPage=parseInt($("#currentPage").val());
+		  tmpPage+=1;
+		  $("#currentPage").val(tmpPage);
+		  quryList4Income();
+	  });                       
+});
 
 $("#incomeSearch").on("pageshow",function(e){
+	$("body").perfectScrollbar({suppressScrollX:true});
 	buildDate();
 	buildIncomeType();
-	quryList4Income();
-	$('#content').perfectScrollbar({suppressScrollX:true});
-	$('#content').scroll(function(){
-	    totalheight =$("#content").outerHeight() + $("#content").scrollTop();     //浏览器的高度加上滚动条的高度 
-	    if ($(document).height() <= totalheight&&stop)     //当文档的高度小于或者等于总的高度的时候，开始动态加载数据
-	    { 
-	        //加载数据
-	    	quryList4Income();
-
-	    } 		
-	});	
     $("#searchForm").validate({
         rules:{
             startTime:{
@@ -136,20 +123,20 @@ function quryList4Income(){
 	        	var noData="<tr><td align='center' colspan=\"3\">暂无数据</td></tr>";
 	            if(data.flag){
 	                var json=eval(data.result);
+	                var page=eval(data.page);
+	            	if(parseInt($("#currentPage").val()-1)==page.totalPage){
+	            		$("#currentPage").val(page.totalPage);
+	            		showLoading('已经到最后一页','',false);
+	            		setTimeout(function(){hideLoading();}, 1000);
+	            		return;
+	            	}
 	                if(json.length>0){
 	                	for(var i=0;i<json.length;i++){
 	                		$("table").append("<tr onclick=\"location.href='incomeItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd hh:mm:ss")+"</td><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
 	                	}
 	                }
-	                var page=eval(data.page);
-	            	if($("#currentPage").val()==page.totalPage){
-	            		stop=false;
-	            	}else{
-	            		stop=true;
-	            	}
-	            	$("#currentPage").val(page.currentPage+1);
 	            }else{
-	            	stop=false;
+	            	$("table tr").first().siblings().remove();
 	            	$("table").append(noData);
                 }
 	            setTimeout(function(){hideLoading();}, 1000);
