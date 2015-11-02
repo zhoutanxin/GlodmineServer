@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.doadway.framework.action.WWAction;
 import com.doadway.framework.util.CodeUtil;
+import com.doadway.framework.util.StringUtil;
 import com.doadway.framework.web.CookieUtils;
 import com.doadway.framework.web.SMSUtils;
 import com.doadway.glodmine.core.biz.MemberBiz;
@@ -130,7 +131,10 @@ public class MemberController extends WWAction {
 		String token=smsUtils.getAuthToken();
 		String appId="5a8cb8c20c7a432eb395aad9e5b232d8";
 		String templateId="15425";
-		if(type.equals("pwd")){
+		if(StringUtil.isEmpty(type)){
+			type="";
+		}
+		if(!StringUtil.isEmpty(type) &&type.equals("pwd")){
 			templateId="15503";
 		}
 		String to="13683027377";
