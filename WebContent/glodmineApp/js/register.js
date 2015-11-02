@@ -59,7 +59,7 @@ $("#register").on("pageshow",function(e){
             mobilePhone:{
                 required:true,
                 mobile:true,
-/*                remote:{                                          //验证用户名是否存在
+                remote:{                                          //验证用户名是否存在
                     type:"POST",
                     url:Config.root+"ifhasmob",
                     dataType: "json",
@@ -67,7 +67,7 @@ $("#register").on("pageshow",function(e){
                     data:{
                        mobilePhone:function(){return $("#mobilePhone").val();}
                     }
-                }*/
+                }
             },
             imail:{
                 required:true,
@@ -105,7 +105,7 @@ $("#register").on("pageshow",function(e){
             mobilePhone:{
                 required:"手机号码不能为空",
                 mobile:"请输入正确的手机号码",
-               // remote:"手机号已存在"
+               remote:"手机号已存在"
             },
             imail:{
                 required:"邮箱不能为空",
