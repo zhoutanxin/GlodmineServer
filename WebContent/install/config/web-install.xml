@@ -3,7 +3,7 @@
 	<display-name>glodmin System</display-name>	
 	<servlet>
 		<servlet-name>Install</servlet-name>
-		<servlet-class>com.doadway.dwcms.InstallServlet</servlet-class>
+		<servlet-class>com.doadway.glodmine.InstallServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Install</servlet-name>
