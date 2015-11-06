@@ -95,7 +95,7 @@ public class ValidCodeServlet extends HttpServlet {
  
 		
 		ThreadContextHolder.getSessionContext().setAttribute(SESSION_VALID_CODE+vtype,test);
-		CookieUtils.addCookie(req, resp, SESSION_VALID_CODE+vtype, test, 120, null);
+		CookieUtils.addCookie(req, resp, SESSION_VALID_CODE+vtype, test, -1, null);
 		System.out.println("后台输出的验证码:"+test);
 		/**
 		 * 得到输出流
