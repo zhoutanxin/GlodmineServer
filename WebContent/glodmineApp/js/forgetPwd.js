@@ -29,7 +29,23 @@ $("#forgetPwd1").on("pageshow",function(e){
             },
             validateCode:{
                 required:true,
-                equalTo:function(){$("#vcode").val($.cookie(Config.COOKIE_VALID_CODE)); return "#vcode";}
+                equalTo:function(){
+             	   $.ajax({
+           	        type: 'POST',
+           	        url:Config.root+ "getVCode" ,
+           	        async:false,
+           	        dataType: "json",
+           	        success:function(data){
+           	        	if(data.flag){
+           	        		code=data.vcode;
+           	        		$("#vcode").val(data.vcode); 
+           	        	}else{
+           	        		$("#vcode").val(null); 
+           	        	}
+           	        }
+           	    });	
+               	return "#vcode";                	
+              }
 }
         },
         //自定义验证信息
@@ -111,7 +127,23 @@ $("#forgetPwd2").on("pageshow",function(e){
 			mobCode:{
 				required:true,
 //				equalTo:"#scode"
-				equalTo:function(){$("#scode").val($.cookie(Config.COOKIE_SMS_CODE+"pwd")); return "#scode";}
+				equalTo:function(){            	   
+	              	   $.ajax({
+	              	        type: 'POST',
+	              	        url:Config.root+ "getSmsCode?type=pwd" ,
+	              	        async:false,
+	              	        dataType: "json",
+	              	        success:function(data){
+	              	        	if(data.flag){
+	              	        		code=data.smscode;
+	              	        		$("#scode").val(data.smscode); 
+	              	        	}else{
+	              	        		$("#scode").val(null); 
+	              	        	}
+	              	        }
+	              	    });	
+	                  	return "#scode";   
+               }
 			}
 		},
 		//自定义验证信息

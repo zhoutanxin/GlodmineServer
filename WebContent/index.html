@@ -19,9 +19,43 @@ object{margin:0 auto; width:325px; height:485px; background:#fff;}
 </head>
 <body>
 <script type="text/javascript">
+function browserRedirect() {
+    var sUserAgent = navigator.userAgent.toLowerCase();
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+    var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+    var bIsAndroid = sUserAgent.match(/android/i) == "android";
+    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+    if (!(bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) ){
+    	window.location.href="glodmineApp/index.html";
+    }else{
+    	$("#iframe").html("<object id='obj1' type='text/html' data='glodmineApp/index.html'></object>");
+    }
+}
+//browserRedirect();
+function isPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
+}
 $(function(){
-	var ifra=document.getElementById("iframe");
-	ifra.innerHTML='<object id="obj1" type="text/html" data="glodmineApp/index.html"></object>';
+	if(isPC()){
+		$("#iframe").html("<object id='obj1' type='text/html' data='glodmineApp/index.html'></object>");
+	}else{
+		window.location.href="glodmineApp/index.html";
+	}
 })
 </script>
 <!-- 	<iframe frameborder="no" border="0" marginwidth="0" marginheight="0"  id="container" src="glodmineApp/index.html">

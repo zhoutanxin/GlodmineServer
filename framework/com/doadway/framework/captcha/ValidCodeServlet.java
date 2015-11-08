@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 
+
 import com.doadway.framework.context.webcontext.ThreadContextHolder;
 import com.doadway.framework.web.CookieUtils;
 import com.sun.image.codec.jpeg.JPEGCodec;
@@ -26,6 +27,8 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 public class ValidCodeServlet extends HttpServlet {
 	
 	public static final String SESSION_VALID_CODE ="valid_code";
+
+	public static final String SESSION_VALID_TIME = "valid_time";
 	
 	private Random generator = new Random();
 
@@ -94,8 +97,9 @@ public class ValidCodeServlet extends HttpServlet {
 		 */
  
 		
-		ThreadContextHolder.getSessionContext().setAttribute(SESSION_VALID_CODE+vtype,test);
-		CookieUtils.addCookie(req, resp, SESSION_VALID_CODE+vtype, test, -1, null);
+//		ThreadContextHolder.getSessionContext().setAttribute(SESSION_VALID_CODE+vtype,test);
+		req.getSession().setAttribute(SESSION_VALID_CODE+vtype,test);
+		req.getSession().setAttribute(SESSION_VALID_TIME,System.currentTimeMillis());
 		System.out.println("后台输出的验证码:"+test);
 		/**
 		 * 得到输出流
