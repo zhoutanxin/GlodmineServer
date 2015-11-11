@@ -24,6 +24,7 @@
 				/updatePwd* = anon
 				/ifhasemail* = anon
 				/install/**= anon
+				/error/**= anon
 				/getVCode*= anon
 				/getSmsCode*= anon
 			    /**= authc

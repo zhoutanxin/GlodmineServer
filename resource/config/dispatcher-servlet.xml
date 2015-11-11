@@ -101,6 +101,7 @@
     <mvc:resources  mapping="/views/install/images/**" location="/WEB-INF/views/install/images/"/>     
     <mvc:resources  mapping="/install/images/**" location="/WEB-INF/views/install/images/"/>     
     <mvc:resources  mapping="/r/**" location="/WEB-INF/r/"/>     
+    <mvc:resources  mapping="/error/**" location="/WEB-INF/error/"/>     
     <mvc:resources  mapping="/admin_sys/**" location="/WEB-INF/views/admin_sys/"/>     
 	    
 	<!-- velocity环境配置 -->  	
