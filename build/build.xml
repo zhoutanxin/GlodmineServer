@@ -48,7 +48,7 @@
 		  <classpath refid="buildpath"></classpath>
 		  <formatter type="plain"/>
 		  <batchtest fork="yes">
-		    <fileset dir="test/com/doadway/**">
+		    <fileset dir="test/com/doadway">
 		      <include name="**/*Test*.java"/>
 		    </fileset>
 		  </batchtest>
