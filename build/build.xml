@@ -27,7 +27,8 @@
     	<mkdir dir="${build.dir}"/>
     	
     	<!--编译src目录下的类文件-->
-        <javac srcdir="." destdir="${build.dir}/"  includeantruntime="false" debug="true" >
+        <javac srcdir="." destdir="${build.dir}/"  includeantruntime="false" debug="true" debuglevel="${debuglevel}">
+        	<compilerarg line="-XDignore.symbol.file"/>
         	<classpath refid="buildpath"></classpath>
         	<include name="**/framework/**"/>
         	<include name="**/glodmine/**"/>
