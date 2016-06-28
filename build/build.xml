@@ -14,7 +14,7 @@
 	    		  <include name="**/*.jar"/>   
 			</fileset>	   
 	    	<fileset dir="/usr/local/java/jdk1.7.0_79/jre/lib">
-	    		  <include name="**/*.jar"/>   
+	    		  <include name="*.jar"/>   
 			</fileset>	   
 		    <dirset dir="${build.dir}">   
 		    </dirset>  		  	
