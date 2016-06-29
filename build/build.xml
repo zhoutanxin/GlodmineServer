@@ -65,7 +65,11 @@
 		 </copy>
 		<!--部署配置至服务器-->
 	 	<copy todir="${build.dir}">
-	      <fileset dir="resource">
+	      <fileset dir=".">
+	      	<include name="**/config/**"/>	
+	      	<include name="**/language/**"/>	
+	      	<include name="**/mapper/**"/>	
+	      	<include name="**/message/**"/>	
 	      	<include name="**/spring/**"/>	
 	      </fileset>
 	 	</copy>
