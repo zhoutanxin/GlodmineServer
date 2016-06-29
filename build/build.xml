@@ -18,12 +18,7 @@
 			</fileset>	   
 		    <dirset dir="${build.dir}">   
 		    </dirset>  	
-    		<!--部署配置至服务器-->
-		 	<copy todir="${build.dir}">
-		      <fileset dir="resource">
-		      	<include name="**/spring/**"/>	
-		      </fileset>
-		 	</copy>
+
 	</path>
 	
 	<!--编译-->
@@ -68,7 +63,12 @@
 		      <fileset dir="WebContent" >
 		      </fileset>	
 		 </copy>
-
+		<!--部署配置至服务器-->
+	 	<copy todir="${build.dir}">
+	      <fileset dir="resource">
+	      	<include name="**/spring/**"/>	
+	      </fileset>
+	 	</copy>
     </target>	
 	
 	<!--独立版打war包至下载目录-->
