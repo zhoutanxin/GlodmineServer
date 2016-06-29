@@ -32,7 +32,8 @@
         	<classpath refid="buildpath"></classpath>
         	<include name="**/framework/**"/>
         	<include name="**/glodmine/**"/>
-        	<include name="**/test/**"/>	
+        	<include name="**/resource/**"/>	
+        	<include name="**/framework/**/spring/**"/>	
         </javac>
 
 
