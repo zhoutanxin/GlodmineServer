@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="core" default="pack" basedir="../">
-	<property file="build.properties" /> 
+	<property file="build/build.properties" /> 
 	
 	<!--要编译的类目录-->
 	<property name="build.dir"  value="${tempdir}/classes" />
