@@ -21,7 +21,7 @@
 	</path>
 	
 	<!--编译-->
-    <target name="compile"  >
+    <target name="compile" >
     	
     	<!--创建编译目录-->
     	<mkdir dir="${build.dir}"/>
@@ -32,8 +32,6 @@
         	<classpath refid="buildpath"></classpath>
         	<include name="**/framework/**"/>
         	<include name="**/glodmine/**"/>
-        	<include name="**/resource/**"/>	
-        	<include name="**/framework/**/spring/**"/>	
         </javac>
 
 
@@ -60,9 +58,16 @@
 	<!--部署-->
     <target name="deploy" depends="test"  >
     	<!--部署至web服务器-->
-		 <copy todir="${server.testweb}">
+		 <copy todir="${server.web}">
 		      <fileset dir="WebContent" >
 		      </fileset>	
+		 </copy>
+    	<!--部署配置至服务器-->
+		 <copy todir="${build.dir}">
+		      <fileset dir="。/">
+		      	<include name="**/spring/**"/>	
+		      	<include name="resource"/>	
+		      </fileset>
 		 </copy>
     </target>	
 	
