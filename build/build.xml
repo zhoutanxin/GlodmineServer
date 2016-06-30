@@ -83,7 +83,7 @@
 	<target name="pack" depends="deploy">
     	<!--创建下载目录-->
     	<mkdir dir="${server.download}/${version}"/>
-		<war destfile="${server.download}/${version}/glodmine.war" webxml="WebContent/WEB-INF/web.xml">
+		<war destfile="${server.download}/${version}/GlodmineServer.war" webxml="WebContent/WEB-INF/web.xml">
 		  <fileset dir="WebContent" >
 		  </fileset>
 		  <classes dir="${build.dir}"/>
