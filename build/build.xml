@@ -88,6 +88,11 @@
 		  </fileset>
 		  <classes dir="${build.dir}"/>
 		</war>		 
+		<war destfile="./build/GlodmineServer.war" webxml="WebContent/WEB-INF/web.xml">
+		  <fileset dir="WebContent" >
+		  </fileset>
+		  <classes dir="${build.dir}"/>
+		</war>		 
 	</target>
 	
 
