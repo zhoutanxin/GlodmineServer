@@ -47,3 +47,7 @@ function showLoading(txt,htm,txtonly){
 function hideLoading(){
 	$.mobile.loading('hide');
 }
+function scrollBottom(){
+	 var h = $(document).height()-$(window).height();
+	 $(document).scrollTop(h);
+}

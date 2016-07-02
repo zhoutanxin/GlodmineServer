@@ -18,7 +18,6 @@ var totalheight = 0;
 //    } 
 //}); 
 
-
 function buildDate(){
 	var currYear = (new Date()).getFullYear();	
 	var opt={};
@@ -35,19 +34,28 @@ function buildDate(){
 	};
 	$("#startTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
 	$("#endTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
+
 }
 
 $(document).on("pageinit","#incomeSearch",function(){
-	quryList4Income();
-	  $("#incomeSearch").on("swipe",function(){
+		quryList4Income();
+/*	  $("#incomeSearch").on("swipe",function(){
 		  var tmpPage=parseInt($("#currentPage").val());
 		  tmpPage+=1;
 		  $("#currentPage").val(tmpPage);
 		  quryList4Income();
-	  });                       
+	  }); */     
+	 $("#footer").on("click",function(){
+		  var tmpPage=parseInt($("#currentPage").val());
+		  tmpPage+=1;
+		  $("#currentPage").val(tmpPage);
+		  quryList4Income();
+		  scrollBottom();
+	  });      
 });
 
 $("#incomeSearch").on("pageshow",function(e){
+
 	$("body").perfectScrollbar({suppressScrollX:true});
 	buildDate();
 	buildIncomeType();
@@ -78,6 +86,7 @@ $("#incomeSearch").on("pageshow",function(e){
             }
         },
         submitHandler:function(form){
+        	$("#colllist").empty();
         	$("table tr").first().siblings().remove();
         	$("#currentPage").val(1);
         	quryList4Income();
@@ -118,9 +127,9 @@ function quryList4Income(){
 	        url:Config.root+ "income/querylist" ,
 	        dataType: "json",
 	        data:$("#searchForm").serialize(),
-	        async : false,
+	        async : true,
 	        success:function(data){
-	        	var noData="<tr><td align='center' colspan=\"3\">暂无数据</td></tr>";
+	        	var noData="<tr><td align='center' colspan=\"2\">暂无数据</td></tr>";
 	            if(data.flag){
 	                var json=eval(data.result);
 	                var page=eval(data.page);
@@ -132,14 +141,64 @@ function quryList4Income(){
 	            	}
 	                if(json.length>0){
 	                	for(var i=0;i<json.length;i++){
-	                		$("table").append("<tr onclick=\"location.href='incomeItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd hh:mm:ss")+"</td><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+	                		//$("table").append("<tr onclick=\"location.href='incomeItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd hh:mm:ss")+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+	                		var collspan="<div class=\"collspan"+json[i].id+"\" data-role=\"collapsible\">"+
+			                "<h1><div class=\"ui-grid-a\"><div class=\"ui-block-a\">"+new Date(json[i].idate.time).format("yyyy-MM-dd")+"</div><div class=\"ui-block-b red\">+ "+json[i].imoney.toFixed(2)+"</div></div></h1>"+
+			                "<p>"+
+			                "<table class=\"bordered\" width=\"100%\" cellspacing=\"0\">"+
+			                "<tr><td class=\"ui-block-2\">日期:</td><td class=\"ui-block-4\"><span id=\"idate\">"+new Date(json[i].idate.time).format("yyyy-MM-dd hh:mm:ss")+"</span></td><td class=\"ui-block-2\">金额:</td><td class=\"ui-block-2 red\"> <span id=\"imoney\">"+json[i].imoney.toFixed(2)+"</span></td></tr>"+        
+			                "<tr><td  class=\"ui-block-2\">来源:</td><td colspan=\"3\"><span id=\"icategory\">"+json[i].icategory+"</span></td></tr>"+        
+			                "<tr><td  class=\"ui-block-2\">描述:</td><td colspan=\"3\"><span id=\"imemo\">"+json[i].imemo+"</span></td></tr>"+        
+			                "</table>"+    
+			                "<a type=\"button\" href=\"#alertInfo\" class=\"delBtn"+json[i].id+"\" data-rel=\"dialog\" onclick=\"setDelId('"+json[i].id+"')\">清除</a>"+     
+			                "</p>"+
+			                "</div>";
+	                		$("#colllist").append(collspan).trigger("create");
+	                		//$(".collspan").collapsibleset("refresh");
+	                		$(".delBtn"+json[i].id+"").button();
 	                	}
 	                }
 	            }else{
 	            	$("table tr").first().siblings().remove();
 	            	$("table").append(noData);
+	            	$("#colllist").empty();
                 }
 	            setTimeout(function(){hideLoading();}, 1000);
+	           
 	        }
 	    });
+	
+}
+function setDelId(incomeId){
+	$("#delId").val(incomeId);
+}
+function delIncome(){
+	var delId=$("#delId").val();
+	if(delId==''){
+		return;
+	}
+	doNotLogin();
+    showLoading('信息删除中...','',false);
+    var htmlc=$.ajax({
+        type: 'POST',
+        url:Config.root+ "income/delete" ,
+        data:{"id":delId},
+        dataType: "json",
+        success:function(data){
+        	showLoading(data.msg,'',true);
+            if(data.flag){
+            	setTimeout(function(){hideLoading()}, 1500);
+            	location.href='incomeSearch.html';
+            }
+
+        },
+        error:function(XMLHttpRequest){
+        	if(XMLHttpRequest.status==404){
+        		showLoading('404错误','',true);
+        		setTimeout(function(){hideLoading()}, 2000);
+        		
+        	};
+        	
+        }
+    });
 }

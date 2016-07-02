@@ -38,7 +38,13 @@ function buildDate(){
 
 $(document).on("pageinit","#speedSearch",function(){
 	  quryList4Speed();
-	  $("#speedSearch").on("swipe",function(){
+/*	  $("#speedSearch").on("swipe",function(){
+		  var tmpPage=parseInt($("#currentPage").val());
+		  tmpPage+=1;
+		  $("#currentPage").val(tmpPage);
+		  quryList4Speed();
+	  });                       
+*/	  $("#footer").on("click",function(){
 		  var tmpPage=parseInt($("#currentPage").val());
 		  tmpPage+=1;
 		  $("#currentPage").val(tmpPage);
@@ -79,6 +85,7 @@ $("#speedSearch").on("pageshow",function(e){
             }
         },
         submitHandler:function(form){
+        	$("#colllist").empty();
         	$("table tr").first().siblings().remove();
         	$("#currentPage").val(1);
         	quryList4Speed();
@@ -121,7 +128,7 @@ function quryList4Speed(){
 	        data:$("#speedForm").serialize(),
 	        async : false,
 	        success:function(data){
-	        	var noData="<tr><td align='center' colspan=\"3\">暂无数据</td></tr>";
+	        	var noData="<tr><td align='center' colspan=\"2\">暂无数据</td></tr>";
 	            if(data.flag){
 	                var json=eval(data.result);
 	                var page=eval(data.page);
@@ -133,14 +140,63 @@ function quryList4Speed(){
 	            	}
 	                if(json.length>0){
 	                	for(var i=0;i<json.length;i++){
-	                		$("table").append("<tr onclick=\"location.href='speedItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd hh:mm:ss")+"</td><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+	                		//$("table").append("<tr onclick=\"location.href='speedItemDetail.html?id="+json[i].id+"';\"><td>"+new Date(json[i].idate.time).format("yyyy-MM-dd hh:mm:ss")+"</td><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+	                		
+	                		var collspan="<div class=\"collspan"+json[i].id+"\" data-role=\"collapsible\">"+
+			                "<h1><div class=\"ui-grid-a\"><div class=\"ui-block-a\">"+new Date(json[i].idate.time).format("yyyy-MM-dd")+"</div><div class=\"ui-block-b green\">- "+json[i].imoney.toFixed(2)+"</div></div></h1>"+
+			                "<p>"+
+			                "<table class=\"bordered\" width=\"100%\" cellspacing=\"0\">"+
+			                "<tr><td class=\"ui-block-2\">日期:</td><td class=\"ui-block-4\"><span id=\"idate\">"+new Date(json[i].idate.time).format("yyyy-MM-dd hh:mm:ss")+"</span></td><td class=\"ui-block-2\">金额:</td><td class=\"ui-block-2 green\"><span id=\"imoney\">"+json[i].imoney.toFixed(2)+"</span></td></tr>"+        
+			                "<tr><td  class=\"ui-block-2\">来源:</td><td colspan=\"3\"><span id=\"icategory\">"+json[i].icategory+"</span></td></tr>"+        
+			                "<tr><td  class=\"ui-block-2\">描述:</td><td colspan=\"3\"><span id=\"imemo\">"+json[i].imemo+"</span></td></tr>"+        
+			                "</table>"+    
+			                "<a type=\"button\" href=\"#alertInfo\" class=\"delBtn"+json[i].id+"\" data-rel=\"dialog\" onclick=\"setDelId('"+json[i].id+"')\">清除</a>"+     
+			                "</p>"+
+			                "</div>";
+	                		$("#colllist").append(collspan).trigger("create");
+	                		//$(".collspan").collapsibleset("refresh");
+	                		$(".delBtn"+json[i].id+"").button();
 	                	}
 	                }
 	            }else{
 	            	$("table tr").first().siblings().remove();
 	            	$("table").append(noData);
+	            	$("#colllist").empty();
                 }
 	            setTimeout(function(){hideLoading();}, 1000);
 	        }
 	    });
+}
+function setDelId(speedId){
+	$("#delId").val(speedId);
+}
+function delSpeed(){
+	var delId=$("#delId").val();
+	if(delId==''){
+		return;
+	}
+	doNotLogin();
+    showLoading('信息删除中...','',false);
+    var htmlc=$.ajax({
+        type: 'POST',
+        url:Config.root+ "speed/delete" ,
+        data:{"id":delId},
+        dataType: "json",
+        success:function(data){
+        	showLoading(data.msg,'',true);
+            if(data.flag){
+            	setTimeout(function(){hideLoading()}, 1500);
+            	location.href='speedSearch.html';
+            }
+
+        },
+        error:function(XMLHttpRequest){
+        	if(XMLHttpRequest.status==404){
+        		showLoading('404错误','',true);
+        		setTimeout(function(){hideLoading()}, 2000);
+        		
+        	};
+        	
+        }
+    });
 }

@@ -1,5 +1,6 @@
 .ui-block-2{width:20%;}
 .ui-block-4{width:40%;}
+.ui-block-5{width:50%;}
 .ui-block-6{width:60%;}
 .ui-block-8{width:80%;}
 .fr{
@@ -32,6 +33,12 @@ body{
 	overflow-y:auto;
 	min-height:210px;
 	/* max-height:420px; */
+}
+.red{
+	color:red;
+}
+.green{
+	color: green;
 }
 /*表格样式*/
 table {
@@ -82,6 +89,7 @@ table {
     box-shadow: 0 0px 0 rgba(255,255,255,.8) inset;
     border-top: none;
     text-shadow: 0 0px 0 rgba(255,255,255,.5);
+    font-family: "微软雅黑";
 }
 
 .bordered td:first-child, .bordered th:first-child {

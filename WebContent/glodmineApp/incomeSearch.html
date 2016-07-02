@@ -43,7 +43,8 @@
         <a href="#" data-ajax="false" onclick="location.href='index.html';" data-role="button" class="ui-btn-right" data-icon="back">返回</a>
     </div>
     <div data-role="content" id="content">
-        <form method="post" id="searchForm" action="demoform.asp">
+        <form method="post" id="searchForm">
+        	<input type="hidden" name="delId" id="delId" value="" placeholder="清除的Id"/>
         	<input type="hidden" name="currentPage" id="currentPage" value="1" placeholder="当前页"/>
         	<input type="hidden" name="showCount" id="showCount" value="5" placeholder="每页显示条数"/>
             <input type="text"  data-theme="b" data-role="datebox"  placeholder="开始时间"  data-options='{"mode":"datebox"}'  name="startTime" id="startTime">
@@ -58,17 +59,35 @@
             </div>
         </form>
 		        <table class="bordered" width="100%" cellspacing="0">
-		            <tr><th class="ui-block-4">日期</th><th class="ui-block-2">类型</th><th class="ui-block-4">金额</th></tr>
+		            <tr><th class="ui-block-5">日期</th><!--<th class="ui-block-2">类型</th--><th class="ui-block-5">金额</th></tr>
 		<!--             <tr onclick="$.mobile.changePage('incomeItemDetail.html',{transition: 'flow'});"><td>2015-09-20</td><td>工资</td><td>￥1822.10</td></tr>
 		            <tr><td>2015-09-20</td><td>股票</td><td>￥200</td></tr>
 		            <tr><td>2015-09-20</td><td>基金</td><td>￥0</td></tr> 
 		            <tr><td align="center" colspan="3">暂无数据</td></tr>
 		            -->
 		        </table>
+		        <div id="colllist"></div>
+	        
     </div>
 
-   <div data-role="footer"   data-tap-toggle="false"  style="height:30px;"   data-position="fixed" data-theme="b"  >
-        <h1 style="font-size:14px;">滑动加载数据</h1>
+   <div data-role="footer" id="footer"   data-tap-toggle="false"  style="height:30px;"   data-position="fixed" data-theme="b"  >
+        <h1 style="font-size:14px;">点击加载</h1>
+    </div>
+</div>
+
+<div data-role="page" id="alertInfo">
+    <script type="text/javascript">
+        $(".delBtn").click(function(){
+            delIncome();
+        });
+    </script>
+    <div data-role="header" data-theme="d">
+        <h1>提示:</h1>
+    </div>
+    <div data-role="content" data-theme="c">
+        <p>确认清除?</p>
+        <a data-ajax="false" rel="external" href="javascript:void(0);" data-role="button" data-rel="back" class="delBtn"  data-theme="b">确定</a>
+        <a data-ajax="false" rel="external" href="javascript:void(0);" data-role="button" data-rel="back" data-theme="c">取消</a>
     </div>
 </div>
 </body>
