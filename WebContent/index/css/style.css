@@ -1,0 +1,93 @@
+body{
+    background-image: url("../images/bg.jpg");
+    background-size:cover;
+    overflow:auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.container{
+    padding: 0px;
+    margin: 0px;
+    background-color: #fff;
+    left: 50%;
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    margin-left: -35%;
+}
+
+@media screen and (min-width: 500px){
+    .iphone{
+        position: absolute;
+        width: 355px;
+        float: left;
+        height: 650px;
+        margin-left: 15%;
+        background-image: url(../images/Phonemockup.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+    #iframe{margin:95px auto; width:320px; height:465px; background:#fff;border:1px #ccc solid;}
+    #container {margin:0 auto; width:320px; height:465px; background:#fff;border:1px #ccc solid;}
+    object{margin:0 auto; width:320px; height:465px; background:#fff;}
+    .download{
+        width: 300px;
+        height: 395px;
+        float: right;
+        margin-right: 20%;
+        margin-top: 70px;
+        padding: 5px;
+    }
+
+    .cyc{
+        float: left;
+        font-family: '微软雅黑';
+        font-size: 14px;
+        color: #fff;
+    }
+    .erwm{
+        margin-top:10px
+    }
+    .downBtn{
+        float: right;
+        background-color: #07A3ED;
+        padding: 5px;
+        color: #fff;
+        font-family: "微软雅黑";
+        font-size: 14px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        border: none;
+    }
+    .share{
+        margin-top:5px;
+    }
+}
+@media screen and (max-width: 740px){
+    .download{
+        display: none;
+    }
+    .iphone{
+        position: absolute;
+        width: 355px;
+        float: left;
+        height: 650px;
+        margin-left: 15%;
+        background-image: url(../images/Phonemockup.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+    #iframe{margin:95px auto; width:320px; height:465px; background:#fff;border:1px #ccc solid;}
+    #container {margin:0 auto; width:320px; height:465px; background:#fff;border:1px #ccc solid;}
+    object{margin:0 auto; width:320px; height:465px; background:#fff;}
+    .download{
+        width: 300px;
+        height: 395px;
+        float: right;
+        margin-right: 20%;
+        margin-top: 70px;
+        padding: 5px;
+    }
+}

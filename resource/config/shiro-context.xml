@@ -27,6 +27,7 @@
 				/error/**= anon
 				/getVCode*= anon
 				/getSmsCode*= anon
+				/index/**=anon
 			    /**= authc
 			</value>
 		</property>
