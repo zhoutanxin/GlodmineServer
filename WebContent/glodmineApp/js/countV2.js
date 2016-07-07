@@ -19,7 +19,8 @@ function buildDate(){
 	$("#endTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
 }
 $("#count").on("pageshow",function(e){
-//	countIncomeByDate();
+	countIncomeByDate();
+	countSpeedByDate();
 	buildDate();
 	loadlist4IncomeType();
 	loadlist4SpeedType();
@@ -97,12 +98,12 @@ function countIncomeByDate(){
 	                var json=eval(data.result);
 	                if(json.length>0){
 	                	for(var i=0;i<json.length;i++){
-	                		$("table").append("<tr><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+	                		$("tr4Income").after("<tr><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
 	                	}
 	                }
 	            }else{
 	            	stop=false;
-	            	$("table").append(noData);
+	            	$("tr4Income").after(noData);
                 }
 	            setTimeout(function(){hideLoading();}, 1000);
 	        }
@@ -123,12 +124,12 @@ function countSpeedByDate(){
 				var json=eval(data.result);
 				if(json.length>0){
 					for(var i=0;i<json.length;i++){
-						$("table").append("<tr><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+						$("tr4Speed").after("<tr><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
 					}
 				}
 			}else{
 				stop=false;
-				$("table").append(noData);
+				$("tr4Speed").after(noData);
 			}
 			setTimeout(function(){hideLoading();}, 1000);
 		}
