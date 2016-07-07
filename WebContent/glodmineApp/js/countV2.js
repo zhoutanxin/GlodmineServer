@@ -12,11 +12,14 @@ function buildDate(){
         display: 'modal', //显示方式 
         mode: 'mixed', //日期选择模式
 		lang:'zh',
-        startYear:currYear - 10, //开始年份
-        endYear:currYear + 10 //结束年份
+        startYear:currYear - 5, //开始年份
+        endYear:currYear + 0 //结束年份
 	};
-	$("#startTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
-	$("#endTime").val('').scroller('destroy').scroller($.extend(opt['date'], opt['init']));
+	strDate = new Date().format("yyyy-MM-dd");
+	now = new Date(strDate.replace(/\-/g,"/"));
+	perMonth =new Date( now.setMonth(now.getMonth() - 1));
+	$("#startTime").val(perMonth.format("yyyy-MM-dd")).scroller('destroy').scroller($.extend(opt['date'], opt['init']));
+	$("#endTime").val(new Date().format("yyyy-MM-dd")).scroller('destroy').scroller($.extend(opt['date'], opt['init']));
 }
 $("#count").on("pageshow",function(e){
 	countIncomeByDate();
