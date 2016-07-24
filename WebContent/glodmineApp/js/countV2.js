@@ -22,11 +22,10 @@ function buildDate(){
 	$("#endTime").val(new Date().format("yyyy-MM-dd")).scroller('destroy').scroller($.extend(opt['date'], opt['init']));
 }
 $("#count").on("pageshow",function(e){
-	countIncomeByDate();
-	countSpeedByDate();
 	buildDate();
 	loadlist4IncomeType();
 	loadlist4SpeedType();
+
 	$("body").perfectScrollbar({suppressScrollX:true});
 //	$("input[name='categoryflag']").change(function(){
 //		$("table tr").first().siblings().remove();
@@ -77,36 +76,52 @@ $("#count").on("pageshow",function(e){
             }
         },
         submitHandler:function(form){
-        	$("table tr").first().siblings().remove();
-    		if($("input[name='categoryflag']").val()==1){
+        	//$("table tr").first().siblings().remove();
+/*    		if($("input[name='categoryflag']").val()==1){
     			countIncomeByDate();
     		}else{
     			countSpeedByDate();
-    		}
+    		}*/
+        	
+    		countIncomeByDate();
+    		countSpeedByDate();
         }
     });
+	countIncomeByDate();
+	countSpeedByDate();
 });
 function countIncomeByDate(){
 	doNotLogin();
 	showLoading('加载中...','',false);
+	var income_chk_value =[]; 
+	$('input[name="typeIncome"]:checked').each(function(){ 
+		income_chk_value.push($(this).val()); 
+	}); 
+
 	 var htmlc= $.ajax({
 	        type: 'POST',
 	        url:Config.root+ "income/countbydate" ,
 	        dataType: "json",
-	        data:$("#countForm").serialize(),
+	        data:{"startTime":$("#startTime").val(),"endTime":$("#endTime").val(),"typeIncome":income_chk_value.toString()},
 	        async : false,
 	        success:function(data){
 	        	var noData="<tr><td align='center' colspan=\"2\">暂无数据</td></tr>";
+	        	var totalMoney=0.00;
+	        	$("#incomeCount").empty();
+	        	$(".incomeItem").empty();
 	            if(data.flag){
 	                var json=eval(data.result);
 	                if(json.length>0){
 	                	for(var i=0;i<json.length;i++){
-	                		$("tr4Income").after("<tr><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+	                		$("#tr4Income").after("<tr  class='incomeItem'><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+	                		totalMoney+=json[i].imoney;
 	                	}
+	                	$("#incomeCount").append("+ "+totalMoney.toFixed(2));
 	                }
 	            }else{
 	            	stop=false;
 	            	$("tr4Income").after(noData);
+	            	$("#incomeCount").append("+ 0.00");
                 }
 	            setTimeout(function(){hideLoading();}, 1000);
 	        }
@@ -115,24 +130,34 @@ function countIncomeByDate(){
 function countSpeedByDate(){
 	doNotLogin();
 	showLoading('加载中...','',false);
+	var speed_chk_value =[]; 
+	$('input[name="typeSpeed"]:checked').each(function(){ 
+		speed_chk_value.push($(this).val()); 
+	}); 
 	var htmlc= $.ajax({
 		type: 'POST',
 		url:Config.root+ "speed/countbydate" ,
 		dataType: "json",
-		data:$("#countForm").serialize(),
+		data:{"startTime":$("#startTime").val(),"endTime":$("#endTime").val(),"typeSpeed":speed_chk_value.toString()},
 		async : false,
 		success:function(data){
 			var noData="<tr><td align='center' colspan=\"2\">暂无数据</td></tr>";
+        	var totalMoney=0.00;
+        	$("#speedCount").empty();
+        	$(".speedItem").empty();
 			if(data.flag){
 				var json=eval(data.result);
 				if(json.length>0){
 					for(var i=0;i<json.length;i++){
-						$("tr4Speed").after("<tr><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+						$("#tr4Speed").after("<tr class='speedItem'><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
+						totalMoney+=json[i].imoney;
 					}
+					$("#speedCount").append("+ "+totalMoney.toFixed(2));
 				}
 			}else{
 				stop=false;
 				$("tr4Speed").after(noData);
+				$("#speedCount").append("+ 0.00");
 			}
 			setTimeout(function(){hideLoading();}, 1000);
 		}
@@ -153,7 +178,7 @@ function loadlist4IncomeType(){
 	                if(json.length>0){
 	                	for(i=0;i<json.length;i++){
 	                		//$("#incomeFieldset").append("<tr onclick=\"location.href='typeItem.html?categoryId="+json[i].id+"&categoryflag=1';\"><td>"+json[i].icategory+"</td><td>"+json[i].says+"</td></tr>");
-	                		$("#incomeFieldset").append("<input type=\"checkbox\" checked='true' name=\"checkboxIncome\" id=\"checkbox-v-"+json[i].id+"\">"+
+	                		$("#incomeFieldset").append("<input type=\"checkbox\" checked='true' value='"+json[i].id+"' name=\"typeIncome\" id=\"checkbox-v-"+json[i].id+"\">"+
                             "<label for=\"checkbox-v-"+json[i].id+"\">"+json[i].icategory+"</label>").trigger("create");
 	                	}
 	                	$("#incomeFieldset label").first().addClass("ui-first-child");
@@ -182,7 +207,7 @@ function loadlist4SpeedType(){
 				if(json.length>0){
 					for(i=0;i<json.length;i++){
 						//$("table tr").first().after("<tr onclick=\"location.href='typeItem.html?categoryId="+json[i].id+"&categoryflag=2';\"><td>"+json[i].icategory+"</td><td>"+json[i].says+"</td></tr>");
-						$("#speedFieldset").append("<input type=\"checkbox\" checked='true' name=\"checkboxSpeed\" id=\"checkbox-v-"+json[i].id+"\">"+
+						$("#speedFieldset").append("<input type=\"checkbox\" checked='true' value='"+json[i].id+"' name=\"typeSpeed\" id=\"checkbox-v-"+json[i].id+"\">"+
 	                            "<label for=\"checkbox-v-"+json[i].id+"\">"+json[i].icategory+"</label>").trigger("create");
 					}
                 	$("#speedFieldset label").first().addClass("ui-first-child");

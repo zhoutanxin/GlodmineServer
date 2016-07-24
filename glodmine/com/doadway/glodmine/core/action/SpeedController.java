@@ -135,7 +135,7 @@ public class SpeedController extends WWAction {
 	}
 	@RequestMapping(value="speed/countbydate",method=RequestMethod.POST)
 	@ResponseBody
-	public  String countbydate(Date startTime,Date endTime)  {
+	public  String countbydate(Date startTime,Date endTime,String[] typeSpeed)  {
 		Map<String, Object> params =new HashMap<String,Object>();
 		/*设置时分秒*/
 		 Calendar cal = Calendar.getInstance();		
@@ -170,6 +170,9 @@ public class SpeedController extends WWAction {
 			date.set(Calendar.SECOND,0);				
 			date.set(Calendar.DATE, date.get(Calendar.DATE) - 30);
 			params.put("startTime", date.getTime());
+		}
+		if(typeSpeed!=null&&typeSpeed.length>0){
+			params.put("typeIds", typeSpeed);
 		}
 		List<Speed> speedList=speedBiz.countSpeedByDate(params);
 		if(speedList!=null&&speedList.size()>0){

@@ -39,9 +39,11 @@
     <script src="js/countV2.js"></script>
     
     <div data-role="panel" id="myPanel">
+    	<form method="post" id="typeForm">
             <div data-role="collapsible" data-collapsed="false">
                 <h1>收入类别选择</h1>
                 <p>
+                		<input type="hidden" value=""  id="typeIncome">
                         <fieldset data-role="controlgroup" id="incomeFieldset">
                             <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-1a">
                             <label for="checkbox-v-1a">类别1</label>
@@ -55,6 +57,7 @@
             <div data-role="collapsible" data-collapsed="false">
                 <h1>支出类别选择</h1>
                 <p>
+                <input type="hidden" value="" id="typeSpeed">
                 <fieldset data-role="controlgroup"  id="speedFieldset">
                     <input type="checkbox" name="checkbox-v-2a" id="checkbox-v-2a">
                     <label for="checkbox-v-2a">类别1</label>
@@ -65,6 +68,7 @@
                 </fieldset>
                 </p>
             </div>
+            </form>
     </div>    
     <div data-role="header"  data-tap-toggle="false"    data-position="fixed"   data-theme="b">
         <a href="#" data-ajax="false" onclick="location.href='index.html';" data-role="button" data-icon="home">首页</a>
@@ -104,16 +108,16 @@
         <table class="bordered" width="100%" cellspacing="0">
             <tr><th class="ui-block-2">类型</th><th class="ui-block-8">统计金额</th></tr>
            <tr id="tr4Income"><td colspan="2" style="text-align: left;">收入</td></tr>
-            <tr><td>工资</td><td>￥1822</td></tr>
+<!--             <tr><td>工资</td><td>￥1822</td></tr>
             <tr><td>股票</td><td>￥200</td></tr>
             <tr><td>基金</td><td>￥0</td></tr>
-            <tr><td>礼金</td><td>￥1500</td></tr>
+            <tr><td>礼金</td><td>￥1500</td></tr> -->
             <tr><td colspan="2" style="font-family:微软雅黑;font-size:14px;">合计:<span id="incomeCount" class="red">+ 1500</span></td></tr>
             <tr id="tr4Speed"><td colspan="2" style="text-align: left;">支出</td></tr>
-            <tr><td>工资</td><td>￥1822</td></tr>
+<!--             <tr><td>工资</td><td>￥1822</td></tr>
             <tr><td>股票</td><td>￥200</td></tr>
             <tr><td>基金</td><td>￥0</td></tr>
-            <tr><td>礼金</td><td>￥1500</td></tr>
+            <tr><td>礼金</td><td>￥1500</td></tr> -->
             <tr><td colspan="2" style="font-family:微软雅黑;font-size:14px;">合计:<span id="speedCount" class="green">- 1500</span></td></tr>
         </table>        
     </div>

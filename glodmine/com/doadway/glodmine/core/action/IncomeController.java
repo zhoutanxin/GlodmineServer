@@ -135,7 +135,7 @@ public class IncomeController extends WWAction {
 	}
 	@RequestMapping(value="income/countbydate",method=RequestMethod.POST)
 	@ResponseBody
-	public  String countbydate(Date startTime,Date endTime)  {
+	public  String countbydate(Date startTime,Date endTime,String[] typeIncome)  {
 		Map<String, Object> params =new HashMap<String,Object>();
 		/*设置时分秒*/
 		 Calendar cal = Calendar.getInstance();		
@@ -170,6 +170,9 @@ public class IncomeController extends WWAction {
 			date.set(Calendar.SECOND,0);				
 			date.set(Calendar.DATE, date.get(Calendar.DATE) - 30);
 			params.put("startTime", date.getTime());
+		}
+		if(typeIncome!=null&&typeIncome.length>0){
+			params.put("typeIds", typeIncome);
 		}
 		List<Income> incomeList=incomeBiz.countIncomeByDate(params);
 		if(incomeList!=null&&incomeList.size()>0){
