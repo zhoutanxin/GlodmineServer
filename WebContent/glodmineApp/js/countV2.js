@@ -152,12 +152,12 @@ function countSpeedByDate(){
 						$("#tr4Speed").after("<tr class='speedItem'><td>"+json[i].icategory+"</td><td>￥"+json[i].imoney.toFixed(2)+"</td></tr>");
 						totalMoney+=json[i].imoney;
 					}
-					$("#speedCount").append("+ "+totalMoney.toFixed(2));
+					$("#speedCount").append("- "+totalMoney.toFixed(2));
 				}
 			}else{
 				stop=false;
 				$("tr4Speed").after(noData);
-				$("#speedCount").append("+ 0.00");
+				$("#speedCount").append("- 0.00");
 			}
 			setTimeout(function(){hideLoading();}, 1000);
 		}
